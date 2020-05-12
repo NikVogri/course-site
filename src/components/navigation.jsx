@@ -1,26 +1,26 @@
-import React, { useState } from "react"
-import { Link } from "gatsby"
+import React, { useState } from "react";
+import { Link } from "gatsby";
 
 export default function Navigation({ siteTitle }) {
-  const [navOpen, setNavOpeN] = useState(false)
+  const [navOpen, setNavOpeN] = useState(false);
 
   const navToggle = () => {
-    setNavOpeN(!navOpen)
-  }
+    setNavOpeN(!navOpen);
+  };
 
   return (
-    <nav class="navigation">
+    <nav className="navigation">
       <div className="nav-content">
         <div className="brand">
           <Link to="/">{siteTitle}</Link>
         </div>
         <div className="burger-menu" onClick={navToggle}>
-          <span class="burger"></span>
+          <span className="burger"></span>
         </div>
       </div>
       <div className={`nav-list ${navOpen ? "show" : "hidden"}`}>
         <ul>
-          <li class="user_profile">
+          <li className="user_profile">
             <div className="user_profile--image"></div>
             Nickolas
           </li>
@@ -39,5 +39,5 @@ export default function Navigation({ siteTitle }) {
         </ul>
       </div>
     </nav>
-  )
+  );
 }

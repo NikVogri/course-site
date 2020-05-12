@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", "Sans Serif";
 }
 
 //
@@ -15,6 +17,8 @@ $white: #fff;
 $background: #f7f8fc;
 $black: #000;
 $light-gray: #eae9e9;
+$main: #2d9cdb;
+$secondary: #f2994a;
 
 //
 //  MIXINS
@@ -34,9 +38,9 @@ hr {
   width: 80%;
   background: $light-gray;
 }
+
 html {
   font-size: 62.5%;
-  font-family: "Roboto", sans-serif;
   background-color: $background;
 }
 
@@ -59,10 +63,12 @@ html {
     & .brand {
       font-size: 2.5rem;
       text-decoration: underline;
+
       & a {
         color: $black;
       }
     }
+
     & .burger-menu {
       cursor: pointer;
       width: 3rem;
@@ -105,6 +111,7 @@ html {
       list-style: none;
       width: 100%;
       max-width: 30rem;
+
       & .user_profile {
         display: flex;
         flex-direction: column;
@@ -113,6 +120,7 @@ html {
         font-weight: bold;
         padding-bottom: 1.5rem;
         border-bottom: solid 1px $light-gray;
+
         & .user_profile--image {
           height: 5rem;
           width: 5rem;
@@ -121,20 +129,25 @@ html {
           margin-bottom: 0.5rem;
         }
       }
+
       & li {
         text-align: center;
+
         & a {
           text-decoration: none;
           color: $black;
         }
       }
+
       & li:not(:nth-child(2)) {
         padding: 1.5rem 0;
       }
+
       & li:nth-child(2) {
         padding-top: 3rem;
         padding-bottom: 1.5rem;
       }
+
       & li:last-child {
         padding-bottom: 2rem;
       }
@@ -152,5 +165,64 @@ html {
     transition: height 0.2s ease-in, opacity 0.3s ease-in;
     visibility: visible;
     opacity: 1;
+  }
+}
+
+.hero {
+  height: calc(100vh - 8rem);
+  background-color: $main;
+  color: $white;
+
+  & .container {
+    padding: 2rem 1.5rem 0 1.5rem;
+  }
+
+  & h2 {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+
+  & h1 {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: medium;
+  }
+
+  & .form-background {
+    background-color: $secondary;
+    border-radius: 0 10rem 10rem 0;
+  }
+}
+
+.signup-form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.6rem;
+  & .form-group {
+    width: 80%;
+  }
+
+  & input {
+    font-family: "Roboto", "Sans Serif";
+    height: 4rem;
+    font-size: 2rem;
+  }
+
+  & .btn {
+    margin-top: 1.5rem;
+    background-color: $main;
+    height: 5rem;
+    border: none;
+    width: 80%;
+    border-radius: 5px;
+    color: $white;
+    font-family: inherit;
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    box-shadow: 3px 3px 8px rgba($black, 0.25);
   }
 }

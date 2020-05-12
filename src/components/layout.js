@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
+import "bootstrap/dist/css/bootstrap.min.css"
 import Navigation from "./navigation"
 
 import "./layout.scss"
@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navigation siteTitle={data.site.siteMetadata.title} />
-      <main>{children}</main>
+      <main className="main">{children}</main>
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
