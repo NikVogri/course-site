@@ -18,7 +18,9 @@ $background: #f7f8fc;
 $black: #000;
 $light-gray: #eae9e9;
 $main: #2d9cdb;
+$main-darker: #2f80ed;
 $secondary: #f2994a;
+$text-dark: #4f4f4f;
 
 //
 //  MIXINS
@@ -41,7 +43,18 @@ hr {
 
 html {
   font-size: 62.5%;
+}
+
+body {
   background-color: $background;
+}
+
+//
+//  OTHER
+//
+
+.spacer {
+  padding: 2rem;
 }
 
 //
@@ -49,10 +62,11 @@ html {
 //
 
 .navigation {
+  position: sticky;
+  z-index: 999999;
   height: 8rem;
   background: $white;
   box-shadow: 4px 0 4px rgba($black, 0.25);
-  position: sticky;
   top: 0;
 
   & .nav-content {
@@ -131,7 +145,6 @@ html {
           border-radius: 5rem;
           margin-bottom: 0.5rem;
         }
-
       }
 
       & li {
@@ -184,62 +197,250 @@ html {
   }
 }
 
+//
+//  HERO
+//
+
 .hero {
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 7rem);
   background-color: $main;
   color: $white;
+  position: relative;
 
   & .container {
     padding: 2rem 1.5rem 0 1.5rem;
   }
 
   & h2 {
-    font-size: 4rem;
+    z-index: 99;
+    font-size: 3.5rem;
     font-weight: bold;
   }
 
   & h1 {
+    z-index: 99;
     margin-top: 1rem;
     margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: medium;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    font-weight: lighter;
   }
 
-  & .form-background {
+  .background-image {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 63%;
+    transform: translate(-50%, -50%);
+    width: 95vw;
+    max-width: 700px;
+  }
+
+  .btn-index {
+    display: block;
+    position: relative;
+    z-index: 99999;
+    font-size: 1.8rem;
+    color: $white;
+    font-weight: 600;
     background-color: $secondary;
-    border-radius: 0 10rem 10rem 0;
+    width: 20rem;
+    height: 4rem;
+    box-shadow: 0 4px 8px rgba($black, 0.25);
+    margin: auto;
   }
 }
 
+//
+//  FORM
+//
+
 .signup-form {
-  padding: 2rem;
+  display: none;
+}
+
+// FORM FOR BIGGER SCREEN
+// .signup-form {
+//   padding: 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   font-size: 1.6rem;
+
+//   & .form-group {
+//     width: 80%;
+//   }
+
+//   & input {
+//     font-family: "Roboto", "Sans Serif";
+//     height: 4rem;
+//     font-size: 2rem;
+//   }
+
+//   & .btn {
+//     margin-top: 1.5rem;
+//     background-color: $main;
+//     height: 5rem;
+//     border: none;
+//     width: 80%;
+//     border-radius: 5px;
+//     color: $white;
+//     font-family: inherit;
+//     font-size: 1.6rem;
+//     font-weight: bold;
+//     letter-spacing: 1.5px;
+//     box-shadow: 3px 3px 8px rgba($black, 0.25);
+//   }
+// }
+
+//
+//  TITLE
+//
+
+.title-container {
+  color: $text-dark;
+  width: 95vw;
+  margin: 0 auto;
+  text-align: center;
+
+  & h2 {
+    font-size: 2.6rem;
+  }
+
+  & span {
+    font-size: 1.6rem;
+    margin: 0 auto;
+    display: block;
+    width: 90%;
+  }
+}
+
+//
+//  CARDS
+//
+
+.card-simple {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0px 25px 20px #e9ecf9;
+  color: $text-dark;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-size: 1.6rem;
 
-  & .form-group {
-    width: 80%;
+  & img {
+    width: 6rem;
+  }
+}
+
+.card-lg {
+  height: 25rem;
+  width: 25rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+
+  & p {
+    margin-top: 0.25rem;
+  }
+}
+
+.card-sm {
+  height: 11.5rem;
+  width: 11.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 1rem;
+
+
+  & img {
+    width: 4rem !important;
+  }
+}
+
+//
+//  OFFERS
+//
+
+.offers {
+  & img {
+    display: block;
+    margin: 0 auto;
+    width: 85%;
   }
 
-  & input {
-    font-family: "Roboto", "Sans Serif";
-    height: 4rem;
-    font-size: 2rem;
+  & h2 {
+    color: $text-dark;
+    font-size: 2.6rem;
+    font-weight: medium;
+    margin-bottom: 0.5rem;
+    margin-left: 6rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      height: 25rem;
+      width: 3px;
+      background-color: $main-darker;
+      position: absolute;
+      top: 0;
+      left: -3rem;
+    }
   }
 
-  & .btn {
-    margin-top: 1.5rem;
-    background-color: $main;
-    height: 5rem;
-    border: none;
-    width: 80%;
-    border-radius: 5px;
+  & ul {
+    margin-left: 6rem;
+    list-style: none;
+
+    & li {
+      font-size: 1.6rem;
+      color: $main-darker;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+  }
+
+  & .find-course {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & select {
+      font-size: 1.6rem;
+      background-color: $main-darker;
+      color: $white;
+      padding: 1.3rem 1rem;
+      border: none;
+    }
+
+    &-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+//
+//  FOOTER
+//
+
+.footer {
+  height: 6rem;
+  background-color: $main;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & p {
+    font-weight: lighter;
+    margin: 0;
+    font-size: 1.5rem;
     color: $white;
-    font-family: inherit;
-    font-size: 1.6rem;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    box-shadow: 3px 3px 8px rgba($black, 0.25);
   }
 }

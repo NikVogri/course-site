@@ -1,5 +1,7 @@
 import React from "react";
 import SignupForm from "./signupForm";
+import womanSvg from "../images/woman-pc.svg";
+import { Link } from "gatsby";
 
 const Hero = () => {
   const inputs = [
@@ -17,9 +19,13 @@ const Hero = () => {
           you learn faster!
         </h1>
       </div>
-      <div className="form-background">
+      {/* <div className="form-background">
         <SignupForm inputs={inputs} button="Start your journey" />
-      </div>
+      </div> */}
+      <Link className="btn btn-index" to="register">
+        Sign up
+      </Link>
+      <img className="background-image" src={womanSvg} alt="woman" />
     </section>
   );
 };
