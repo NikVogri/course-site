@@ -1,17 +1,48 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { Link } from "gatsby";
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
-import Hero from "../components/hero"
+import Hero from "../components/hero";
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
     <Hero />
     <Link to="/page-2/">Go to page 2</Link>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
+    <h1>asdsaoksdadsadsa</h1>
   </Layout>
-)
+);
 
-export default IndexPage
+export default IndexPage;

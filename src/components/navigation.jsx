@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navigation({ siteTitle }) {
   const [navOpen, setNavOpeN] = useState(false);
@@ -35,6 +37,16 @@ export default function Navigation({ siteTitle }) {
           </li>
           <li className="navigation-list-item">
             <Link to="profile">Sign out</Link>
+          </li>
+          <li className="navigation-footer">
+            <span>
+              Created with{" "}
+              <FontAwesomeIcon style={{ color: "red" }} icon={faHeart} /> in
+              Slovenia
+            </span>
+            <span>
+              Copyright {siteTitle} &copy; {new Date().getFullYear()}
+            </span>
           </li>
         </ul>
       </div>
