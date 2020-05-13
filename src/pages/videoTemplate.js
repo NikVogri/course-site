@@ -24,7 +24,7 @@ const VideoTemplate = () => {
             webkitallowfullscreen="webkitallowfullscreen"
             src="https://www.youtube.com/embed/pHxBA2ZbHis"
             frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowfullscreen
           ></iframe>
         </div>

@@ -26,9 +26,9 @@ const Navigation = ({ siteTitle }) => {
             <div className="user_profile--image"></div>
             Nickolas
           </li>
-          {/* <li className="navigation-list-item">
-            <Link to="login">Login</Link>
-          </li> */}
+          <li className="navigation-list-item">
+            <Link to="videoTemplate">DEV: video template</Link>
+          </li>
           <li className="navigation-list-item">
             <Link to="profile">Profile</Link>
           </li>
