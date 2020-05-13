@@ -9,11 +9,19 @@ import jsLogo from "../images/languages/js-logo.png";
 import vueLogo from "../images/languages/vue-logo.png";
 import reactLogo from "../images/languages/react-logo.png";
 
-const FindLanguage = () => {
-  const [option, setOption] = useState("front-web-dev");
+import pythonLogo from "../images/py-logo.png";
+import phpLogo from "../images/languages/php-logo.png";
+import nodeLogo from "../images/languages/node-logo.png";
+import expressLogo from "../images/languages/express-logo.png";
+import javaLogo from "../images/languages/ja-logo.png";
+import mongodbLogo from "../images/languages/mongodb-logo.png";
 
-  let test;
-  let languages = [
+import flutterLogo from "../images/languages/flutter-logo.png";
+import reactNativeLogo from "../images/languages/reactNative-logo.png";
+import kotlinLogo from "../images/languages/kotlin-logo.png";
+
+const FindLanguage = () => {
+  const [langList, setLangList] = useState([
     {
       link: "javascript",
       img: jsLogo,
@@ -34,11 +42,12 @@ const FindLanguage = () => {
       link: "css",
       img: cssLogo,
     },
-  ];
+  ]);
+  const [selection, setSelection] = useState("front-web-dev");
 
   useEffect(() => {
-    console.log("here");
-    switch (option) {
+    let languages;
+    switch (selection) {
       case "front-web-dev":
         languages = [
           {
@@ -62,37 +71,74 @@ const FindLanguage = () => {
             img: cssLogo,
           },
         ];
+        setLangList(languages);
         break;
       case "back-web-dev":
-        console.log("back-web-dev");
-        break;
-      case "software-dev":
-        console.log("software-dev");
+        languages = [
+          {
+            link: "php",
+            img: phpLogo,
+          },
+          {
+            link: "nodejs",
+            img: nodeLogo,
+          },
+          {
+            link: "express",
+            img: expressLogo,
+          },
+          {
+            link: "mongodb",
+            img: mongodbLogo,
+          },
+          {
+            link: "python",
+            img: pythonLogo,
+          },
+          {
+            link: "java",
+            img: javaLogo,
+          },
+        ];
+        setLangList(languages);
         break;
       case "mobile-dev":
-        console.log("mobile-dev");
+        languages = [
+          {
+            link: "kotlin",
+            img: kotlinLogo,
+          },
+          {
+            link: "react-native",
+            img: reactNativeLogo,
+          },
+          {
+            link: "flutter",
+            img: flutterLogo,
+          },
+        ];
+        setLangList(languages);
         break;
       default:
         break;
     }
-  }, [option]);
+  }, [selection]);
 
   const selectionHandler = e => {
-    setOption(e.target.value);
+    setSelection(e.target.value);
   };
 
   return (
     <div className="find-course">
-      <select className="btn" onChange={selectionHandler} value={option}>
+      <select className="btn" onChange={selectionHandler} value={selection}>
         <option value="front-web-dev">Front end web development</option>
         <option value="back-web-dev">Back end web development</option>
-        <option value="software-dev">Software development</option>
         <option value="mobile-dev">Mobile development</option>
       </select>
       <Spacer space="1" />
       <div className="find-course-cards">
-        {languages &&
-          languages.map(lang => (
+        {langList &&
+          langList.map(lang => (
             <Card
               key={lang.link}
               size="sm"

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "gatsby";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
@@ -51,7 +50,7 @@ const IndexPage = () => (
       />
     </section>
     <Offers />
-    <Spacer space="1" />
+    <Spacer space="2" />
   </Layout>
 );
 
