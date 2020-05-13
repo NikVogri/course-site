@@ -5,12 +5,14 @@ import SEO from "../components/seo";
 import Title from "../components/title";
 import LoginForm from "../components/loginForm";
 
-export default function login() {
+const Login = () => {
   return (
-    <Layout>
-      <SEO title="Login" />
-      <Title title="Login" />
+    <Layout noFooter>
+      <SEO title="Log In" />
+      <Title title="Log In" />
       <LoginForm />
     </Layout>
   );
-}
+};
+
+export default Login;

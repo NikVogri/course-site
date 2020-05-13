@@ -2,7 +2,8 @@ import React from "react";
 import workerImage from "../images/offers-worker.svg";
 import Spacer from "./spacer";
 import FindLanguage from "./findLanguage";
-const offers = () => {
+
+const Offers = () => {
   return (
     <section className="offers">
       <Spacer space="2.5" />
@@ -22,4 +23,4 @@ const offers = () => {
   );
 };
 
-export default offers;
+export default Offers;

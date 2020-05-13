@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-export default function Navigation({ siteTitle }) {
+const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
 
   const navToggle = () => {
@@ -52,4 +52,6 @@ export default function Navigation({ siteTitle }) {
       </div>
     </nav>
   );
-}
+};
+
+export default Navigation;

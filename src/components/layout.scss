@@ -21,6 +21,7 @@ $main: #2d9cdb;
 $main-darker: #2f80ed;
 $secondary: #f2994a;
 $text-dark: #4f4f4f;
+$border-color: #DBDBDB;
 
 //
 //  MIXINS
@@ -65,7 +66,7 @@ body {
 .navigation {
   position: sticky;
   z-index: 999999;
-  height: 8rem;
+  height: 6rem;
   background: $white;
   box-shadow: 4px 0 4px rgba($black, 0.25);
   top: 0;
@@ -119,7 +120,7 @@ body {
     background: $white;
     position: absolute;
     width: 100%;
-    height: calc(100vh - 8rem);
+    height: calc(100vh - 6rem);
     border-top: solid 5px $background;
     display: flex;
     justify-content: center;
@@ -203,7 +204,7 @@ body {
 //
 
 .hero {
-  height: calc(100vh - 7rem);
+  height: calc(100vh - 6rem);
   background-color: $main;
   color: $white;
   position: relative;
@@ -452,5 +453,183 @@ body {
     margin: 0;
     font-size: 1.5rem;
     color: $white;
+  }
+}
+
+//
+//  404 PAGE NOT FOUND
+//
+
+.forofor {
+  height: calc(100vh - 12rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-dark;
+  text-align: center;
+
+  & h1 {
+    font-size: 3rem;
+  }
+
+  & p {
+    font-size: 1.2rem;
+  }
+}
+
+//
+//  VIDEO PAGE
+//
+.video-player {
+  & .video {
+    display: block;
+    height: 22rem;
+    width: 100%;
+    background: gray;
+  }
+}
+
+.info {
+  padding: 0 1rem;
+
+  & ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    color: $text-dark;
+    font-size: 1.6rem;
+    padding-bottom: 0.25rem;
+    border-bottom: solid 1px $border-color;
+
+    .active {
+      color: $black !important;
+      position: relative;
+
+      &::before {
+        animation: tabAnimationRight .2s ease-in;
+        content: "";
+        height: 3px;
+        width: 50%;
+        left: 50%;
+        background-color: $main-darker;
+        position: absolute;
+        bottom: -0.5rem;
+      }
+
+      &::after {
+        animation: tabAnimationLeft .2s ease-in;
+        content: "";
+        height: 3px;
+        width: 50%;
+        right: 50%;
+        background-color: $main-darker;
+        position: absolute;
+        bottom: -0.5rem;
+      }
+    }
+  }
+
+  & .info-wrapper {
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    min-height: 16rem;
+    border-bottom: solid 1px $border-color;
+  }
+}
+
+@keyframes tabAnimationRight {
+  0% {
+    width: 10px;
+  }
+
+
+  100% {
+    width: 50%;
+  }
+}
+
+@keyframes tabAnimationLeft {
+  0% {
+    width: 10px;
+  }
+
+  100% {
+    width: 50%;
+  }
+}
+
+//
+//  PLAYLIST
+//
+
+.playlist {
+  padding: 0.25rem 0.5rem;
+}
+
+
+.playlist-item {
+  display: flex;
+  padding: 0.5rem 0;
+  align-items: center;
+  border-bottom: solid 1px $border-color;
+
+  &.active {
+    background-color: $light-gray;
+  }
+
+
+  & img {
+    height: 4rem;
+    width: 8rem;
+    flex: 1;
+    margin: 0 0.25rem;
+  }
+
+  & span {
+    flex: 4;
+    margin-left: 0.5rem;
+    font-weight: bold;
+    color: $black;
+    font-size: 1rem;
+  }
+
+  & input[type="checkbox"] {
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    color: $black;
+    border: 1px solid #bdc1c6;
+    border-radius: 4px;
+    appearance: none;
+    outline: 0;
+    cursor: pointer;
+    transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      top: 0;
+      left: 3px;
+      width: 7px;
+      height: 10px;
+      border-style: solid;
+      border-color: $white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+
+    &:checked {
+      color: $white;
+      border-color: #06842c;
+      background: #06842c;
+
+      &::before {
+        opacity: 1;
+      }
+    }
   }
 }

@@ -5,12 +5,14 @@ import SEO from "../components/seo";
 import Title from "../components/title";
 import SignupForm from "../components/signupForm";
 
-export default function register() {
+const Register = () => {
   return (
-    <Layout>
+    <Layout noFooter>
       <SEO title="Sign Up" />
       <Title title="Sign Up" />
       <SignupForm />
     </Layout>
   );
-}
+};
+
+export default Register;

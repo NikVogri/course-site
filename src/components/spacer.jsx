@@ -1,7 +1,7 @@
 import React from "react";
 
-const spacer = ({ space }) => {
+const Spacer = ({ space }) => {
   return <div style={{ padding: `${space}rem` }}></div>;
 };
 
-export default spacer;
+export default Spacer;

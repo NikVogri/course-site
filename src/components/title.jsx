@@ -2,7 +2,7 @@ import React from "react";
 
 import Spacer from "./spacer";
 
-const title = ({ title, subtitle }) => {
+const Title = ({ title, subtitle }) => {
   return (
     <>
       <Spacer space="2" />
@@ -15,4 +15,4 @@ const title = ({ title, subtitle }) => {
   );
 };
 
-export default title;
+export default Title;
