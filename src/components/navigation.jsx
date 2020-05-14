@@ -16,9 +16,9 @@ const Navigation = ({ siteTitle }) => {
         <div className="brand">
           <Link to="/">{siteTitle}</Link>
         </div>
-        <div className="burger-menu" onClick={navToggle}>
+        <button className="burger-menu btn-reset" onClick={navToggle}>
           <span className="burger"></span>
-        </div>
+        </button>
       </div>
       <div className={`nav-list ${navOpen ? "show" : "hidden"}`}>
         <ul>

@@ -1,17 +1,11 @@
 import React from "react";
-import SignupForm from "./signupForm";
 import womanSvg from "../images/woman-pc.svg";
 import { Link } from "gatsby";
 
 const Hero = () => {
-  const inputs = [
-    { label: "Your Name", type: "text", required: true },
-    { label: "Your Email Address", type: "email", required: true },
-    { label: "Your Password", type: "password", required: true },
-  ];
-
   return (
     <section className="hero">
+      <div className="hero-background"></div>
       <div className="container">
         <h2>Sign up now!</h2>
         <h1>

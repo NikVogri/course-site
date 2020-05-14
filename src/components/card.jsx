@@ -6,7 +6,7 @@ const card = ({ size, image, alt, text, link }) => {
     <Link to={link ? link : text}>
       <div
         className={`card-simple ${
-          size && size == "lg" ? "card-lg" : "card-sm"
+          size && size === "lg" ? "card-lg" : "card-sm"
         }`}
       >
         <img src={image} alt={alt} />

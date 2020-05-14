@@ -4,7 +4,7 @@ import Placeholder from "../images/placeholder.png";
 
 const playlistItem = ({ active }) => {
   return (
-    <div className={`playlist-item ${active && "active"}`}>
+    <div className={`playlist-item ${active ? "active" : ""}`}>
       <input type="checkbox" />
       <img src={Placeholder} alt="placeholder" />
       <span>

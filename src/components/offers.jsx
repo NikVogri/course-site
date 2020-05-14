@@ -15,7 +15,7 @@ const Offers = () => {
         <li>Free course videos in one place</li>
         <li>Tools that help you learn more efficiently</li>
         <li>Answers and question section</li>
-        <li>Random tests between video courses</li>
+        <li>Tests between video courses</li>
       </ul>
       <Spacer space="2" />
       <FindLanguage />
