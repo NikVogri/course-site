@@ -52,7 +52,8 @@ const tempVideoData = [
 const VideoTemplate = ({ location }) => {
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
-  const { videoId } = location.state;
+  const { state = {} } = location;
+  const { videoId } = state;
 
   const collapseHandler = () => {
     setCollapse(!collapse);
