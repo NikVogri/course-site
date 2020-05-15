@@ -53,7 +53,7 @@ const VideoTemplate = ({ location }) => {
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
   const { state = {} } = location;
-  const { videoId } = state;
+  const videoId = state.videoId || tempVideoData[0].videoId;
 
   const collapseHandler = () => {
     setCollapse(!collapse);
@@ -65,7 +65,7 @@ const VideoTemplate = ({ location }) => {
   };
 
   return (
-    <Layout noFooter>
+    <Layout noFooter className="video-wrapper">
       <SEO title="<<<VIDEO NAME>>>" />
       <section className="video-player">
         <div className="video">
@@ -80,41 +80,43 @@ const VideoTemplate = ({ location }) => {
           ></iframe>
         </div>
         <Spacer space="1" />
-      </section>
-      <section className="info">
-        <ul>
-          <li>
-            {collapse ? (
-              <FontAwesomeIcon
-                className="icon-collapse"
-                onClick={() => setCollapse(false)}
-                icon={faChevronDown}
-              />
-            ) : (
-              <FontAwesomeIcon
-                className="icon-collapse"
-                onClick={() => setCollapse(true)}
-                icon={faChevronUp}
-              />
-            )}
-          </li>
-          <li className={`${tab === 1 && "active"}`}>
-            <button onClick={() => tabHandler(1)} className="btn-reset">
-              Description
-            </button>
-          </li>
-          <li className={`${tab === 2 && "active"}`}>
-            <button onClick={() => tabHandler(2)} className="btn-reset">
-              My Notes
-            </button>
-          </li>
-          <li className={`${tab === 3 && "active"}`}>
-            <button onClick={() => tabHandler(3)} className="btn-reset">
-              Comments
-            </button>
-          </li>
-        </ul>
-        <Info tab={tab} handleCollapse={collapseHandler} collapse={collapse} />
+        <div className="info">
+          <ul>
+            <li className="icon-collapse">
+              {collapse ? (
+                <FontAwesomeIcon
+                  onClick={() => setCollapse(false)}
+                  icon={faChevronDown}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  onClick={() => setCollapse(true)}
+                  icon={faChevronUp}
+                />
+              )}
+            </li>
+            <li className={`${tab === 1 && "active"}`}>
+              <button onClick={() => tabHandler(1)} className="btn-reset">
+                Description
+              </button>
+            </li>
+            <li className={`${tab === 2 && "active"}`}>
+              <button onClick={() => tabHandler(2)} className="btn-reset">
+                My Notes
+              </button>
+            </li>
+            <li className={`${tab === 3 && "active"}`}>
+              <button onClick={() => tabHandler(3)} className="btn-reset">
+                Comments
+              </button>
+            </li>
+          </ul>
+          <Info
+            tab={tab}
+            handleCollapse={collapseHandler}
+            collapse={collapse}
+          />
+        </div>
       </section>
       <section className="playlist">
         {tempVideoData &&

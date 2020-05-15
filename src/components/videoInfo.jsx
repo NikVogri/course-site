@@ -4,16 +4,16 @@ const VideoInfo = ({ tab, collapse }) => {
   return (
     <div className={`info-wrapper ${collapse ? "collapsed" : "show"}`}>
       {tab === 1 && (
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        <div>
+          Lorem idivsum dolor sit amet, consectetur adipiscing elit. Donec
           pellentesque aliquet sapien, sed dictum mi pellentesque ut. Quisque et
           velit gravida ipsum pulvinar euismod. Ut facilisis varius sem, at
           feugiat tortor aliquet et. Vestibulum congue molestie tellus, a
           facilisis dolor tincidunt a.
-        </p>
+        </div>
       )}
-      {tab === 2 && <p>My Notes</p>}
-      {tab === 3 && <p>Comments</p>}
+      {tab === 2 && <div>My Notes</div>}
+      {tab === 3 && <div>Comments</div>}
     </div>
   );
 };

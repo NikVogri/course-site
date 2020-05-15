@@ -198,7 +198,7 @@ body {
   .hidden {
     transition: opacity 0.4s ease-in, left 0.4s ease-in;
     opacity: 0;
-    left: -1000px;
+    left: -99999999px;
   }
 
   .show {
@@ -513,12 +513,35 @@ body {
 //
 //  VIDEO PAGE
 //
+
+.video-wrapper {
+
+  @media only screen and (min-width: 1000px) {
+    display: flex;
+  }
+}
+
 .video-player {
+  width: 100% !important;
+
   & .video {
     display: block;
-    height: 22rem;
+    height: 60vw;
+    max-height: 90rem;
     width: 100%;
     background: gray;
+
+    @media only screen and (min-width: 1000px) and (max-width: 1200px) {
+      max-height: 50rem;
+    }
+
+    @media only screen and (min-width: 1200px) and (max-width: 1400px) {
+      max-height: 55rem;
+    }
+
+    @media only screen and (min-width: 1400px) and (max-width: 1920px) {
+      max-height: 65rem;
+    }
   }
 }
 
@@ -526,18 +549,9 @@ body {
   padding: 0 1rem;
   position: relative;
 
-  & .icon-wrapper {
-    position: absolute;
-    height: 3rem;
-    color: $text-dark;
-    opacity: 0.35;
-    width: 4rem;
-    bottom: 1rem;
-    right: 2rem;
-    display: flex;
-    text-align: center;
+  @media only screen and (max-width: 1000px) {
+    border-bottom: solid 1px $border-color;
   }
-
 
   & ul {
     display: flex;
@@ -547,6 +561,22 @@ body {
     font-size: 1.6rem;
     padding-bottom: 0.25rem;
     border-bottom: solid 1px $border-color;
+
+    @media only screen and (min-width: 1000px) {
+      justify-content: center;
+    }
+
+    .icon-collapse {
+      @media only screen and (min-width: 1000px) {
+        display: none;
+      }
+    }
+
+    & li:nth-child(3) {
+      @media only screen and (min-width: 1000px) {
+        margin: 0 10rem;
+      }
+    }
 
     .active {
       color: $black !important;
@@ -580,9 +610,17 @@ body {
     padding: 0.5rem 1rem;
     font-size: 1.5rem;
     line-height: 1.5;
-    border-bottom: solid 1px $border-color;
     max-height: 20rem;
-    transition: max-height .3s ease-in, opacity .5s ease;
+    transition: max-height .3s ease-in, opacity .5s ease, padding .2s ease-in;
+
+    @media only screen and (min-width: 1000px) {
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    @media only screen and (min-width: 767.98px) {
+      padding: 2rem 1rem;
+    }
 
     &.collapsed {
       max-height: 0;
@@ -591,6 +629,7 @@ body {
       padding-bottom: 0;
     }
   }
+
 }
 
 @keyframes tabAnimationRight {
@@ -620,6 +659,18 @@ body {
 
 .playlist {
   padding: 0.25rem 0.5rem;
+
+  @media only screen and (min-width: 1000px) {
+    border-left: solid 1px $border-color;
+  }
+
+  @media only screen and (min-width: 1000px) and (max-width: 1400px) {
+    max-width: 40vw;
+  }
+
+  @media only screen and (min-width: 1400px) and (max-width: 1600px) {
+    max-width: 35vw;
+  }
 }
 
 
@@ -637,9 +688,8 @@ body {
 
 
   & img {
-    height: 5rem;
-    width: 8rem;
-    flex: 1;
+    height: 5rem !important;
+    width: 8rem !important;
     margin: 0 0.25rem;
   }
 
@@ -648,7 +698,15 @@ body {
     margin-left: 0.5rem;
     font-weight: bold;
     color: $black;
-    font-size: 1rem;
+    font-size: 1.1rem;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 1.15rem;
+    }
+
+    @media only screen and (min-width: 1200px) {
+      font-size: 1.25rem;
+    }
   }
 
   & input[type="checkbox"] {
