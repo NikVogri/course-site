@@ -2,14 +2,13 @@ import React from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import Title from "../components/title";
 import SignupForm from "../components/signupForm";
 
 const Register = () => {
   return (
-    <Layout noFooter>
+    <Layout noFooter className="form-wrapper">
       <SEO title="Sign Up" />
-      <Title title="Sign Up" />
+      <div className="form-image form-image--big"></div>
       <SignupForm />
     </Layout>
   );

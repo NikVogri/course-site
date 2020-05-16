@@ -31,13 +31,12 @@ const SignupForm = () => {
     console.log(data);
   };
 
-  console.log(errors);
-
   return (
     <Form
-      className={`signup-form index-form`}
+      className={`authentication-form index-form`}
       onSubmit={handleSubmit(onSubmit)}
     >
+      <h3>Sign Up for Free</h3>
       <Form.Group>
         <Form.Label>Your Name*</Form.Label>
         <Form.Control
@@ -76,6 +75,10 @@ const SignupForm = () => {
       </Form.Group>
       <button className="btn">Start your journey</button>
       <Spacer space="0.2" />
+      <span className="form-policy">
+        By signing up for Freecourso, you agree to our
+        <Link> Terms of Service </Link>& <Link> Privacy Policy</Link>.
+      </span>
       <span>
         Already have an account? <Link to="login">Log In</Link>
       </span>

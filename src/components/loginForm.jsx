@@ -34,43 +34,41 @@ const LoginForm = () => {
   console.log(errors);
 
   return (
-    <>
-      <Form
-        className={`signup-form index-form`}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Form.Group>
-          <Form.Label>Your Email</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            ref={register}
-            isInvalid={errors.email}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email && errors.email.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Your Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            ref={register}
-            isInvalid={errors.password}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.password && errors.password.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <button className="btn">Log in</button>
-        <Spacer space="0.95" />
-        <span>
-          Don't have an account ? <Link to="register">Sign Up</Link>
-        </span>
-      </Form>
-      <Spacer space="2.2" />
-    </>
+    <Form
+      className={`authentication-form index-form`}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <h3>Log in </h3>
+      <Form.Group>
+        <Form.Label>Your Email</Form.Label>
+        <Form.Control
+          type="text"
+          name="email"
+          ref={register}
+          isInvalid={errors.email}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.email && errors.email.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Your Password</Form.Label>
+        <Form.Control
+          type="password"
+          name="password"
+          ref={register}
+          isInvalid={errors.password}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.password && errors.password.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <button className="btn">Log in</button>
+      <Spacer space="0.95" />
+      <span>
+        Don't have an account ? <Link to="register">Sign Up</Link>
+      </span>
+    </Form>
   );
 };
 

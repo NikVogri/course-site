@@ -2,14 +2,13 @@ import React from "react";
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import Title from "../components/title";
 import LoginForm from "../components/loginForm";
 
 const Login = () => {
   return (
-    <Layout noFooter>
-      <SEO title="Log In" />
-      <Title title="Log In" />
+    <Layout noFooter className="form-wrapper">
+      <SEO title="Sign Up" />
+      <div className="form-image form-image--big"></div>
       <LoginForm />
     </Layout>
   );
