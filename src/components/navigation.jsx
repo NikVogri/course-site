@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import useWindowDimensions from "./hooks/useWindowDimensions";
-
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +9,12 @@ import PlaceholderPerson from "../images/placeholder-person.jpg";
 const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(3);
-  const { width } = useWindowDimensions();
+
+  let width;
+
+  if (typeof window !== `undefined`) {
+    width = window.innerWidth;
+  }
 
   useEffect(() => {
     if (width >= 850) {

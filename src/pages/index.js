@@ -27,27 +27,29 @@ const IndexPage = () => (
         title="Most Popular Languages"
         subtitle="I recommend javascript, but I am also bias"
       />
-      <Card
-        size="lg"
-        link="technology/javascript"
-        text="Javascript"
-        image={jsLogo}
-        alt="javascript logo"
-      />
-      <Card
-        size="lg"
-        link="technology/python"
-        text="Python"
-        image={pyLogo}
-        alt="python logo"
-      />
-      <Card
-        size="lg"
-        link="technology/java"
-        text="Java"
-        image={jaLogo}
-        alt="java logo"
-      />
+      <div className="card-container">
+        <Card
+          size="lg"
+          link="technology/javascript"
+          text="Javascript"
+          image={jsLogo}
+          alt="javascript logo"
+        />
+        <Card
+          size="lg"
+          link="technology/python"
+          text="Python"
+          image={pyLogo}
+          alt="python logo"
+        />
+        <Card
+          size="lg"
+          link="technology/java"
+          text="Java"
+          image={jaLogo}
+          alt="java logo"
+        />
+      </div>
     </section>
     <Offers />
     <Spacer space="2" />
