@@ -8,7 +8,7 @@ import PlaceholderPerson from "../images/placeholder-person.jpg";
 
 const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
-  const [notifNum, setNotifNum] = useState(3);
+  const [notifNum, setNotifNum] = useState(1);
 
   let width;
 
@@ -17,18 +17,13 @@ const Navigation = ({ siteTitle }) => {
   }
 
   useEffect(() => {
-    if (width >= 850) {
-      setNavOpeN(true);
-    } else {
-      setNavOpeN(false);
-    }
+    width >= 850 ? setNavOpeN(true) : setNavOpeN(false);
   }, [width]);
 
   const navToggle = () => {
     setNavOpeN(!navOpen);
   };
 
-  console.log(notifNum);
   return (
     <nav className="navigation">
       <div className="nav-content">
@@ -49,20 +44,32 @@ const Navigation = ({ siteTitle }) => {
         //IF USER IS LOGGED IN DISPLAY THIS!! 
         ///// */}
 
-        {/* <ul>
+        <ul>
           <li className="user-bell">
-            {notifNum > 0 && (
-              <div className="notifications">
-                <span>{notifNum}</span>
-              </div>
-            )}
-            <FontAwesomeIcon icon={faBell} />
+            <div>
+              {notifNum > 0 && (
+                <div className="notifications" title="Notifications">
+                  <span>{notifNum}</span>
+                </div>
+              )}
+              <FontAwesomeIcon icon={faBell} title="Notifications" />
+            </div>
+            <div className={`notification-list`}>
+              {
+                <div className="notification-list-item">
+                  <div className="notification-list-image"></div>
+                  <p>A new PHP course was released today!</p>
+                </div>
+              }
+              {notifNum < 1 && <p>No new notifications</p>}
+            </div>
           </li>
           <li className="user-profile">
             <img
               src={PlaceholderPerson}
               className="user-profile--image"
               alt="avatar"
+              title="Profile image"
             />
             {width >= 850 && "Hi,"} Nickolas
           </li>
@@ -90,13 +97,13 @@ const Navigation = ({ siteTitle }) => {
               Copyright {siteTitle} &copy; {new Date().getFullYear()}
             </span>
           </li>
-        </ul> */}
+        </ul>
 
         {/* 
         /////
         //IF USER IS --NOT-- LOGGED IN DISPLAY THIS!! 
         ///// */}
-        <ul>
+        {/* <ul>
           <li>
             <div className="link-container">
               <Link to="login">Log in</Link>
@@ -105,7 +112,10 @@ const Navigation = ({ siteTitle }) => {
               </Link>
             </div>
           </li>
-        </ul>
+          <li className="item-left">
+            <Link to="profile">Courses</Link>
+          </li>
+        </ul> */}
       </div>
     </nav>
   );

@@ -21,8 +21,8 @@ $main: #2d9cdb;
 $main-darker: #2f80ed;
 $secondary: #f2994a;
 $text-dark: #4f4f4f;
-$border-color: #DBDBDB;
-$notifications: #EB5757;
+$border-color: #dbdbdb;
+$notifications: #eb5757;
 
 //
 //  MIXINS
@@ -204,7 +204,6 @@ body {
           align-items: center;
           border-bottom: none;
           font-weight: normal;
-          border-right: solid 1px $text-dark;
         }
 
         & .user-profile--image {
@@ -221,29 +220,94 @@ body {
             margin-right: 1rem;
           }
         }
-
       }
 
       & .user-bell {
         font-size: 2.1rem;
-        cursor: pointer;
         position: relative;
         color: $text-dark;
+        width: 2.1rem;
+        margin-left: auto;
+
+        &:hover > .notification-list {
+          @media only screen and (min-width: 850px) {
+            display: block;
+          }
+        }
+
+        & .notification-list {
+          width: 30rem;
+          height: calc(100vh - 6rem);
+          position: absolute;
+          left: 0;
+          top: 0;
+          background: $white;
+
+          &:hover {
+            display: block;
+          }
+
+          &-item {
+            display: flex;
+            font-size: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            & p {
+              margin-bottom: 0 !important;
+            }
+          }
+
+          &-image {
+            height: 5rem;
+            width: 5rem;
+            background: $notifications;
+            margin-right: 1.5rem;
+          }
+
+          @media only screen and (min-width: 850px) {
+            width: 40rem;
+            min-height: 10rem;
+            max-height: 40rem;
+            overflow-y: scroll;
+            border-radius: 5px;
+            top: 3rem;
+            left: 0;
+            padding: 1rem;
+            border-top: solid 1px $light-gray;
+            display: none;
+            box-shadow: 4px 0 8px rgba($black, 0.15);
+            transform: none;
+          }
+        }
+
+        @media only screen and (min-width: 850px) {
+          font-size: 2.1rem;
+          cursor: pointer;
+          margin-left: 1rem;
+        }
 
         & span {
+          position: absolute;
+          right: -5px;
+          bottom: 1.5rem;
+          background: $notifications;
+          font-weight: bold;
           display: flex;
           justify-content: center;
           align-items: center;
           height: 1.5rem;
           width: 1.5rem;
-          font-weight: bold;
-          font-size: 1rem;
-          background: $notifications;
-          position: absolute;
           color: $white;
-          right: -5px;
-          bottom: 0;
           border-radius: 50px;
+          font-size: 1rem;
+          height: 1.5rem;
+          width: 1.5rem;
+
+          @media only screen and (min-width: 850px) {
+            right: -5px;
+            bottom: 0;
+          }
         }
       }
 
@@ -348,7 +412,6 @@ body {
       width: 30%;
       margin: 0 auto;
     }
-
   }
 
   & h2 {
@@ -393,9 +456,6 @@ body {
 
     @media only screen and (min-width: 1930px) {
       max-width: 100rem;
-      background-color: $white;
-      padding: 3rem;
-      border-radius: 50px;
     }
   }
 
@@ -432,7 +492,6 @@ body {
       margin: 0;
     }
   }
-
 }
 
 //
@@ -466,7 +525,6 @@ body {
     }
   }
 
-
   & .form-policy {
     padding: 1rem 0;
     border-bottom: solid 1px $light-gray;
@@ -477,9 +535,6 @@ body {
     }
   }
 }
-
-
-
 
 // FORM FOR BIGGER SCREEN
 .authentication-form {
@@ -543,10 +598,10 @@ body {
     font-size: 1.4rem;
     letter-spacing: 1.5px;
     box-shadow: 3px 3px 8px rgba($black, 0.25);
-    transition: filter .2s ease-in;
+    transition: filter 0.2s ease-in;
 
     &:hover {
-      filter: opacity(0.8)
+      filter: opacity(0.8);
     }
   }
 }
@@ -560,7 +615,6 @@ body {
   width: 95vw;
   margin: 0 auto;
   text-align: center;
-
 
   & h2 {
     font-size: 2.6rem;
@@ -633,7 +687,7 @@ body {
   font-size: 1.8rem;
   font-weight: bold;
   margin: 1rem;
-  animation: cardComeIn .3s ease-in;
+  animation: cardComeIn 0.3s ease-in;
 
   & img {
     max-width: 5rem;
@@ -652,11 +706,11 @@ body {
 
 @keyframes cardComeIn {
   0% {
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -665,7 +719,6 @@ body {
 //
 
 .offers {
-
   @media only screen and (min-width: 850px) {
     padding: 15rem 0;
   }
@@ -678,7 +731,6 @@ body {
       padding-bottom: 25rem;
     }
   }
-
 
   & img {
     margin-top: 2.5rem;
@@ -700,7 +752,6 @@ body {
     font-weight: medium;
     margin-bottom: 1rem;
     margin-left: 6rem;
-
   }
 
   & ul {
@@ -800,7 +851,6 @@ body {
   }
 }
 
-
 .video-player {
   width: 100% !important;
 
@@ -871,7 +921,7 @@ body {
       position: relative;
 
       &::before {
-        animation: tabAnimationRight .2s ease-in;
+        animation: tabAnimationRight 0.2s ease-in;
         content: "";
         height: 3px;
         width: 50%;
@@ -882,7 +932,7 @@ body {
       }
 
       &::after {
-        animation: tabAnimationLeft .2s ease-in;
+        animation: tabAnimationLeft 0.2s ease-in;
         content: "";
         height: 3px;
         width: 50%;
@@ -899,7 +949,7 @@ body {
     font-size: 1.5rem;
     line-height: 1.5;
     max-height: 20rem;
-    transition: max-height .3s ease-in, opacity .5s ease, padding .2s ease-in;
+    transition: max-height 0.3s ease-in, opacity 0.5s ease, padding 0.2s ease-in;
 
     @media only screen and (min-width: 1000px) {
       width: 60%;
@@ -917,14 +967,12 @@ body {
       padding-bottom: 0;
     }
   }
-
 }
 
 @keyframes tabAnimationRight {
   0% {
     width: 10px;
   }
-
 
   100% {
     width: 50%;
@@ -959,9 +1007,7 @@ body {
   @media only screen and (min-width: 1400px) and (max-width: 1600px) {
     max-width: 35vw;
   }
-
 }
-
 
 .playlist-item {
   display: flex;
@@ -974,7 +1020,6 @@ body {
     background-color: $light-gray;
     color: $black;
   }
-
 
   & img {
     height: 5rem !important;
@@ -1012,7 +1057,7 @@ body {
 
     &::before {
       position: absolute;
-      content: '';
+      content: "";
       display: block;
       top: 0;
       left: 3px;
