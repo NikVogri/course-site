@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
 import PlaceholderPerson from "../images/placeholder-person.jpg";
+import NotificationBar from "./notificationBar";
 
 const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
@@ -45,25 +45,7 @@ const Navigation = ({ siteTitle }) => {
         ///// */}
 
         <ul>
-          <li className="user-bell">
-            <div>
-              {notifNum > 0 && (
-                <div className="notifications" title="Notifications">
-                  <span>{notifNum}</span>
-                </div>
-              )}
-              <FontAwesomeIcon icon={faBell} title="Notifications" />
-            </div>
-            <div className={`notification-list`}>
-              {
-                <div className="notification-list-item">
-                  <div className="notification-list-image"></div>
-                  <p>A new PHP course was released today!</p>
-                </div>
-              }
-              {notifNum < 1 && <p>No new notifications</p>}
-            </div>
-          </li>
+          <NotificationBar notifNum={notifNum} />
           <li className="user-profile">
             <img
               src={PlaceholderPerson}

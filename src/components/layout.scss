@@ -82,6 +82,7 @@ body {
   box-shadow: 4px 0 4px rgba($black, 0.25);
   top: 0;
 
+
   @media only screen and (min-width: 850px) {
     display: flex;
     align-items: center;
@@ -150,6 +151,7 @@ body {
     display: flex;
     justify-content: center;
     box-shadow: 0 4px 8px rgba($black, 0.25);
+    overflow-x: hidden;
 
     @media only screen and (min-width: 850px) {
       height: inherit;
@@ -223,28 +225,57 @@ body {
       }
 
       & .user-bell {
-        font-size: 2.1rem;
+        font-size: 2.1rem !important;
         position: relative;
         color: $text-dark;
         width: 2.1rem;
         margin-left: auto;
+        margin-top: 1rem;
+        z-index: 99999;
 
-        &:hover > .notification-list {
+        & button {
+          background: none;
+          border: none;
+        }
+
+        &:hover>.notification-list {
           @media only screen and (min-width: 850px) {
             display: block;
           }
         }
 
         & .notification-list {
-          width: 30rem;
-          height: calc(100vh - 6rem);
+          padding: 3rem 2rem;
+          width: 100vw;
+          min-height: 70vh;
           position: absolute;
-          left: 0;
+          right: 0;
           top: 0;
+          z-index: 99999;
           background: $white;
+          transform: translate(3.5rem, -1rem);
+          transition: all .2s ease-in;
+
+
+          &.hidden {
+            transition: all .2s ease-in;
+            animation: notifSlideOut .2s ease-in;
+            left: 50rem;
+            transform: translate(50rem, -1rem);
+          }
+
+          .close-notifications {
+            position: absolute;
+            right: 3rem;
+            top: 0.5rem;
+            color: $text-dark;
+          }
 
           &:hover {
-            display: block;
+            @media only screen and (min-width: 850px) {
+              display: block;
+            }
+
           }
 
           &-item {
@@ -253,6 +284,7 @@ body {
             justify-content: center;
             align-items: center;
             margin: 2rem 0;
+
             & p {
               margin-bottom: 0 !important;
             }
@@ -273,6 +305,7 @@ body {
             border-radius: 5px;
             top: 3rem;
             left: 0;
+            right: 0;
             padding: 1rem;
             border-top: solid 1px $light-gray;
             display: none;
@@ -347,7 +380,7 @@ body {
       position: absolute;
       width: 100%;
       font-size: 1.3rem;
-      bottom: 2rem;
+      bottom: 5vh;
       left: 50%;
       transform: translateX(-50%);
 
@@ -376,6 +409,17 @@ body {
     opacity: 1;
     left: 0;
   }
+}
+
+@keyframes notifSlideOut {
+  from {
+    right: 0;
+  }
+
+  to {
+    left: 50rem;
+  }
+
 }
 
 //
