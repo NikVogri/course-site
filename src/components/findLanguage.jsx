@@ -125,17 +125,37 @@ const FindLanguage = () => {
   }, [selection]);
 
   const selectionHandler = e => {
-    setSelection(e.target.value);
+    setSelection(e);
   };
 
   return (
     <div className="find-course">
-      <select className="btn" onChange={selectionHandler} value={selection}>
+      {/* <select className="btn" onChange={selectionHandler} value={selection}>
         <option value="front-web-dev">Front end web development</option>
         <option value="back-web-dev">Back end web development</option>
         <option value="mobile-dev">Mobile development</option>
-      </select>
-      <Spacer space="1" />
+      </select> */}
+      <ul className="positions">
+        <h2>What are you interested into?</h2>
+        <li>
+          <button onClick={() => selectionHandler("front-web-dev")}>
+            Front-end web development
+          </button>
+        </li>
+        <li>
+          <button onClick={() => selectionHandler("back-web-dev")}>
+            Back-end web development
+          </button>
+        </li>
+        <li>
+          <button onClick={() => selectionHandler("mobile-dev")}>
+            Native mobile apps
+          </button>
+        </li>
+        <li>
+          <button>I don't know yet</button>
+        </li>
+      </ul>
       <div className="find-course-cards">
         {langList &&
           langList.map(lang => (

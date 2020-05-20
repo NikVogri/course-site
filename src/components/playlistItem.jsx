@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
 
-// import Placeholder from "../images/placeholder.png";
-
 const playlistItem = ({ active, title, videoId }) => {
   return (
     <Link to={"/videoTemplate"} state={{ videoId }}>

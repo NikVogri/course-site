@@ -15,7 +15,7 @@ const NotificationBar = ({ notifNum }) => {
             <span>{notifNum}</span>
           </div>
         )}
-        <button onClick={() => setHideNotif(false)}>
+        <button onClick={() => setHideNotif(!hideNotif)}>
           <FontAwesomeIcon icon={faBell} title="Notifications" />
         </button>
       </div>
@@ -27,10 +27,28 @@ const NotificationBar = ({ notifNum }) => {
           <FontAwesomeIcon icon={faWindowClose} title="Close" />
         </button>
         {
-          <div className="notification-list-item">
-            <div className="notification-list-image"></div>
-            <p>A new PHP course was released today!</p>
-          </div>
+          <>
+            <div className="notification-list-item">
+              <div className="notification-list-image"></div>
+              <p>A new PHP course was released today!</p>
+            </div>
+            <div className="notification-list-item">
+              <div className="notification-list-image"></div>
+              <p>A new PHP course was released today!</p>
+            </div>
+            <div className="notification-list-item">
+              <div className="notification-list-image"></div>
+              <p>A new PHP course was released today!</p>
+            </div>
+            <div className="notification-list-item">
+              <div className="notification-list-image"></div>
+              <p>A new PHP course was released today!</p>
+            </div>
+            <div className="notification-list-item">
+              <div className="notification-list-image"></div>
+              <p>A new PHP course was released today!</p>
+            </div>
+          </>
         }
         {notifNum < 1 && <p>No new notifications</p>}
       </div>

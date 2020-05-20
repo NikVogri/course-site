@@ -25,7 +25,7 @@ const IndexPage = () => (
     <section>
       <Title
         title="Most Popular Languages"
-        subtitle="I recommend javascript, but I am also bias"
+        subtitle="Market leading programming languages for you to learn"
       />
       <div className="card-container">
         <Card

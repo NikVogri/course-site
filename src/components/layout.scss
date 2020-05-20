@@ -9,6 +9,10 @@
   font-family: "Roboto", "Sans Serif";
 }
 
+a {
+  text-decoration: none !important;
+}
+
 //
 //  VARIABLES
 //
@@ -76,12 +80,11 @@ body {
 
 .navigation {
   position: sticky;
-  z-index: 999999;
+  z-index: 99999;
   height: 6rem;
   background: $white;
   box-shadow: 4px 0 4px rgba($black, 0.25);
   top: 0;
-
 
   @media only screen and (min-width: 850px) {
     display: flex;
@@ -151,7 +154,6 @@ body {
     display: flex;
     justify-content: center;
     box-shadow: 0 4px 8px rgba($black, 0.25);
-    overflow-x: hidden;
 
     @media only screen and (min-width: 850px) {
       height: inherit;
@@ -159,7 +161,6 @@ body {
       margin: 0;
       padding: 0;
       box-shadow: none;
-      background-color: none;
       border: none;
       width: 60%;
       font-size: 1.4rem;
@@ -231,17 +232,11 @@ body {
         width: 2.1rem;
         margin-left: auto;
         margin-top: 1rem;
-        z-index: 99999;
+        z-index: 999;
 
         & button {
           background: none;
           border: none;
-        }
-
-        &:hover>.notification-list {
-          @media only screen and (min-width: 850px) {
-            display: block;
-          }
         }
 
         & .notification-list {
@@ -251,23 +246,29 @@ body {
           position: absolute;
           right: 0;
           top: 0;
-          z-index: 99999;
+          z-index: 9999;
           background: $white;
           transform: translate(3.5rem, -1rem);
-          transition: all .2s ease-in;
+          transition: all 0.2s ease-in;
 
+          &::-webkit-scrollbar {
+            display: none;
+          }
 
           &.hidden {
-            transition: all .2s ease-in;
-            animation: notifSlideOut .2s ease-in;
+            @media only screen and (max-width: 850px) {
+              transition: all 0.2s ease-in;
+              animation: notifSlideOut 0.2s ease-in;
+            }
+
             left: 50rem;
             transform: translate(50rem, -1rem);
           }
 
           .close-notifications {
             position: absolute;
-            right: 3rem;
-            top: 0.5rem;
+            right: 1.5rem;
+            top: 1.5rem;
             color: $text-dark;
           }
 
@@ -275,7 +276,6 @@ body {
             @media only screen and (min-width: 850px) {
               display: block;
             }
-
           }
 
           &-item {
@@ -298,6 +298,9 @@ body {
           }
 
           @media only screen and (min-width: 850px) {
+            animation: none;
+            transition: none;
+            position: absolute;
             width: 40rem;
             min-height: 10rem;
             max-height: 40rem;
@@ -308,7 +311,6 @@ body {
             right: 0;
             padding: 1rem;
             border-top: solid 1px $light-gray;
-            display: none;
             box-shadow: 4px 0 8px rgba($black, 0.15);
             transform: none;
           }
@@ -419,7 +421,6 @@ body {
   to {
     left: 50rem;
   }
-
 }
 
 //
@@ -485,7 +486,7 @@ body {
     display: block;
     position: relative;
     z-index: 1;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     margin-top: 3rem;
     transform: translate(1rem);
@@ -499,7 +500,7 @@ body {
     }
 
     @media only screen and (min-width: 1930px) {
-      max-width: 100rem;
+      max-width: 90rem;
     }
   }
 
@@ -518,7 +519,7 @@ body {
   .btn-index {
     display: block;
     position: relative;
-    z-index: 99999;
+    z-index: 999;
     font-size: 1.8rem;
     color: $white;
     font-weight: 600;
@@ -703,6 +704,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
 
   & img {
     width: 6rem;
@@ -764,15 +771,18 @@ body {
 
 .offers {
   @media only screen and (min-width: 850px) {
-    padding: 15rem 0;
+    padding: 5rem 0;
   }
 
   &-wrapper {
+    background-color: rgba($main, 0.15);
+
     @media only screen and (min-width: 850px) {
       display: flex;
       margin-top: 3rem;
       justify-content: center;
-      padding-bottom: 25rem;
+      padding: 10rem 0;
+      margin-bottom: 5rem;
     }
   }
 
@@ -795,7 +805,11 @@ body {
     font-size: 2.6rem;
     font-weight: medium;
     margin-bottom: 1rem;
-    margin-left: 6rem;
+
+    @media only screen and (min-width: 850px) {
+      font-size: 3.3rem;
+      margin-bottom: 2rem;
+    }
   }
 
   & ul {
@@ -809,6 +823,14 @@ body {
       color: $main-darker;
       font-weight: bold;
       margin-bottom: 2rem;
+
+      @media only screen and (min-width: 850px) {
+        font-size: 1.9rem;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 2.1rem;
+      }
     }
 
     &::before {
@@ -819,23 +841,39 @@ body {
       position: absolute;
       top: 0;
       left: -3rem;
+
+      max-height: 27rem;
     }
   }
 
   & .find-course {
+    width: 100rem;
+    padding: 5rem 0;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-around;
 
-    & select {
-      font-size: 1.6rem;
-      background-color: $main-darker;
-      color: $white;
-      padding: 1.3rem 1rem;
-      border: none;
+    & .positions {
+      & li:hover {
+        cursor: pointer;
+        transition: all .1s ease-in;
+        transform: scale(1.02);
+      }
+
+      & button {
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+        font-size: 2rem;
+        color: $main-darker;
+        font-weight: bold;
+      }
     }
 
     &-cards {
+      width: 50%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
