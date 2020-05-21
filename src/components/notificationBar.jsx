@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-regular-svg-icons";
 
 const NotificationBar = ({ notifNum }) => {
   const [hideNotif, setHideNotif] = useState(true);
@@ -10,12 +10,13 @@ const NotificationBar = ({ notifNum }) => {
   return (
     <div className="user-bell">
       <div>
-        {notifNum > 0 && (
-          <div className="notifications" title="Notifications">
-            <span>{notifNum}</span>
-          </div>
-        )}
         <button onClick={() => setHideNotif(!hideNotif)}>
+          {notifNum > 0 && (
+            <div className="notifications" title="Notifications">
+              <span>{notifNum}</span>
+            </div>
+          )}
+
           <FontAwesomeIcon icon={faBell} title="Notifications" />
         </button>
       </div>

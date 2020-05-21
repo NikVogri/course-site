@@ -7,7 +7,7 @@ import notFound from "../images/404_NOT_FOUND.svg";
 
 const NotFoundPage = () => (
   <Layout>
-    <SEO title="404: Not found" />
+    <SEO title="404: Not found" noFooter />
     <div className="forofor">
       <img src={notFound} alt="not found" />
       <h1>Page not found</h1>

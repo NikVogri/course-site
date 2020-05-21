@@ -41,13 +41,15 @@ $notifications: #eb5757;
   background-color: $black;
 }
 
-.btn-reset {
-  background: none;
-  border: none;
+@mixin closeButton {
+  color: $border-color;
+  transition: all 0.2s ease-in;
 
-  &:focus {
-    outline: 0;
+  &:hover {
+    color: rgba($black, 0.5);
+    transform: scale(1.05);
   }
+
 }
 
 hr {
@@ -66,9 +68,20 @@ body {
   position: relative;
 }
 
+
 //
 //  OTHER
 //
+
+.btn-reset {
+  background: none;
+  border: none;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
 
 .spacer {
   padding: 2rem;
@@ -154,8 +167,10 @@ body {
     display: flex;
     justify-content: center;
     box-shadow: 0 4px 8px rgba($black, 0.25);
+    overflow-x: hidden;
 
     @media only screen and (min-width: 850px) {
+      overflow-x: visible;
       height: inherit;
       position: relative;
       margin: 0;
@@ -269,7 +284,7 @@ body {
             position: absolute;
             right: 1.5rem;
             top: 1.5rem;
-            color: $text-dark;
+            @include closeButton();
           }
 
           &:hover {
@@ -407,7 +422,10 @@ body {
   }
 
   .show {
-    transition: opacity 0.3s ease-in, left 0.4s;
+    @media only screen and (max-width: 850px) {
+      transition: opacity 0.3s ease-in, left 0.4s;
+    }
+
     opacity: 1;
     left: 0;
   }
@@ -770,12 +788,9 @@ body {
 //
 
 .offers {
-  @media only screen and (min-width: 850px) {
-    padding: 5rem 0;
-  }
-
   &-wrapper {
     background-color: rgba($main, 0.15);
+    padding: 4rem 0;
 
     @media only screen and (min-width: 850px) {
       display: flex;
@@ -790,7 +805,7 @@ body {
     margin-top: 2.5rem;
     margin-bottom: 2rem;
     display: block;
-    margin: 0 auto;
+    margin: 0.5rem auto 4rem auto;
     width: 85%;
 
     @media only screen and (min-width: 850px) {
@@ -847,17 +862,39 @@ body {
   }
 
   & .find-course {
-    width: 100rem;
     padding: 5rem 0;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-direction: column;
+
+    @media only screen and (min-width: 1000px) {
+      width: 100rem;
+    }
+
+    @media only screen and (min-width: 850px) {
+      flex-direction: row;
+    }
+
+    & h2 {
+      color: $text-dark;
+      font-size: 2.6rem;
+      font-weight: medium;
+      margin-bottom: 1rem;
+
+      @media only screen and (min-width: 850px) {
+        font-size: 3.3rem;
+        margin-bottom: 2rem;
+      }
+    }
 
     & .positions {
+      margin-left: 6rem;
+
       & li:hover {
         cursor: pointer;
-        transition: all .1s ease-in;
+        transition: all 0.1s ease-in;
         transform: scale(1.02);
       }
 
@@ -866,14 +903,25 @@ body {
         border: none;
         margin: 0;
         padding: 0;
-        font-size: 2rem;
+        font-size: 1.6rem;
         color: $main-darker;
         font-weight: bold;
+
+        @media only screen and (min-width: 850px) {
+          font-size: 1.9rem;
+        }
+
+        @media only screen and (min-width: 1200px) {
+          font-size: 2.1rem;
+        }
       }
     }
 
     &-cards {
-      width: 50%;
+      @media only screen and (min-width: 850px) {
+        width: 50%;
+      }
+
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -1161,5 +1209,58 @@ body {
         opacity: 1;
       }
     }
+  }
+}
+
+//
+//  MODAL
+//
+
+.modal {
+  position: fixed;
+  z-index: 99999999;
+  display: block;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 80vh;
+  max-height: 40rem;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5rem 2.5rem 2.5rem 2.5rem;
+  border: solid 3px rgba($main, 0.3);
+
+  @media only screen and (min-width: 800px) {
+    top: 30%;
+    max-height: 40rem;
+    max-width: 70rem;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    @include closeButton();
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  overflow-y: hidden;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba($black, 0.5);
+  z-index: 999999;
+
+  &.hidden {
+    display: none;
   }
 }

@@ -23,6 +23,7 @@ const Navigation = ({ siteTitle }) => {
   const navToggle = () => {
     setNavOpeN(!navOpen);
   };
+  console.log(navOpen);
 
   return (
     <nav className="navigation">
@@ -34,11 +35,7 @@ const Navigation = ({ siteTitle }) => {
           <span className="burger"></span>
         </button>
       </div>
-      <div
-        className={`nav-list ${navOpen ? "show" : "hidden"} ${
-          width >= 850 ? "show" : ""
-        }`}
-      >
+      <div className={`nav-list ${navOpen ? "show" : "hidden"} `}>
         {/* 
         /////
         //IF USER IS LOGGED IN DISPLAY THIS!! 
@@ -46,7 +43,7 @@ const Navigation = ({ siteTitle }) => {
 
         <ul>
           <NotificationBar notifNum={notifNum} />
-          <li className="user-profile">
+          <li className="user-profile" title="User">
             <img
               src={PlaceholderPerson}
               className="user-profile--image"
@@ -57,17 +54,17 @@ const Navigation = ({ siteTitle }) => {
           </li>
           {
             // <li className="navigation-list-item">
-            // <Link to="videoTemplate">DEV: video template</Link>
+            //   <Link to="videoTemplate">DEV: video template</Link>
             // </li>
           }
           <li className="navigation-list-item">
             <Link to="profile">Profile</Link>
           </li>
           <li className="navigation-list-item">
-            <Link to="profile">Courses</Link>
+            <Link to="courses">Courses</Link>
           </li>
           <li className="navigation-list-item">
-            <Link to="profile">Sign out</Link>
+            <Link to="signout">Sign out</Link>
           </li>
           <li className="navigation-footer">
             <span>
