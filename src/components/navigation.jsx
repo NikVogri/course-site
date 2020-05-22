@@ -54,17 +54,17 @@ const Navigation = ({ siteTitle }) => {
           </li>
           {
             // <li className="navigation-list-item">
-            //   <Link to="videoTemplate">DEV: video template</Link>
+            //   <Link to="/videoTemplate">DEV: video template</Link>
             // </li>
           }
           <li className="navigation-list-item">
-            <Link to="profile">Profile</Link>
+            <Link to="/profile">Profile</Link>
           </li>
           <li className="navigation-list-item">
-            <Link to="courses">Courses</Link>
+            <Link to="/courses">Courses</Link>
           </li>
           <li className="navigation-list-item">
-            <Link to="signout">Sign out</Link>
+            <Link to="/signout">Sign out</Link>
           </li>
           <li className="navigation-footer">
             <span>
@@ -85,14 +85,14 @@ const Navigation = ({ siteTitle }) => {
         {/* <ul>
           <li>
             <div className="link-container">
-              <Link to="login">Log in</Link>
-              <Link to="register" class="btn btn-signup">
+              <Link to="/login">Log in</Link>
+              <Link to="/register" class="btn btn-signup">
                 Sign Up
               </Link>
             </div>
           </li>
           <li className="item-left">
-            <Link to="profile">Courses</Link>
+            <Link to="/profile">Courses</Link>
           </li>
         </ul> */}
       </div>

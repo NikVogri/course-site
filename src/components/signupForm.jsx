@@ -77,10 +77,11 @@ const SignupForm = () => {
       <Spacer space="0.2" />
       <span className="form-policy">
         By signing up for Freecourso, you agree to our
-        <Link> Terms of Service </Link>& <Link> Privacy Policy</Link>.
+        <Link to="/tos"> Terms of Service </Link>&{" "}
+        <Link to="/policy"> Privacy Policy</Link>.
       </span>
       <span>
-        Already have an account? <Link to="login">Log In</Link>
+        Already have an account? <Link to="/login">Log In</Link>
       </span>
     </Form>
   );

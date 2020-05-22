@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Card from "./card";
 
+// font awesome svg
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronCircleLeft,
+  faChevronCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
+
+// import modal pages
+import Frontdev from "./modal/frontdev";
+import Backdev from "./modal/backdev";
+import Nativedev from "./modal/nativedev";
+
 // import images for cards
 import cssLogo from "../images/languages/css-logo.png";
 import htmlLogo from "../images/languages/html-logo.png";
@@ -22,10 +35,9 @@ import kotlinLogo from "../images/languages/kotlin-logo.png";
 import Modal from "./modal/modal";
 
 const selectionFromList = selection => {
-  let languages;
   switch (selection) {
     case "front-web-dev":
-      return (languages = [
+      return [
         {
           link: "javascript",
           img: jsLogo,
@@ -46,9 +58,9 @@ const selectionFromList = selection => {
           link: "css",
           img: cssLogo,
         },
-      ]);
+      ];
     case "back-web-dev":
-      return (languages = [
+      return [
         {
           link: "php",
           img: phpLogo,
@@ -73,9 +85,9 @@ const selectionFromList = selection => {
           link: "java",
           img: javaLogo,
         },
-      ]);
+      ];
     case "mobile-dev":
-      return (languages = [
+      return [
         {
           link: "kotlin",
           img: kotlinLogo,
@@ -88,7 +100,7 @@ const selectionFromList = selection => {
           link: "flutter",
           img: flutterLogo,
         },
-      ]);
+      ];
     default:
       break;
   }
@@ -98,6 +110,7 @@ const FindLanguage = () => {
   const [displayModal, setDisplayModal] = useState(false);
   const [langList, setLangList] = useState(selectionFromList("front-web-dev"));
   const [selection, setSelection] = useState("front-web-dev");
+  const [modalPage, setModalPage] = useState(1);
 
   useEffect(() => {
     switch (selection) {
@@ -119,15 +132,46 @@ const FindLanguage = () => {
     setSelection(e);
   };
 
+  const modalPageHandler = direction => {
+    if (modalPage >= 3 && direction === "next") {
+      setModalPage(1);
+    } else {
+      setModalPage(modalPage + 1);
+    }
+
+    if (direction === "prev") {
+      if (modalPage <= 1) {
+        setModalPage(3);
+      } else {
+        setModalPage(modalPage - 1);
+      }
+    }
+  };
+
+  console.log(modalPage);
   return (
     <>
-      <Modal show={displayModal} hideModal={() => setDisplayModal(false)} />
+      <Modal
+        className="language-modal"
+        show={displayModal}
+        hideModal={() => setDisplayModal(false)}
+      >
+        <div className="modal-inner">
+          {modalPage === 1 && <Frontdev />}
+          {modalPage === 2 && <Backdev />}
+          {modalPage === 3 && <Nativedev />}
+        </div>
+        <div className="modal-control">
+          <button
+            className="btn-reset"
+            onClick={() => modalPageHandler("next")}
+          >
+            <FontAwesomeIcon icon={faChevronCircleRight} />
+            <span>Next</span>
+          </button>
+        </div>
+      </Modal>
       <div className="find-course">
-        {/* <select className="btn" onChange={selectionHandler} value={selection}>
-        <option value="front-web-dev">Front end web development</option>
-        <option value="back-web-dev">Back end web development</option>
-        <option value="mobile-dev">Mobile development</option>
-      </select> */}
         <ul className="positions">
           <h2>What are you interested in?</h2>
           <li>
@@ -157,7 +201,7 @@ const FindLanguage = () => {
               <Card
                 key={lang.link}
                 size="sm"
-                link={`technology/${lang.link}`}
+                link={`/technology/${lang.link}`}
                 image={lang.img}
               />
             ))}

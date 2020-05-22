@@ -20,7 +20,7 @@ const Hero = () => {
           Free programming courses in one place with additional tools to help
           you learn faster!
         </h1>
-        <Link className="btn btn-index" to="register">
+        <Link className="btn btn-index" to="/register">
           Sign up
         </Link>
       </div>
