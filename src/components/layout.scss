@@ -27,6 +27,7 @@ $secondary: #f2994a;
 $text-dark: #4f4f4f;
 $border-color: #dbdbdb;
 $notifications: #eb5757;
+$main-light-opacity: rgba($main, 0.15);
 
 //
 //  MIXINS
@@ -49,7 +50,6 @@ $notifications: #eb5757;
     color: rgba($black, 0.5);
     transform: scale(1.05);
   }
-
 }
 
 hr {
@@ -68,7 +68,6 @@ body {
   position: relative;
 }
 
-
 //
 //  OTHER
 //
@@ -81,7 +80,6 @@ body {
     outline: 0;
   }
 }
-
 
 .spacer {
   padding: 2rem;
@@ -456,9 +454,18 @@ body {
     align-items: center;
   }
 
+  @media only screen and (min-width: 1024px) {
+    height: calc(90vh - 6rem);
+  }
+
   .hero-background {
     background-color: $main;
     clip-path: ellipse(88% 78% at 73% 20%);
+
+    @media only screen and (min-width: 375px) {
+      clip-path: ellipse(88% 78% at 73% 10%);
+    }
+
     height: calc(100vh - 6rem);
     width: 100vw;
     position: absolute;
@@ -558,8 +565,101 @@ body {
 }
 
 //
-//  FORM
+//  COURSE HERO
 //
+
+.course-hero {
+  height: 95vh;
+  background-color: $main-light-opacity;
+
+  @media only screen and (min-width: 320px) {
+    height: 55rem;
+  }
+
+
+  &-inner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+
+    @media only screen and (min-width: 620px) {
+      height: 100%;
+      text-align: center;
+    }
+
+    @media only screen and (min-width: 900px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 100rem;
+      margin: 0 auto;
+    }
+
+    @media only screen and (min-width: 1600px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 130rem;
+      margin: 0 auto;
+    }
+
+    & h1 {
+      color: $main-darker;
+      font-size: 3.5rem;
+      font-weight: bold;
+
+      @media only screen and (min-width: 900px) {
+        font-size: 4rem;
+      }
+    }
+
+
+    & h3 {
+      color: $main-darker !important;
+      margin-top: 2rem;
+      font-size: 2.2rem;
+      font-weight: lighter;
+
+      @media only screen and (min-width: 900px) {
+        font-size: 2.5rem;
+      }
+    }
+
+
+    & img {
+      width: 90%;
+
+      @media only screen and (min-width: 620px) {
+        width: 65%;
+      }
+
+      @media only screen and (min-width: 900px) {
+        width: 50rem;
+      }
+    }
+  }
+}
+
+//
+//  COURSES
+//
+
+.courses {
+  & h3 {
+    font-size: 2.6rem;
+    color: $text-dark;
+  }
+
+  & .courses-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
 
 //
 //  FORM PAGES
@@ -679,6 +779,15 @@ body {
   margin: 0 auto;
   text-align: center;
 
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: left;
+  }
+
+
   & h2 {
     font-size: 2.6rem;
 
@@ -764,6 +873,12 @@ body {
   }
 }
 
+.card-xlg {
+  width: 27rem;
+  min-height: 42rem;
+  margin: 2rem 0;
+}
+
 .card-container {
   @media only screen and (min-width: 850px) {
     margin-top: 2rem;
@@ -789,7 +904,7 @@ body {
 
 .offers {
   &-wrapper {
-    background-color: rgba($main, 0.15);
+    background-color: $main-light-opacity;
     padding: 4rem 0;
 
     @media only screen and (min-width: 850px) {
@@ -1246,7 +1361,7 @@ body {
     @include closeButton();
   }
 
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
 
   &.hidden {
     opacity: 0.5;
@@ -1276,6 +1391,14 @@ body {
 .language-modal {
   overflow-y: scroll;
 
+  & a {
+    font-size: 1.8rem;
+
+    & span {
+      font-weight: bold;
+    }
+  }
+
   @media only screen and (min-width: 850px) {
     overflow: hidden;
   }
@@ -1301,7 +1424,7 @@ body {
       color: $main;
       font-size: 2rem;
       display: flex;
-      transition: all .2s ease-in;
+      transition: all 0.2s ease-in;
 
       &:hover {
         color: $main-darker;
@@ -1312,10 +1435,8 @@ body {
       font-size: 1.4rem;
       margin-left: 0.25rem;
       margin-right: 1rem;
-      ;
     }
   }
-
 
   & p {
     font-size: 1.3rem;

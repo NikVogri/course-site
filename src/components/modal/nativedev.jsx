@@ -2,6 +2,7 @@ import React from "react";
 
 // import images for modal
 import mobileDevImg from "../../images/modal/mobile-dev.svg";
+import { Link } from "gatsby";
 
 const Mobiledev = () => {
   return (
@@ -25,6 +26,7 @@ const Mobiledev = () => {
           We recommend you start by learning front-end (HTML, CSS, Javascript),
           and then move on to React Native, Flutter or Kotlin.
         </p>
+        <Link to="/courses/nativedev">View all courses</Link>
       </article>
       <img src={mobileDevImg} alt="front end developer" />
     </>

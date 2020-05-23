@@ -2,6 +2,7 @@ import React from "react";
 
 // import images for modal
 import frontDevImg from "../../images/modal/front-dev.svg";
+import { Link } from "gatsby";
 
 const frontdev = () => {
   return (
@@ -36,6 +37,9 @@ const frontdev = () => {
           can learn anything you want, we suggest you try a framework like
           React, Vue or Angular.
         </p>
+        <Link to="/courses/frontend">
+          <span>></span> View all courses
+        </Link>
       </article>
       <img src={frontDevImg} alt="front end developer" />
     </>

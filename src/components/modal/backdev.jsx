@@ -3,6 +3,8 @@ import React from "react";
 // import images for modal
 import backDevImg from "../../images/modal/back-dev.svg";
 
+import { Link } from "gatsby";
+
 const BackDev = () => {
   return (
     <>
@@ -28,9 +30,10 @@ const BackDev = () => {
           Express for Node and Django for Python. There are also multiple
           database types to choose from: SQL databases like MySQL, and NoSQL
           databases like MongoDB. We recommend you start with a language you
-          already know like PHP or Python, then move on to frameworks and
-          databases like MongoDB or MariaDB.
+          might be already familiar with like Node (Javascript), then move on to
+          frameworks and databases like MongoDB or MariaDB.
         </p>
+        <Link to="/courses/backend">View all courses</Link>
       </article>
       <img src={backDevImg} alt="front end developer" />
     </>
