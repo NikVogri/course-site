@@ -657,6 +657,12 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+
+    @media only screen and (min-width: 850px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 }
 
@@ -874,9 +880,118 @@ body {
 }
 
 .card-xlg {
+  justify-content: flex-start;
   width: 27rem;
   min-height: 42rem;
   margin: 2rem 0;
+
+  @media only screen and (min-width: 1000px) {
+    width: 35rem;
+    height: 58rem;
+  }
+
+
+  & img {
+    height: 16.5rem;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+
+    @media only screen and (min-width: 1000px) {
+      height: 24rem;
+    }
+  }
+
+  & .card-info {
+    padding: 1rem 1.5rem;
+
+    @media only screen and (min-width: 1000px) {
+      padding: 2rem;
+    }
+  }
+
+  & h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  & p {
+    font-size: 1.4rem;
+    color: $text-dark;
+    margin-bottom: 1rem;
+  }
+
+  & .card-details {
+    font-size: 1.2rem;
+    color: rgba($text-dark, 0.5);
+    font-weight: bold;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 1.6;
+      padding-top: 0.75rem;
+      border-top: solid 1px $border-color;
+    }
+
+    & span {
+      &:not(:last-child) {
+        border-right: solid 1px rgba($text-dark, 0.5);
+        padding-right: 1rem;
+      }
+
+      &:not(:first-child) {
+        margin-left: 1rem;
+      }
+    }
+
+    margin-bottom: 1rem;
+  }
+
+  & .card-rating {
+
+    &-rating {
+      font-size: 2.5rem;
+      color: $main-darker;
+      font-weight: bold;
+      margin-right: 0.75rem;
+    }
+
+    &-count {
+      font-size: 1.2rem;
+      color: rgba($text-dark, 0.5);
+      display: block;
+
+    }
+
+    &-star {
+      font-size: 2.2rem;
+      margin-right: 0.35rem;
+      color: $main-darker;
+    }
+  }
+
+  & .card-rating-footer {
+    padding: 0 1.5rem 1rem 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & img {
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50px;
+      margin-right: 0.25rem;
+    }
+
+    & span {
+      font-size: 1.4rem;
+    }
+  }
 }
 
 .card-container {

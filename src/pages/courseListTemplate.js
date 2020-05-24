@@ -55,7 +55,7 @@ const tempData = {
       length: 4,
       leactures: 5,
       level: "Begginer",
-      rating: 4,
+      rating: 0.5,
       ratingCount: 132,
       creator: "DesignCourse",
       creatorImg: "design-course.png",
@@ -77,9 +77,10 @@ const courseListTemplate = () => {
         <h3>Featured courses (3)</h3>
         <Spacer space="1" />
         <section className="courses-list">
-          <Card size="xlg" />
-          <Card size="xlg" />
-          <Card size="xlg" />
+          {tempData &&
+            tempData.courses.map(data => (
+              <Card size="xlg" key={data.title} course={data} />
+            ))}
         </section>
       </Container>
       <Spacer space="2" />
