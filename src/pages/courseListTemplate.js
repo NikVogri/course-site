@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // components import
 import Layout from "../components/layout";
@@ -11,9 +11,11 @@ import Spacer from "../components/spacer";
 import Card from "../components/card";
 import CourseHero from "../components/coursehero";
 import Container from "react-bootstrap/Container";
+import ViewAs from "../components/viewas";
 
 // TEMP DATA
 import heroSvg from "../images/course-hero/front-dev-hero.svg";
+
 const tempData = {
   title: "Front-end development",
   subtitle: "Start your programming journey here",
@@ -37,7 +39,7 @@ const tempData = {
       img: "",
       title: "Javascript Crash Course For Begginers",
       description:
-        "In this crash course we will go over the fundamentals of JavaScript including more modern syntax like classes, arrow functions, etc. This is the starting point on my channel for learning JS.",
+        "In this crash course we will go over the fundamentals of JavaScript including more modern syntax like classes, arrow functions, etc. This is the starting point on my channel for learning JS.In this crash course we will go over the fundamentals of JavaScript including",
       length: 2,
       leactures: 3,
       level: "Begginer",
@@ -63,9 +65,10 @@ const tempData = {
   ],
 };
 
-const courseListTemplate = () => {
+const CourseListTemplate = () => {
+  const [viewAs, setViewAs] = useState("cards");
   return (
-    <Layout className="courses">
+    <Layout className="courses" noFooter>
       <SEO title="Home" />
       <CourseHero
         title={tempData.title}
@@ -75,11 +78,17 @@ const courseListTemplate = () => {
       <Container>
         <Spacer space="2" />
         <h3>Featured courses (3)</h3>
+        <ViewAs view={viewAs} setView={setViewAs} />
         <Spacer space="1" />
         <section className="courses-list">
           {tempData &&
             tempData.courses.map(data => (
-              <Card size="xlg" key={data.title} course={data} />
+              <Card
+                size="xlg"
+                list={viewAs === "list" ? true : false}
+                key={data.title}
+                course={data}
+              />
             ))}
         </section>
       </Container>
@@ -88,4 +97,4 @@ const courseListTemplate = () => {
   );
 };
 
-export default courseListTemplate;
+export default CourseListTemplate;

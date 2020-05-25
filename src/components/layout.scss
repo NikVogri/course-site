@@ -658,10 +658,89 @@ body {
     justify-content: center;
     flex-direction: column;
 
-
     @media only screen and (min-width: 850px) {
       flex-direction: row;
       justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+
+  & .container {
+    position: relative;
+  }
+
+  .view-as {
+    display: none;
+
+    & span {
+      margin-right: 0.5rem;
+    }
+
+    @media only screen and (min-width: 850px) {
+      display: block;
+      position: absolute;
+      right: 3rem;
+      top: 4rem;
+      font-size: 2rem;
+      color: rgba($text-dark, 0.35);
+      font-weight: normal;
+
+      & svg {
+        cursor: pointer;
+      }
+
+      & svg:hover~.view-as-dropdown {
+        display: flex !important;
+      }
+
+      & .view-as-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: $main-darker;
+        color: $white;
+        justify-content: space-around;
+        align-items: center;
+        width: 12rem;
+        height: 6rem;
+        text-align: center;
+        padding: 0 0.85rem;
+        border-radius: 3px;
+        display: none;
+        z-index: 9999;
+
+        &:hover {
+          display: flex !important;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 75%;
+          right: 0.5rem;
+          background-color: inherit;
+          height: 2rem;
+          width: 2rem;
+          transform: rotate(45deg);
+        }
+
+        & span {
+          font-size: 1.1rem;
+          display: block;
+          margin-right: 0;
+          font-weight: bold;
+        }
+
+
+        &-grid {
+          margin-right: 0.5rem;
+          color: $white !important;
+        }
+
+        &-list {
+          color: $white !important;
+        }
+      }
     }
   }
 }
@@ -838,6 +917,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: all 0.1s ease-in;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.9;
@@ -879,7 +959,109 @@ body {
   }
 }
 
+
+// CARD LIST
+.card-xlg-list {
+  animation: cardComeIn .6s ease-in;
+  width: 100%;
+  height: 20rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+
+  & img {
+    height: 20rem;
+    width: auto;
+    margin-right: 3.5rem;
+  }
+
+  & h3 {
+    font-size: 2.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  & p {
+    font-size: 1.4rem;
+    color: rgba($text-dark, 0.5);
+  }
+
+  & .card-info {
+    width: 50%;
+  }
+
+  & .card-details {
+    margin-bottom: 1.2rem;
+
+    & span {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: rgba($text-dark, 0.45);
+      padding-right: 1rem;
+
+      &:not(:first-child) {
+        padding-left: 1rem;
+      }
+
+      &:not(:last-child) {
+        border-right: solid 1px rgba($text-dark, 0.5);
+      }
+    }
+
+  }
+
+  & .card-rating {
+    display: flex;
+    align-items: center;
+
+    &-rating {
+      font-size: 2.2rem;
+      color: $main-darker;
+      font-weight: bold;
+      margin-right: 0.75rem;
+    }
+
+    &-count {
+      font-size: 1.1rem;
+      color: rgba($text-dark, 0.5);
+    }
+
+    &-star {
+      font-size: 1.5rem;
+      margin-right: 0.35rem;
+      color: $main-darker;
+    }
+  }
+
+  & .card-rating-footer {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    left: 85%;
+    bottom: 2rem;
+
+    & img {
+      height: 2.5rem;
+      width: 2.5rem;
+      border-radius: 50px;
+      margin-right: 0.25rem;
+    }
+
+    & span {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+// CARD GRID
 .card-xlg {
+  animation: cardComeIn .6s ease-in;
   justify-content: flex-start;
   width: 27rem;
   min-height: 42rem;
@@ -887,7 +1069,7 @@ body {
 
   @media only screen and (min-width: 1000px) {
     width: 35rem;
-    height: 58rem;
+    max-height: 62rem;
   }
 
 
@@ -906,6 +1088,9 @@ body {
 
     @media only screen and (min-width: 1000px) {
       padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
 
@@ -915,8 +1100,14 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
 
+    &.text-sm {
+      font-size: 2.3rem;
+    }
+
     @media only screen and (min-width: 1000px) {
       font-size: 2.5rem;
+      margin-top: 0;
+      height: 5.5rem;
     }
   }
 
@@ -924,6 +1115,11 @@ body {
     font-size: 1.4rem;
     color: $text-dark;
     margin-bottom: 1rem;
+
+    @media only screen and (min-width: 1000px) {
+      height: 11rem;
+    }
+
   }
 
   & .card-details {
@@ -934,13 +1130,25 @@ body {
     @media only screen and (min-width: 1000px) {
       font-size: 1.6;
       padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
       border-top: solid 1px $border-color;
+      border-bottom: solid 1px $border-color;
+      display: flex;
+      justify-content: space-around;
     }
 
     & span {
+      @media only screen and (min-width: 1000px) {
+        font-size: 1.3rem;
+      }
+
       &:not(:last-child) {
         border-right: solid 1px rgba($text-dark, 0.5);
         padding-right: 1rem;
+
+        @media only screen and (min-width: 1000px) {
+          border: none;
+        }
       }
 
       &:not(:first-child) {
@@ -975,7 +1183,7 @@ body {
   }
 
   & .card-rating-footer {
-    padding: 0 1.5rem 1rem 1.5rem;
+    margin-top: 2rem;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -993,6 +1201,8 @@ body {
     }
   }
 }
+
+
 
 .card-container {
   @media only screen and (min-width: 850px) {

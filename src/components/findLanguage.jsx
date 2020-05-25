@@ -148,7 +148,6 @@ const FindLanguage = () => {
     }
   };
 
-  console.log(modalPage);
   return (
     <>
       <Modal

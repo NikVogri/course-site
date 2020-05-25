@@ -31,8 +31,6 @@ const LoginForm = () => {
     console.log(data);
   };
 
-  console.log(errors);
-
   return (
     <Form
       className={`authentication-form index-form`}

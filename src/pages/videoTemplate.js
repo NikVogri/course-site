@@ -61,9 +61,6 @@ const VideoTemplate = ({ location }) => {
   } else {
     videoId = tempVideoData[0].videoId;
   }
-
-  console.log(videoId);
-
   const collapseHandler = () => {
     setCollapse(!collapse);
   };

@@ -23,7 +23,6 @@ const Navigation = ({ siteTitle }) => {
   const navToggle = () => {
     setNavOpeN(!navOpen);
   };
-  console.log(navOpen);
 
   return (
     <nav className="navigation">
