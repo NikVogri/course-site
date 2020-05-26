@@ -663,6 +663,10 @@ body {
       justify-content: space-between;
       flex-wrap: wrap;
     }
+
+    @media only screen and (max-width: 1200px) {
+      justify-content: space-around;
+    }
   }
 
   & .container {
@@ -918,6 +922,31 @@ body {
   align-items: center;
   transition: all 0.1s ease-in;
   cursor: pointer;
+  position: relative;
+
+  &.card-new {
+    overflow: hidden;
+
+    &::before {
+      content: 'NEW';
+      color: $white;
+      background-color: $main-darker;
+      display: block;
+      height: 4rem;
+      width: 15rem;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      top: 0.2rem;
+      left: -5.51rem;
+      z-index: 9999;
+      transform: rotate(-45deg);
+    }
+  }
 
   &:hover {
     opacity: 0.9;
@@ -963,6 +992,7 @@ body {
 // CARD LIST
 .card-xlg-list {
   animation: cardComeIn .6s ease-in;
+  min-width: 100%;
   width: 100%;
   height: 20rem;
   margin: 1rem 0;
@@ -973,28 +1003,41 @@ body {
   position: relative;
 
   & img {
-    height: 20rem;
-    width: auto;
-    margin-right: 3.5rem;
+    width: 13rem;
+    width: 30rem;
+
+    @media only screen and (min-width: 1000px) {
+      height: 20rem;
+      width: auto;
+    }
+
+    @media only screen and (min-width: 1000px) {
+      margin-right: 3.5rem;
+    }
   }
 
   & h3 {
     font-size: 2.2rem;
     margin-top: 2rem;
     margin-bottom: 1rem;
+
+    &.text-sm {
+      font-size: 2rem;
+    }
   }
 
   & p {
     font-size: 1.4rem;
     color: rgba($text-dark, 0.5);
+    width: 80%;
   }
 
   & .card-info {
-    width: 50%;
+    width: 100%;
   }
 
   & .card-details {
-    margin-bottom: 1.2rem;
+    margin-left: 1rem;
 
     & span {
       font-size: 1.4rem;
@@ -1037,14 +1080,12 @@ body {
   }
 
   & .card-rating-footer {
-    margin-top: 2rem;
+    margin: 0.5rem 0;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: center;
-    position: absolute;
-    left: 85%;
-    bottom: 2rem;
+    ;
 
     & img {
       height: 2.5rem;
@@ -1055,6 +1096,7 @@ body {
 
     & span {
       font-size: 1.4rem;
+      margin-right: 1rem;
     }
   }
 }
@@ -1063,12 +1105,13 @@ body {
 .card-xlg {
   animation: cardComeIn .6s ease-in;
   justify-content: flex-start;
-  width: 27rem;
-  min-height: 42rem;
+  width: 95%;
+  max-width: 30rem;
+  min-height: 45rem;
   margin: 2rem 0;
 
   @media only screen and (min-width: 1000px) {
-    width: 35rem;
+    max-width: 35rem;
     max-height: 62rem;
   }
 
@@ -1095,13 +1138,13 @@ body {
   }
 
   & h3 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 1rem;
 
     &.text-sm {
-      font-size: 2.3rem;
+      font-size: 2rem;
     }
 
     @media only screen and (min-width: 1000px) {
@@ -1159,44 +1202,63 @@ body {
     margin-bottom: 1rem;
   }
 
-  & .card-rating {
-
-    &-rating {
-      font-size: 2.5rem;
-      color: $main-darker;
-      font-weight: bold;
-      margin-right: 0.75rem;
-    }
-
-    &-count {
-      font-size: 1.2rem;
-      color: rgba($text-dark, 0.5);
-      display: block;
-
-    }
-
-    &-star {
-      font-size: 2.2rem;
-      margin-right: 0.35rem;
-      color: $main-darker;
-    }
-  }
-
   & .card-rating-footer {
-    margin-top: 2rem;
     width: 100%;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-;
+    align-items: flex-start;
+
+    @media only screen and (min-width: 950px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    & .card-rating-creator {
+      margin-top: 0.5rem;
+
+      @media only screen and (min-width: 850px) {
+        margin-top: 0;
+      }
+    }
+
+    & .card-rating {
+      &-rating {
+        font-size: 2.2rem;
+        color: $main-darker;
+        font-weight: bold;
+        margin-right: 0.75rem;
+      }
+
+      &-count {
+        font-size: 1.2rem;
+        color: rgba($text-dark, 0.5);
+        display: block;
+
+      }
+
+      &-star {
+        font-size: 1.7rem;
+        margin-right: 0.15rem;
+        color: $main-darker;
+        margin-bottom: 0.25rem;
+      }
+    }
 
     & img {
       height: 2.5rem;
       width: 2.5rem;
       border-radius: 50px;
       margin-right: 0.25rem;
+
+      @media only screen and (min-width: 1000px) {
+        height: 3rem;
+        width: 3rem;
+      }
     }
 
-    & span {
+    & .card-creator {
       font-size: 1.4rem;
     }
   }
@@ -1673,7 +1735,7 @@ body {
   opacity: 1;
 
   @media only screen and (min-width: 800px) {
-    padding: 4rem 2.5rem 2.5rem 2.5rem;
+    padding: 4rem 2.5rem;
     max-width: 100rem;
     max-height: inherit;
   }

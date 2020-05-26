@@ -5,13 +5,14 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 // sections import
-import Offers from "../components/offers";
-
 import Spacer from "../components/spacer";
 import Card from "../components/card";
 import CourseHero from "../components/coursehero";
 import Container from "react-bootstrap/Container";
 import ViewAs from "../components/viewas";
+
+import Modal from "../components/modal/modal";
+import CourseStart from "../components/modal/coursestart";
 
 // TEMP DATA
 import heroSvg from "../images/course-hero/front-dev-hero.svg";
@@ -37,7 +38,7 @@ const tempData = {
     },
     {
       img: "",
-      title: "Javascript Crash Course For Begginers",
+      title: "Javascript Crash",
       description:
         "In this crash course we will go over the fundamentals of JavaScript including more modern syntax like classes, arrow functions, etc. This is the starting point on my channel for learning JS.In this crash course we will go over the fundamentals of JavaScript including",
       length: 2,
@@ -67,6 +68,14 @@ const tempData = {
 
 const CourseListTemplate = () => {
   const [viewAs, setViewAs] = useState("cards");
+  const [displayModal, setDisplayModal] = useState(false);
+  const [courseData, setCourseData] = useState({});
+
+  const courseClickHandler = courseData => {
+    setCourseData(courseData);
+    setDisplayModal(true);
+  };
+
   return (
     <Layout className="courses" noFooter>
       <SEO title="Home" />
@@ -75,6 +84,13 @@ const CourseListTemplate = () => {
         subtitle={tempData.subtitle}
         img={heroSvg}
       />
+      <Modal
+        className="language-modal"
+        show={displayModal}
+        hideModal={() => setDisplayModal(false)}
+      >
+        <CourseStart data={courseData} />
+      </Modal>
       <Container>
         <Spacer space="2" />
         <h3>Featured courses (3)</h3>
@@ -84,10 +100,11 @@ const CourseListTemplate = () => {
           {tempData &&
             tempData.courses.map(data => (
               <Card
+                key={data.title}
                 size="xlg"
                 list={viewAs === "list" ? true : false}
-                key={data.title}
                 course={data}
+                click={() => courseClickHandler(data)}
               />
             ))}
         </section>

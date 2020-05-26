@@ -12,7 +12,7 @@ import creatorPlaceholder from "../images/creator-placeholder.png";
 import CardTypeList from "../components/cardtypelist";
 import CardTypeGrid from "../components/cardtypegrid";
 
-const card = ({ size, image, alt, text, link, course, list }) => {
+const card = ({ size, image, alt, text, link, course, list, click }) => {
   if (size === "xlg" && course) {
     const {
       img,
@@ -47,9 +47,21 @@ const card = ({ size, image, alt, text, link, course, list }) => {
       );
     }
     if (list) {
-      return <CardTypeList data={course} rating={stars} />;
+      return (
+        <CardTypeList
+          click={data => click(data)}
+          data={course}
+          rating={stars}
+        />
+      );
     } else {
-      return <CardTypeGrid data={course} rating={stars} />;
+      return (
+        <CardTypeGrid
+          click={data => click(data)}
+          data={course}
+          rating={stars}
+        />
+      );
     }
   } else {
     return (
