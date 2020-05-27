@@ -197,13 +197,14 @@ const FindLanguage = () => {
         <div className="find-course-cards">
           {langList &&
             langList.map(lang => (
-              <Card
-                key={lang.link}
-                size="sm"
-                link={`/technology/${lang.link}`}
-                image={lang.img}
-              />
+              <Card key={lang.link} size="sm" image={lang.img} />
             ))}
+          <Card
+            text="View all"
+            link={`/courses/${selection}`}
+            size="sm"
+            className="view-all-card"
+          />
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ import NotificationBar from "./notificationBar";
 
 const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
-  const [notifNum, setNotifNum] = useState(1);
+  const [notifNum, setNotifNum] = useState(3);
 
   let width;
 
@@ -41,7 +41,7 @@ const Navigation = ({ siteTitle }) => {
         ///// */}
 
         <ul>
-          <NotificationBar notifNum={notifNum} />
+          {notifNum > 0 && <NotificationBar notifNum={notifNum} />}
           <li className="user-profile" title="User">
             <img
               src={PlaceholderPerson}
@@ -60,7 +60,7 @@ const Navigation = ({ siteTitle }) => {
             <Link to="/profile">Profile</Link>
           </li>
           <li className="navigation-list-item">
-            <Link to="/courses">Courses</Link>
+            <Link to="/my-courses">My Courses</Link>
           </li>
           <li className="navigation-list-item">
             <Link to="/signout">Sign out</Link>

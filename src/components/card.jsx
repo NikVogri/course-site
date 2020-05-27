@@ -12,7 +12,17 @@ import creatorPlaceholder from "../images/creator-placeholder.png";
 import CardTypeList from "../components/cardtypelist";
 import CardTypeGrid from "../components/cardtypegrid";
 
-const card = ({ size, image, alt, text, link, course, list, click }) => {
+const card = ({
+  size,
+  image,
+  alt,
+  text,
+  link,
+  course,
+  list,
+  click,
+  className,
+}) => {
   if (size === "xlg" && course) {
     const {
       img,
@@ -69,7 +79,7 @@ const card = ({ size, image, alt, text, link, course, list, click }) => {
         <div
           className={`card-simple ${
             size && size === "lg" ? "card-lg" : "card-sm"
-          }`}
+          } ${className ? className : ""}`}
         >
           <img src={image} alt={alt} />
           {text && <p>{text}</p>}
