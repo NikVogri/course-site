@@ -37,7 +37,9 @@ const frontdev = () => {
           can learn anything you want, we suggest you try a framework like
           React, Vue or Angular.
         </p>
-        <Link to="/courses/frontend">View all courses</Link>
+        <Link to="/courses/frontend" className="view-all-btn btn btn-primary">
+          View all courses
+        </Link>
       </article>
       <img src={frontDevImg} alt="front end developer" />
     </>

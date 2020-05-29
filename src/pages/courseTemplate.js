@@ -4,7 +4,10 @@ import SEO from "../components/seo";
 
 import Info from "../components/videoInfo";
 import PlaylistItem from "../components/playlistItem";
+import PlaylistQuiz from "../components/playlistQuiz";
 import Spacer from "../components/spacer";
+import VideoPlayer from "../components/videoPlayer";
+import Quiz from "../components/quiz";
 
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,43 +27,120 @@ const tempVideoData = [
       "2: Basic Syntax In PHP | Procedural PHP Tutorial For Beginners | PHP Tutorial | mmtuts",
   },
   {
+    id: 4,
+    quizId: "atNrsadwSTB33sd",
+    title: "Test 1: Basics",
+    questions: [
+      {
+        question: "What is PHP?",
+        correctAnswer: "Server language",
+        answers: [
+          "Front end language",
+          "Server side language",
+          "Piece of code that users run on their machine",
+        ],
+      },
+      {
+        question: "What is a local server?",
+        correctAnswer: "Server that runs on your machine",
+        answers: [
+          "Server that runs on your machine",
+          "Server that runs on your ISP's servers ",
+          "Server that runs on the cloud",
+        ],
+      },
+      {
+        question: "Why do we install packages like XAMPP?",
+        correctAnswer: "To create a local PHP server",
+        answers: [
+          "To use as a template for websites",
+          "To speed up your computer",
+          "To create a local PHP server",
+        ],
+      },
+    ],
+  },
+  {
     id: 3,
     videoId: "atNrwSTB3-c",
     title:
       "3: Scalar Data Types In PHP | Procedural PHP Tutorial For Beginners | PHP Tutorial | mmtuts",
   },
   {
-    id: 4,
+    id: 7,
+    quizId: "atNrsadwSTBf33sd",
+    title: "Test 2: Code",
+    questions: [
+      {
+        question: "Which delimiters are used to define PHP server script?",
+        correctAnswer: "<?php...?>",
+        answers: [
+          "<?php>...</?>",
+          "<script>...</script>",
+          "<?php...?>",
+          "<php>...</>",
+        ],
+      },
+      {
+        question: "Which symbol do variables start with?",
+        correctAnswer: "$",
+        answers: ["%", "!", "&", "#", "$"],
+      },
+      {
+        question: "All files need an extension, which extension does PHP use?",
+        correctAnswer: ".PHP",
+        answers: [".PHP", ".php", ".p", ".script"],
+      },
+      {
+        question: "All files need an extension, which extension does PHP use?",
+        correctAnswer: ".PHP",
+        answers: [".PHP", ".php", ".p", ".script"],
+      },
+      {
+        question: "Which is a scalar type?",
+        correctAnswer: "String, Integer, Float, Boolean",
+        answers: [
+          "String, Integer, Float, Boolean",
+          "Array, Object, Callable, Iterable",
+          "Resource, NULL",
+        ],
+      },
+    ],
+  },
+  {
+    id: 5,
     videoId: "DiEfNQsapbc",
     title:
       "4: Variables In PHP | Procedural PHP Tutorial For Beginners | PHP Tutorial | mmtuts",
   },
   {
-    id: 5,
+    id: 6,
     videoId: "WPYCJg9OSq4",
     title:
       "5: Expressions in PHP | Procedural PHP Tutorial For Beginners | PHP Tutorial | mmtuts",
   },
   {
-    id: 6,
+    id: 8,
     videoId: "dx7dO-pkGKg",
     title:
       "6: Operators In PHP | Procedural PHP Tutorial For Beginners | PHP Tutorial | mmtuts",
   },
 ];
 
-const VideoTemplate = ({ location }) => {
+const CourseTemplate = ({ location }) => {
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
   const { state = {} } = location;
 
   let videoId;
+  let quizId;
 
   if (state !== null) {
-    videoId = state.videoId;
+    state.videoId ? (videoId = state.videoId) : (quizId = state.quizId);
   } else {
     videoId = tempVideoData[0].videoId;
   }
+
   const collapseHandler = () => {
     setCollapse(!collapse);
   };
@@ -73,18 +153,9 @@ const VideoTemplate = ({ location }) => {
   return (
     <Layout noFooter className="video-wrapper">
       <SEO title="<<<VIDEO NAME>>>" />
-      <section className="video-player">
-        <div className="video">
-          <iframe
-            width="100%"
-            height="100%"
-            src={`https://www.youtube.com/embed/${videoId}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowFullScreen
-            title="video"
-          ></iframe>
-        </div>
+      <section className="content-wrapper">
+        {videoId && <VideoPlayer videoId={videoId} />}
+        {quizId && <Quiz quizId={quizId} />}
         <Spacer space="1" />
         <div className="info">
           <ul>
@@ -126,17 +197,29 @@ const VideoTemplate = ({ location }) => {
       </section>
       <section className="playlist">
         {tempVideoData &&
-          tempVideoData.map(content => (
-            <PlaylistItem
-              title={content.title}
-              videoId={content.videoId}
-              active={videoId === content.videoId}
-              key={content.id}
-            />
-          ))}
+          tempVideoData.map(content => {
+            if (content.videoId) {
+              return (
+                <PlaylistItem
+                  title={content.title}
+                  videoId={content.videoId}
+                  active={videoId === content.videoId}
+                  key={content.id}
+                />
+              );
+            } else if (content.questions) {
+              return (
+                <PlaylistQuiz
+                  title={content.title}
+                  quizId={content.quizId}
+                  active={quizId === content.quizId}
+                />
+              );
+            }
+          })}
       </section>
     </Layout>
   );
 };
 
-export default VideoTemplate;
+export default CourseTemplate;

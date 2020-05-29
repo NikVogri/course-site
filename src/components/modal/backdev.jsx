@@ -33,7 +33,9 @@ const BackDev = () => {
           might be already familiar with like Node (Javascript), then move on to
           frameworks and databases like MongoDB or MariaDB.
         </p>
-        <Link to="/courses/backend">View all courses</Link>
+        <Link to="/courses/backend" className="view-all-btn btn btn-primary">
+          View all courses
+        </Link>
       </article>
       <img src={backDevImg} alt="front end developer" />
     </>

@@ -46,10 +46,6 @@ export default selection => {
           link: "python",
           img: pythonLogo,
         },
-        {
-          link: "java",
-          img: javaLogo,
-        },
       ]);
     case "mobile-dev":
       return (languages = [

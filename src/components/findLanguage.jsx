@@ -2,12 +2,8 @@ import React, { useState, useEffect } from "react";
 import Card from "./card";
 
 // font awesome svg
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronCircleLeft,
-  faChevronCircleRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 // import modal pages
 import Frontdev from "./modal/frontdev";
@@ -33,6 +29,7 @@ import reactNativeLogo from "../images/languages/reactNative-logo.png";
 import kotlinLogo from "../images/languages/kotlin-logo.png";
 
 import Modal from "./modal/modal";
+import { CSSTransition } from "react-transition-group";
 
 const selectionFromList = selection => {
   switch (selection) {
@@ -166,7 +163,11 @@ const FindLanguage = () => {
             onClick={() => modalPageHandler("next")}
           >
             <FontAwesomeIcon icon={faChevronCircleRight} />
-            <span>Next</span>
+            <span>
+              Next ({modalPage === 1 && `Back end developer`}
+              {modalPage === 2 && `Mobile developer`}
+              {modalPage === 3 && `Front end developer`})
+            </span>
           </button>
         </div>
       </Modal>
@@ -199,12 +200,18 @@ const FindLanguage = () => {
             langList.map(lang => (
               <Card key={lang.link} size="sm" image={lang.img} />
             ))}
-          <Card
-            text="View all"
-            link={`/courses/${selection}`}
-            size="sm"
-            className="view-all-card"
-          />
+          <CSSTransition
+            classNames="card-animation"
+            timeout="200"
+            in={langList}
+          >
+            <Card
+              text="View all"
+              link={`/courses/${selection}`}
+              size="sm"
+              className="view-all-card"
+            />
+          </CSSTransition>
         </div>
       </div>
     </>

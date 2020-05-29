@@ -53,7 +53,7 @@ const Navigation = ({ siteTitle }) => {
           </li>
           {
             // <li className="navigation-list-item">
-            //   <Link to="/videoTemplate">DEV: video template</Link>
+            //   <Link to="/courseTemplate">DEV: video template</Link>
             // </li>
           }
           <li className="navigation-list-item">
