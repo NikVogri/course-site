@@ -167,6 +167,7 @@ body {
     box-shadow: 0 4px 8px rgba($black, 0.25);
     overflow-x: hidden;
 
+
     @media only screen and (min-width: 850px) {
       overflow-x: visible;
       height: inherit;
@@ -179,6 +180,23 @@ body {
       font-size: 1.4rem;
     }
 
+
+    & .unauthenticated {
+      justify-content: center;
+
+      & li {
+        margin-left: 2rem;
+      }
+
+      & .link-container {
+        @media only screen and (max-width: 850px) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+
     & .btn-signup {
       font-size: 1.6rem;
       border-radius: 0;
@@ -186,6 +204,10 @@ body {
       color: $white;
       width: 15rem;
       margin-left: 1.5rem;
+
+      @media only screen and (max-width: 850px) {
+        margin-top: 2rem;
+      }
 
       &:hover {
         filter: opacity(0.9);
@@ -263,7 +285,7 @@ body {
           & .clear-notifications {
             margin-left: 0.5rem;
             font-size: 1.6rem;
-            color: green;
+            color: $white;
           }
 
           @media only screen and (min-width: 400px) {

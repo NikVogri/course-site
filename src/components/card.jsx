@@ -13,31 +13,31 @@ import CardTypeList from "../components/cardtypelist";
 import CardTypeGrid from "../components/cardtypegrid";
 
 const card = ({
-  size,
-  image,
-  alt,
-  text,
-  link,
   course,
-  list,
   click,
+  list,
   className,
+  link,
+  text,
+  alt,
+  image,
+  size,
 }) => {
   if (size === "xlg" && course) {
     const {
-      img,
-      title,
-      description,
-      length,
+      img: courseImage,
+      title: courseTitle,
+      description: courseDescription,
+      length: courseLength,
       leactures,
-      level,
-      rating,
-      ratingCount,
-      creator,
-      creatorImg,
+      level: courseDifficulty,
+      // rating: 4,
+      // ratingCount: 2321,
+      creator: courseAuthor,
+      creatorImg: courseAuthorImage,
     } = course;
     let stars = [];
-    for (let i = 1; i <= Math.ceil(rating); i++) {
+    for (let i = 1; i <= Math.ceil(4); i++) {
       stars.push(
         <FontAwesomeIcon
           key={i + 10}
@@ -47,7 +47,7 @@ const card = ({
       );
     }
 
-    for (let i = 1; i <= 5 - Math.ceil(rating); i++) {
+    for (let i = 1; i <= 5 - Math.ceil(4); i++) {
       stars.push(
         <FontAwesomeIcon
           key={i}

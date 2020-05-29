@@ -66,7 +66,7 @@ const tempData = {
   ],
 };
 
-const CourseListTemplate = () => {
+const CourseListTemplate = ({ pathContext }) => {
   const [viewAs, setViewAs] = useState("cards");
   const [displayModal, setDisplayModal] = useState(false);
   const [courseData, setCourseData] = useState({});
@@ -75,6 +75,8 @@ const CourseListTemplate = () => {
     setCourseData(courseData);
     setDisplayModal(true);
   };
+
+  let courses = pathContext.data;
 
   return (
     <Layout className="courses" noFooter>
@@ -97,14 +99,14 @@ const CourseListTemplate = () => {
         <ViewAs view={viewAs} setView={setViewAs} />
         <Spacer space="1" />
         <section className="courses-list">
-          {tempData &&
-            tempData.courses.map(data => (
+          {courses &&
+            courses.map(({ node }) => (
               <Card
-                key={data.title}
+                key={node.contentful_id}
                 size="xlg"
                 list={viewAs === "list" ? true : false}
-                course={data}
-                click={() => courseClickHandler(data)}
+                course={node}
+                click={() => courseClickHandler(node)}
               />
             ))}
         </section>
