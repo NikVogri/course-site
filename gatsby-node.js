@@ -7,9 +7,6 @@
 // You can delete this file if you're not using it
 const ytlist = require("youtube-playlist");
 const path = require("path");
-const { YouTube } = require("popyt");
-const youtube = new YouTube("AIzaSyAKj6_jLy8KeRuqU5h05c-AUesWDqIrIoY");
-
 //creating all items
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;

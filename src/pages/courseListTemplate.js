@@ -76,16 +76,14 @@ const CourseListTemplate = ({ pathContext }) => {
     setDisplayModal(true);
   };
 
-  let courses = pathContext.data;
-
-  console.log(courses);
+  const { courses, info } = pathContext;
 
   return (
     <Layout className="courses" noFooter>
       <SEO title="Home" />
       <CourseHero
-        title={pathContext.info.title}
-        subtitle={pathContext.info.subtitle}
+        title={`Front end web development`}
+        subtitle={`Start your programming journey here`}
         img={heroSvg}
       />
       <Modal
