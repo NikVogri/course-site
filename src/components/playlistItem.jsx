@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 
 const playlistItem = ({ active, title, videoId }) => {
   return (
-    <Link to={"/courseTemplate"} state={{ videoId }}>
+    <Link to={"/course/php-tutorial-php-for-begginers"} state={{ videoId }}>
       <div className={`playlist-item ${active ? "active" : ""}`}>
         <input type="checkbox" />
         <img

@@ -167,7 +167,6 @@ body {
     box-shadow: 0 4px 8px rgba($black, 0.25);
     overflow-x: hidden;
 
-
     @media only screen and (min-width: 850px) {
       overflow-x: visible;
       height: inherit;
@@ -179,7 +178,6 @@ body {
       width: 60%;
       font-size: 1.4rem;
     }
-
 
     & .unauthenticated {
       justify-content: center;
@@ -756,7 +754,7 @@ body {
         cursor: pointer;
       }
 
-      & svg:hover~.view-as-dropdown {
+      & svg:hover ~ .view-as-dropdown {
         display: flex !important;
       }
 
@@ -1167,6 +1165,7 @@ body {
   min-height: 50rem;
   // max-height: 45rem;
   margin: 2rem 0;
+  overflow: hidden;
 
   @media only screen and (min-width: 1000px) {
     max-width: 35rem;
@@ -1177,9 +1176,10 @@ body {
     height: 20rem;
     width: 100%;
     border-radius: 5px 5px 0 0;
+    box-shadow: 3px 2px 5px rgba($black, 0.25);
 
     @media only screen and (min-width: 1000px) {
-      height: 24rem;
+      height: 20rem;
     }
   }
 
@@ -1195,13 +1195,13 @@ body {
   }
 
   & h3 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 1rem;
 
     &.text-sm {
-      font-size: 2rem;
+      font-size: 1.4rem;
     }
 
     @media only screen and (min-width: 1000px) {
@@ -1261,7 +1261,7 @@ body {
   & .card-rating-footer {
     width: 100%;
     display: flex;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     // flex-direction: column;
     align-items: center;
     position: absolute;
@@ -1629,8 +1629,6 @@ body {
         margin-top: 1rem;
         font-size: 1.8rem;
       }
-
-
     }
 
     & .result-container {
@@ -1659,8 +1657,6 @@ body {
         }
       }
     }
-
-
 
     @media only screen and (min-width: 1000px) and (max-width: 1200px) {
       max-height: 50rem;
@@ -1799,6 +1795,8 @@ body {
 
   @media only screen and (min-width: 1000px) {
     border-left: solid 1px $border-color;
+    overflow-y: scroll;
+    max-height: 90vh;
   }
 
   @media only screen and (min-width: 1000px) and (max-width: 1400px) {

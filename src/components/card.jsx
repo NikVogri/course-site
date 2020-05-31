@@ -24,18 +24,6 @@ const card = ({
   size,
 }) => {
   if (size === "xlg" && course) {
-    const {
-      img: courseImage,
-      title: courseTitle,
-      description: courseDescription,
-      length: courseLength,
-      leactures,
-      level: courseDifficulty,
-      // rating: 4,
-      // ratingCount: 2321,
-      creator: courseAuthor,
-      creatorImg: courseAuthorImage,
-    } = course;
     let stars = [];
     for (let i = 1; i <= Math.ceil(4); i++) {
       stars.push(

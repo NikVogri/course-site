@@ -92,7 +92,7 @@ const Navigation = ({ siteTitle }) => {
             <li>
               <div className="link-container">
                 <Link to="/login">Log in</Link>
-                <Link to="/register" class="btn btn-signup">
+                <Link to="/register" className="btn btn-signup">
                   Sign Up
                 </Link>
               </div>

@@ -78,12 +78,14 @@ const CourseListTemplate = ({ pathContext }) => {
 
   let courses = pathContext.data;
 
+  console.log(courses);
+
   return (
     <Layout className="courses" noFooter>
       <SEO title="Home" />
       <CourseHero
-        title={tempData.title}
-        subtitle={tempData.subtitle}
+        title={pathContext.info.title}
+        subtitle={pathContext.info.subtitle}
         img={heroSvg}
       />
       <Modal
@@ -95,7 +97,7 @@ const CourseListTemplate = ({ pathContext }) => {
       </Modal>
       <Container>
         <Spacer space="2" />
-        <h3>Featured courses (3)</h3>
+        <h3>Featured courses ({courses && courses.length})</h3>
         <ViewAs view={viewAs} setView={setViewAs} />
         <Spacer space="1" />
         <section className="courses-list">
