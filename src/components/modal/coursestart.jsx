@@ -7,8 +7,9 @@ const coursestart = ({ data }) => {
     <div>
       <img src={placeholderImg} alt="" />
       {data.courseTitle}
+      {data.courseSlug}
       <Link
-        to="/courseTemplate"
+        to={`/course/${data.courseSlug}`}
         state={{
           courseVideoLink: data.courseLink,
           courseType: data.courseVideoType,

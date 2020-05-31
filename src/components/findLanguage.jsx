@@ -103,18 +103,22 @@ const FindLanguage = () => {
   const [displayModal, setDisplayModal] = useState(false);
   const [langList, setLangList] = useState(selectionFromList("front-web-dev"));
   const [selection, setSelection] = useState("front-web-dev");
+  const [courseUrl, setCourseUrl] = useState("frontend");
   const [modalPage, setModalPage] = useState(1);
 
   useEffect(() => {
     switch (selection) {
       case "front-web-dev":
         setLangList(selectionFromList(selection));
+        setCourseUrl("frontend");
         break;
       case "back-web-dev":
         setLangList(selectionFromList(selection));
+        setCourseUrl("backend");
         break;
       case "mobile-dev":
         setLangList(selectionFromList(selection));
+        setCourseUrl("mobile");
         break;
       default:
         break;
@@ -203,7 +207,7 @@ const FindLanguage = () => {
           >
             <Card
               text="View all"
-              link={`/courses/${selection}`}
+              link={`/courses/${courseUrl}`}
               size="sm"
               className="view-all-card"
             />

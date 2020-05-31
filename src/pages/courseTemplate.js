@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
@@ -16,20 +16,17 @@ import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 const CourseTemplate = ({ location, pageContext: { data } }) => {
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
+  const [videoId, setVideoId] = useState(null);
   const { state = {} } = location;
 
-  let videoId;
-  console.log(data);
+  useEffect(() => {
+    if (!state || !state.videoId) {
+      setVideoId(data.coursePlaylist[0].id);
+    } else if (state || state.videoId) {
+      setVideoId(state.videoId);
+    }
+  }, [state]);
 
-  if (!state) {
-    videoId = data && data.coursePlaylist[0].id;
-  } else if (state && state.videoId) {
-    videoId = state.videoId;
-  } else {
-    videoId = null;
-  }
-
-  console.log(videoId);
   let quizId = "test";
 
   const collapseHandler = () => {
@@ -91,7 +88,8 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
           data.coursePlaylist.map(content => {
             return (
               <PlaylistItem
-                title={content.name}
+                url={location.pathname.split("/")[2]}
+                title={content.name || content.courseTitle}
                 videoId={content.id}
                 active={videoId === content.id}
                 key={content.id}

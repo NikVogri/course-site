@@ -66,8 +66,8 @@ const tempData = {
   ],
 };
 
-const CourseListTemplate = ({ pathContext }) => {
-  const [viewAs, setViewAs] = useState("cards");
+const CourseListTemplate = ({ pageContext }) => {
+  const [viewAs, setViewAs] = useState("grid");
   const [displayModal, setDisplayModal] = useState(false);
   const [courseData, setCourseData] = useState({});
 
@@ -76,14 +76,14 @@ const CourseListTemplate = ({ pathContext }) => {
     setDisplayModal(true);
   };
 
-  const { courses, info } = pathContext;
+  const { data: courses, info } = pageContext;
 
   return (
     <Layout className="courses" noFooter>
       <SEO title="Home" />
       <CourseHero
-        title={`Front end web development`}
-        subtitle={`Start your programming journey here`}
+        title={`${info && info.title}`}
+        subtitle={`${info && info.subtitle}`}
         img={heroSvg}
       />
       <Modal

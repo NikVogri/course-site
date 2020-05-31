@@ -36,6 +36,7 @@ exports.createPages = async ({ graphql, actions }) => {
             courseVideoType
             courseSlug
             courseLink
+            courseType
           }
         }
       }
@@ -48,6 +49,12 @@ exports.createPages = async ({ graphql, actions }) => {
   // MOVE THIS TO COMPONENT !!!
 
   // check if course is a single video or a playlist
+  let sortedCourses = {
+    front: [],
+    back: [],
+    mobile: [],
+  };
+
   data.allContentfulCourses.edges.forEach(async ({ node }) => {
     // check if playlist
     if (node.courseVideoType === "Playlist") {
@@ -56,35 +63,50 @@ exports.createPages = async ({ graphql, actions }) => {
       ytlist(url, ["id", "name"]).then(
         res => (node.coursePlaylist = res.data.playlist)
       );
-
-      createPage({
-        path: `/course/${node.courseSlug}`,
-        component: path.resolve("./src/pages/courseTemplate.js"),
-        context: {
-          data: node,
-        },
-      });
+    } else if (node.courseVideoType === "Video") {
+      const id = node.courseLink.split("=")[1];
+      node.coursePlaylist = [{ name: node.courseTitle, id }];
     }
-    //  else if (node.courseVideoType === "Video") {
-    //   const id = node.courseLink.split("=")[1];
-    //   console.log(id);
-    //   // const name = await youtube.getVideo(id).data.snippet.title;
-    //   // console.log(name);
-    //   // node.coursePlaylist = [{ id, name }];
-    // }
+
+    // create course page
+    createPage({
+      path: `/course/${node.courseSlug}`,
+      component: path.resolve("./src/pages/courseTemplate.js"),
+      context: {
+        data: node,
+      },
+    });
   });
 
   // site info
-  const siteInfo = {
-    title: "Front-end development",
-    subtitle: "Start your programming journey here",
-  };
-  createPage({
-    path: `/courses/front-web-dev`,
-    component: path.resolve("./src/pages/courseListTemplate.js"),
-    context: {
-      data: data.allContentfulCourses.edges,
-      info: siteInfo,
+  const siteInfo = [
+    {
+      title: "Front-end development",
+      subtitle: "Start your programming journey here",
+      url: "frontend",
     },
+    {
+      title: "Back-end development",
+      subtitle: "Start your programming journey here",
+      url: "backend",
+    },
+    {
+      title: "Native mobile apps",
+      subtitle: "Start your mobile programming journey here",
+      url: "mobile",
+    },
+  ];
+
+  siteInfo.forEach(page => {
+    createPage({
+      path: `/courses/${page.url}`,
+      component: path.resolve("./src/pages/courseListTemplate.js"),
+      context: {
+        data: data.allContentfulCourses.edges.filter(
+          ({ node }) => node.courseType === page.url
+        ),
+        info: { title: page.title, subtitle: page.subtitle },
+      },
+    });
   });
 };

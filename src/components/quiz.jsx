@@ -73,8 +73,6 @@ const Quiz = ({ quizId, title }) => {
     setCorrectCount(count.length);
   };
 
-  console.log(correctAnswers);
-
   return (
     <div className="quiz">
       <div className="quiz-container">
