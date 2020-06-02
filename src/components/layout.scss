@@ -1822,6 +1822,10 @@ body {
     max-width: 55rem;
   }
 
+  & button svg {
+    transition: all .125s ease-out;
+  }
+
   & button:hover svg {
     color: $black;
     transform: rotate(180deg);
@@ -1833,9 +1837,9 @@ body {
     width: 5rem;
     transition: all .125s ease-out;
 
-    & svg {
-      transform: rotate(-180deg);
-    }
+    // & svg {
+    //   transform: rotate(-180deg);
+    // }
 
     & .playlist-item {
       display: none;
