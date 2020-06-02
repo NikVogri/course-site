@@ -29,7 +29,8 @@
     "react-helmet": "^6.0.0",
     "react-hook-form": "^5.7.1",
     "react-transition-group": "^4.4.1",
-    "youtube-playlist": "^1.0.3",
+    "youtube-playlist": "1.0.3",
+    "ytpl": "^0.1.21",
     "yup": "^0.28.5"
   },
   "devDependencies": {

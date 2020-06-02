@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
+// const ytlist = require("youtube-playlist");
+import ytpl from "ytpl";
+
 import Info from "../components/videoInfo";
 // import PlaylistQuiz from "../components/playlistQuiz";
 // import Quiz from "../components/quiz";
@@ -14,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 const CourseTemplate = ({ location, pageContext: { data } }) => {
+  const [videoPlaylist, setVideoPlaylist] = useState([]);
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
   const [videoId, setVideoId] = useState(null);
@@ -21,6 +25,7 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
   const { state = {} } = location;
 
   useEffect(() => {
+    setVideoPlaylist(data.coursePlaylist);
     if (!state || !state.videoId) {
       setVideoId(data.coursePlaylist[0].id);
     } else if (state || state.videoId) {
@@ -89,9 +94,9 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
           />
         </div>
       </section>
-      {data && (
+      {videoPlaylist && (
         <Playlist
-          playlist={data.coursePlaylist}
+          playlist={videoPlaylist}
           currentVideo={videoId}
           url={location.pathname.split("/")[2]}
           togglePlaylist={playlistHandler}

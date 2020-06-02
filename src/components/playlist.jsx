@@ -26,7 +26,7 @@ const playlist = ({ playlist, currentVideo, togglePlaylist, url, shrink }) => {
           return (
             <PlaylistItem
               url={url}
-              title={content.name || content.courseTitle}
+              title={content.title || content.courseTitle}
               videoId={content.id}
               active={currentVideo === content.id}
               key={content.id}

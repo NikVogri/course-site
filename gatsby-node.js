@@ -5,7 +5,7 @@
  */
 
 // You can delete this file if you're not using it
-const ytlist = require("youtube-playlist");
+const ytpl = require("ytpl");
 const path = require("path");
 //creating all items
 exports.createPages = async ({ graphql, actions }) => {
@@ -43,35 +43,50 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  data.allContentfulCourses.edges.forEach(async ({ node }) => {
-    // check if playlist
-    if (node.courseVideoType === "Playlist") {
-      // fetch all playlist videos
-      const url = `${node.courseLink}`;
-      ytlist(url, ["id", "name"]).then(
-        // save video id and name to node.
-        res => (node.coursePlaylist = res.data.playlist)
-      );
-    } else if (node.courseVideoType === "Video") {
-      // if there is a single video then just send the id and name of that video.
-      const id = node.courseLink.split("=")[1]; // gets video id from youtube url
-      node.coursePlaylist = [
-        {
-          name: node.courseTitle,
-          id,
-        },
-      ];
-    }
+  await data.allContentfulCourses.edges.forEach(
+    async ({ node }, index, object) => {
+      // check if playlist
+      if (node.courseVideoType === "Playlist") {
+        // fetch all playlist videos
+        const url = `${node.courseLink}`;
+        ytpl(url, ["id", "title", "duration"], function (err, playlist) {
+          if (err) throw err;
+          node.coursePlaylist = playlist.items;
+          node.courseVideoLength = node.coursePlaylist.length;
 
-    // create course page
-    createPage({
-      path: `/course/${node.courseSlug}`,
-      component: path.resolve("./src/pages/courseTemplate.js"),
-      context: {
-        data: node,
-      },
-    });
-  });
+          // extract time from playlist
+          let durationTotal = 0;
+          playlist.items.forEach(el => {
+            if (el.duration) {
+              const [minutes, seconds] = el.duration.split(":");
+              durationTotal += parseInt(minutes * 60) + parseInt(seconds);
+            }
+          });
+
+          node.courseLength = Math.ceil(durationTotal / 3600);
+          durationTotal = 0;
+        });
+      } else if (node.courseVideoType === "Video") {
+        // if there is a single video then just send the id and name of that video.
+        const id = node.courseLink.split("=")[1]; // gets video id from youtube url
+        node.coursePlaylist = [
+          {
+            name: node.courseTitle,
+            id,
+          },
+        ];
+      }
+
+      // create course page
+      createPage({
+        path: `/course/${node.courseSlug}`,
+        component: path.resolve("./src/pages/courseTemplate.js"),
+        context: {
+          data: node,
+        },
+      });
+    }
+  );
 
   // pages info
   const pageInfo = [

@@ -32,7 +32,13 @@ const cardlist = ({ data, rating, click }) => {
           <span className="card-rating-count">{data.ratingCount} votes</span>
           <div className="card-details">
             <span>{data.courseLength} total hours</span>
-            <span>{data.leactures} leactures</span>
+            {data.coursePlaylist && (
+              <span>
+                {data.coursePlaylist.length > 1
+                  ? `${data.coursePlaylist.length} leactures`
+                  : "1 leacture"}
+              </span>
+            )}
             <span>{data.level}</span>
           </div>
         </div>

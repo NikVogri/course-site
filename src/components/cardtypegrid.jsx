@@ -9,9 +9,9 @@ const cardgrid = ({ data, rating, click }) => {
     >
       <img src={`${data.courseImage.file.url}`} alt={data.alt} />
       <div className="card-info">
-        <h3 className={`${data.courseTitle.length >= 41 ? "" : ""}`}>
+        <h3 className={`${data.courseTitle.length >= 36 ? "" : ""}`}>
           {data.courseTitle.length >= 41
-            ? `${data.courseTitle.substring(41, -1)}...`
+            ? `${data.courseTitle.substring(36, -1)}...`
             : data.courseTitle}
         </h3>
         <p>
@@ -24,10 +24,9 @@ const cardgrid = ({ data, rating, click }) => {
         </p>
         <div className="card-details">
           <span>{data.courseLength} total hours</span>
-          {/* <span>{data.leactures}2 leactures</span> */}
           <span>
-            {data.coursePlaylist.length > 1
-              ? `${data.coursePlaylist.length} leactures`
+            {data.courseVideoLength > 1
+              ? `${data.courseVideoLength} leactures`
               : "1 leacture"}
           </span>
           <span>{data.courseDifficulty}</span>
