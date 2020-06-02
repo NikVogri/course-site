@@ -43,7 +43,14 @@ const CourseListTemplate = ({ pageContext }) => {
         img={heroSvg}
       />
       <Modal show={displayModal} hideModal={() => setDisplayModal(false)}>
-        {displayModal && <CourseStart data={courseData} />}
+        {displayModal && (
+          <CourseStart
+            img={courseData.courseImage.file.url}
+            slug={courseData.courseSlug}
+            title={courseData.courseTitle}
+            description={courseData.courseDescription.courseDescription}
+          />
+        )}
       </Modal>
       <Container>
         <Spacer space="2" />
