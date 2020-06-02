@@ -87,7 +87,7 @@ const Navigation = ({ siteTitle }) => {
         {!loggedIn && (
           <ul className="unauthenticated">
             <li className="item-left">
-              <Link to="/courses">View Courses</Link>
+              <Link to="/courses/all">View Courses</Link>
             </li>
             <li>
               <div className="link-container">

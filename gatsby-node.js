@@ -43,29 +43,24 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  // MOVE THIS TO COMPONENT !!!
-  // MOVE THIS TO COMPONENT !!!
-  // MOVE THIS TO COMPONENT !!!
-  // MOVE THIS TO COMPONENT !!!
-
-  // check if course is a single video or a playlist
-  let sortedCourses = {
-    front: [],
-    back: [],
-    mobile: [],
-  };
-
   data.allContentfulCourses.edges.forEach(async ({ node }) => {
     // check if playlist
     if (node.courseVideoType === "Playlist") {
-      // fetch all playlist urls
+      // fetch all playlist videos
       const url = `${node.courseLink}`;
       ytlist(url, ["id", "name"]).then(
+        // save video id and name to node.
         res => (node.coursePlaylist = res.data.playlist)
       );
     } else if (node.courseVideoType === "Video") {
-      const id = node.courseLink.split("=")[1];
-      node.coursePlaylist = [{ name: node.courseTitle, id }];
+      // if there is a single video then just send the id and name of that video.
+      const id = node.courseLink.split("=")[1]; // gets video id from youtube url
+      node.coursePlaylist = [
+        {
+          name: node.courseTitle,
+          id,
+        },
+      ];
     }
 
     // create course page
@@ -78,8 +73,8 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // site info
-  const siteInfo = [
+  // pages info
+  const pageInfo = [
     {
       title: "Front-end development",
       subtitle: "Start your programming journey here",
@@ -97,7 +92,8 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   ];
 
-  siteInfo.forEach(page => {
+  // Create page for each course category(front end, back end...)
+  pageInfo.forEach(page => {
     createPage({
       path: `/courses/${page.url}`,
       component: path.resolve("./src/pages/courseListTemplate.js"),
@@ -105,8 +101,24 @@ exports.createPages = async ({ graphql, actions }) => {
         data: data.allContentfulCourses.edges.filter(
           ({ node }) => node.courseType === page.url
         ),
-        info: { title: page.title, subtitle: page.subtitle },
+        info: {
+          title: page.title,
+          subtitle: page.subtitle,
+        },
       },
     });
+  });
+
+  // Create page for all courses
+  createPage({
+    path: `/courses/all`,
+    component: path.resolve("./src/pages/courseListTemplate.js"),
+    context: {
+      data: data.allContentfulCourses.edges,
+      info: {
+        title: "All available courses",
+        subtitle: "Check out all available courses!",
+      },
+    },
   });
 };

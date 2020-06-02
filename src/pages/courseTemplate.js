@@ -3,11 +3,11 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 import Info from "../components/videoInfo";
-import PlaylistItem from "../components/playlistItem";
-import PlaylistQuiz from "../components/playlistQuiz";
+// import PlaylistQuiz from "../components/playlistQuiz";
+// import Quiz from "../components/quiz";
 import Spacer from "../components/spacer";
 import VideoPlayer from "../components/videoPlayer";
-import Quiz from "../components/quiz";
+import Playlist from "../components/playlist";
 
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,7 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  const [shrinkPlaylist, setShrinkPlaylist] = useState(false);
   const { state = {} } = location;
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
   const tabHandler = tab => {
     setCollapse(false);
     setTab(tab);
+  };
+
+  const playlistHandler = () => {
+    setShrinkPlaylist(!shrinkPlaylist);
   };
 
   return (
@@ -80,23 +85,19 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
             tab={tab}
             handleCollapse={collapseHandler}
             collapse={collapse}
+            data={data}
           />
         </div>
       </section>
-      <section className="playlist">
-        {data &&
-          data.coursePlaylist.map(content => {
-            return (
-              <PlaylistItem
-                url={location.pathname.split("/")[2]}
-                title={content.name || content.courseTitle}
-                videoId={content.id}
-                active={videoId === content.id}
-                key={content.id}
-              />
-            );
-          })}
-      </section>
+      {data && (
+        <Playlist
+          playlist={data.coursePlaylist}
+          currentVideo={videoId}
+          url={location.pathname.split("/")[2]}
+          togglePlaylist={playlistHandler}
+          shrink={shrinkPlaylist}
+        />
+      )}
     </Layout>
   );
 };

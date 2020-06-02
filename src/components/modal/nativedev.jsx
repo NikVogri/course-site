@@ -26,7 +26,7 @@ const Mobiledev = () => {
           We recommend you start by learning front-end (HTML, CSS, Javascript),
           and then move on to React Native, Flutter or Kotlin.
         </p>
-        <Link to="/courses/nativedev" className="view-all-btn btn btn-primary">
+        <Link to="/courses/mobile" className="view-all-btn btn btn-primary">
           View all courses
         </Link>
       </article>

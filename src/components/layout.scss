@@ -719,6 +719,13 @@ body {
     justify-content: center;
     flex-direction: column;
 
+    // fix last element
+    &::after {
+      content: "";
+      flex: 0 0 32%;
+      max-width: 480px;
+    }
+
     @media only screen and (min-width: 850px) {
       flex-direction: row;
       justify-content: space-between;
@@ -726,7 +733,7 @@ body {
     }
 
     @media only screen and (max-width: 1200px) {
-      justify-content: space-around;
+      justify-content: center;
     }
   }
 
@@ -754,7 +761,7 @@ body {
         cursor: pointer;
       }
 
-      & svg:hover ~ .view-as-dropdown {
+      & svg:hover~.view-as-dropdown {
         display: flex !important;
       }
 
@@ -821,18 +828,14 @@ body {
 
   @media only screen and (min-width: 850px) {
     & .form-image {
-      // &.form-image--small {
-      //   height: 34.6rem;
-      // }
-
-      // &.form-image--big {
-      //   height: 47.6rem;
-      // }
       height: 80%;
       box-shadow: 2px 2px 32px rgba($black, 0.15);
       width: 60vw;
       background: $main;
       border-radius: 5px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
   }
 
@@ -1058,6 +1061,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   position: relative;
+  overflow: hidden;
 
   & img {
     width: 13rem;
@@ -1142,6 +1146,7 @@ body {
     justify-content: flex-end;
     align-items: center;
 
+
     & img {
       height: 2.5rem;
       width: 2.5rem;
@@ -1170,6 +1175,10 @@ body {
   @media only screen and (min-width: 1000px) {
     max-width: 35rem;
     max-height: 62rem;
+  }
+
+  @media only screen and (min-width: 850px) and (max-width: 1200px) {
+    margin: 2rem;
   }
 
   & img {
@@ -1261,18 +1270,19 @@ body {
   & .card-rating-footer {
     width: 100%;
     display: flex;
-    padding: 1rem 1.5rem;
-    // flex-direction: column;
+    margin-top: 0.25rem;
     align-items: center;
     position: absolute;
     bottom: 0;
     left: 0;
+    padding: 0.5rem 1.5rem;
 
     @media only screen and (min-width: 950px) {
       flex-direction: row;
       position: relative;
       justify-content: space-between;
       align-items: center;
+      padding: 0;
     }
 
     & .card-rating-creator {
@@ -1559,7 +1569,7 @@ body {
 }
 
 .content-wrapper {
-  width: 100% !important;
+  width: 100%;
 
   & .video {
     display: block;
@@ -1572,11 +1582,7 @@ body {
       max-height: 50rem;
     }
 
-    @media only screen and (min-width: 1200px) and (max-width: 1400px) {
-      max-height: 55rem;
-    }
-
-    @media only screen and (min-width: 1400px) and (max-width: 1920px) {
+    @media only screen and (min-width: 1200px) and (max-width: 1920px) {
       max-height: 55rem;
     }
 
@@ -1792,11 +1798,16 @@ body {
 
 .playlist {
   padding: 0.25rem 0.5rem;
+  overflow-x: hidden;
+  position: relative;
+  transition: width .125s ease-out;
 
   @media only screen and (min-width: 1000px) {
     border-left: solid 1px $border-color;
     overflow-y: scroll;
-    max-height: 90vh;
+    max-width: 47rem;
+    max-height: calc(100vh - 7vh);
+    width: 30vw;
   }
 
   @media only screen and (min-width: 1000px) and (max-width: 1400px) {
@@ -1806,6 +1817,45 @@ body {
   @media only screen and (min-width: 1400px) and (max-width: 1600px) {
     max-width: 35vw;
   }
+
+  @media only screen and (min-width: 1950px) {
+    max-width: 55rem;
+  }
+
+  & button:hover svg {
+    color: $black;
+    transform: rotate(180deg);
+    transition: all .125s ease-in-out;
+  }
+
+  // this class gets added when shrunk
+  &.shrink {
+    width: 5rem;
+    transition: all .125s ease-out;
+
+    & svg {
+      transform: rotate(-180deg);
+    }
+
+    & .playlist-item {
+      display: none;
+    }
+  }
+
+  // button
+  &-shrink {
+    display: none;
+
+    @media only screen and (min-width: 1000px) {
+      display: block;
+      text-align: left;
+      width: 100%;
+      font-size: 1rem;
+      color: rgba($text-dark, 0.4);
+      padding: 0.25rem;
+      border-bottom: solid 1px $border-color;
+    }
+  }
 }
 
 .playlist-item {
@@ -1814,38 +1864,58 @@ body {
   align-items: center;
   border-bottom: solid 1px $border-color;
 
-  &.active {
-    font-weight: bold;
-    background-color: $light-gray;
-    color: $black;
-  }
+  .playlist-information {
+    width: 100%;
 
-  & img {
-    height: 5rem !important;
-    width: 8rem !important;
-    margin: 0 0.25rem;
-  }
-
-  & span {
-    flex: 4;
-    margin-left: 0.5rem;
-    font-weight: bold;
-    color: $black;
-    font-size: 1.1rem;
-
-    @media only screen and (min-width: 1000px) {
-      font-size: 1.15rem;
+    & a {
+      display: flex;
+      align-items: center;
     }
 
-    @media only screen and (min-width: 1200px) {
-      font-size: 1.25rem;
+    & img {
+      height: 5rem;
+      width: 8rem;
+      margin: 0 0.25rem;
     }
+
+    & span {
+      margin-left: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: $black;
+
+      @media only screen and (min-width: 1000px) {
+        font-size: 1.15rem;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 1.25rem;
+      }
+    }
+
+    &.active {
+      background-color: $main-darker;
+
+      & span {
+        color: $white;
+        font-weight: 300;
+      }
+    }
+
+    &.watched {
+      background: $border-color;
+    }
+
   }
+
 
   & input[type="checkbox"] {
     position: relative;
     width: 1.5em;
-    height: 1.5em;
+    height: 1.5rem;
+    padding-right: 1rem;
+    margin-right: 0.5rem;
+
     color: $black;
     border: 1px solid #bdc1c6;
     border-radius: 4px;
@@ -1897,12 +1967,11 @@ body {
   max-height: 40rem;
   background-color: white;
   border-radius: 5px;
-  padding: 3rem 2.5rem 2.5rem 2.5rem;
-  border: solid 3px rgba($main, 0.3);
+  box-shadow: 5px 5px 16px rgba($black, 0.55);
+  // border: solid 3px rgba($main, 0.3);
   opacity: 1;
 
   @media only screen and (min-width: 800px) {
-    padding: 4rem 2.5rem;
     max-width: 100rem;
     max-height: inherit;
   }
@@ -1942,7 +2011,82 @@ body {
 //  MODALS
 //
 
+.course-start-modal {
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (min-width: 1000px) {
+    flex-direction: row;
+  }
+
+  & .course-start-info {
+    padding: 3rem 1.5rem;
+
+    @media only screen and (min-width: 850px) {
+      padding: 1.6rem 3rem;
+    }
+  }
+
+  & h3 {
+    font-size: 2.1rem;
+    padding-top: 2rem;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 3rem;
+    }
+  }
+
+  & p {
+    font-size: 1.2rem;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  & .notification {
+    color: red;
+    font-weight: 500;
+    text-decoration: solid;
+    font-size: 1rem;
+
+    @media only screen and (min-width: 1000px) {
+      font-size: 1rem;
+    }
+  }
+
+  & .course-start-btn {
+    display: block;
+    width: 100%;
+    margin: 2rem auto;
+    text-align: center;
+    border-radius: 5px;
+    background-color: $main-darker;
+    padding: 0.75rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $white;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+  }
+
+  & img {
+    display: none;
+    height: auto;
+    width: 50%;
+
+    @media only screen and (min-width: 1000px) {
+      display: block;
+    }
+  }
+
+}
+
 .language-modal {
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
   overflow-y: scroll;
 
   & a {
@@ -1955,6 +2099,7 @@ body {
 
   @media only screen and (min-width: 850px) {
     overflow: hidden;
+    padding: 4rem 2.5rem;
   }
 
   & .modal-inner {

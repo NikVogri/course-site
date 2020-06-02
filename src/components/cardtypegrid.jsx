@@ -1,6 +1,7 @@
 import React from "react";
 
 const cardgrid = ({ data, rating, click }) => {
+  console.log(data);
   return (
     <div
       className={`card-simple card-xlg ${data.new ? "card-new" : ""}`}
@@ -24,7 +25,11 @@ const cardgrid = ({ data, rating, click }) => {
         <div className="card-details">
           <span>{data.courseLength} total hours</span>
           {/* <span>{data.leactures}2 leactures</span> */}
-          <span>2 leactures</span>
+          <span>
+            {data.coursePlaylist.length > 1
+              ? `${data.coursePlaylist.length} leactures`
+              : "1 leacture"}
+          </span>
           <span>{data.courseDifficulty}</span>
         </div>
         <div className="card-rating-footer">
