@@ -1687,7 +1687,6 @@ body {
 }
 
 .info {
-  padding: 0 1rem;
   position: relative;
 
   @media only screen and (max-width: 1000px) {
@@ -1806,7 +1805,7 @@ body {
     border-left: solid 1px $border-color;
     overflow-y: scroll;
     max-width: 47rem;
-    max-height: calc(100vh - 7vh);
+    height: calc(100vh - 6rem);
     width: 30vw;
   }
 
@@ -1968,7 +1967,7 @@ body {
   transform: translate(-50%, -50%);
   width: 90%;
   height: inherit;
-  max-height: 40rem;
+  // max-height: 40rem;
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px 16px rgba($black, 0.55);
@@ -2024,7 +2023,7 @@ body {
   }
 
   & .course-start-info {
-    padding: 3rem 1.5rem;
+    padding: 0 1.5rem 1rem 1.5rem;
 
     @media only screen and (min-width: 850px) {
       padding: 1.6rem 2.5rem;
@@ -2032,10 +2031,12 @@ body {
   }
 
   & h3 {
-    font-size: 2.1rem;
-    padding-top: 2rem;
+    font-size: 2.5rem;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
 
     @media only screen and (min-width: 1000px) {
+      padding-top: 2rem;
       font-size: 3rem;
     }
   }
@@ -2051,7 +2052,7 @@ body {
   & .notification {
     color: red;
     text-decoration: solid;
-    font-size: 1.2rem;
+    font-size: 0.7rem;
   }
 
   & .course-start-btn {
@@ -2073,12 +2074,13 @@ body {
   }
 
   & img {
-    display: none;
+    // display: none;
     height: auto;
-    width: 50%;
+    width: 100%;
 
     @media only screen and (min-width: 1000px) {
       display: block;
+      width: 50%;
     }
   }
 

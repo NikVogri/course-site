@@ -29,7 +29,6 @@ import reactNativeLogo from "../images/languages/reactNative-logo.png";
 import kotlinLogo from "../images/languages/kotlin-logo.png";
 
 import Modal from "./modal/modal";
-import { CSSTransition } from "react-transition-group";
 
 const selectionFromList = selection => {
   switch (selection) {
@@ -198,20 +197,14 @@ const FindLanguage = () => {
         <div className="find-course-cards">
           {langList &&
             langList.map(lang => (
-              <Card key={lang.link} size="sm" image={lang.img} />
+              <Card key={lang.link} size="sm" link={"/"} image={lang.img} />
             ))}
-          <CSSTransition
-            classNames="card-animation"
-            timeout="200"
-            in={langList}
-          >
-            <Card
-              text="View all"
-              link={`/courses/${courseUrl}`}
-              size="sm"
-              className="view-all-card"
-            />
-          </CSSTransition>
+          <Card
+            text="View all"
+            link={`/courses/${courseUrl}`}
+            size="sm"
+            className="view-all-card"
+          />
         </div>
       </div>
     </>
