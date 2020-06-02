@@ -48,7 +48,6 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
     setShrinkPlaylist(!shrinkPlaylist);
   };
 
-  console.log(videoPlaylist);
   return (
     <Layout noFooter className="video-wrapper">
       <SEO title={`${data && data.courseTitle}`} />

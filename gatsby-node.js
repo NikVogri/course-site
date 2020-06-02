@@ -56,9 +56,6 @@ exports.createPages = async ({ graphql, actions }) => {
         if (err) throw err;
         node.coursePlaylist = playlist.items;
         node.courseVideoLength = node.coursePlaylist.length;
-
-        console.log(node.courseVideoLength);
-        console.log("-----------------");
         // extract time from playlist
         let durationTotal = 0;
         playlist.items.forEach(el => {

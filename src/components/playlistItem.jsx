@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "gatsby";
 
 const playlistItem = ({ active, title, videoId, url }) => {
-  console.log(title);
   return (
     <div className={"playlist-item"}>
       <input type="checkbox" title="Watched" />

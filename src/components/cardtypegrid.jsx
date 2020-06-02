@@ -1,7 +1,6 @@
 import React from "react";
 
 const cardgrid = ({ data, rating, click }) => {
-  console.log(data);
   return (
     <div
       className={`card-simple card-xlg ${data.new ? "card-new" : ""}`}

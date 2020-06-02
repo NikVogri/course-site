@@ -5,7 +5,6 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const playlist = ({ playlist, currentVideo, togglePlaylist, url, shrink }) => {
-  console.log(playlist);
   return (
     <section className={`playlist ${shrink ? "shrink" : ""}`}>
       <button
