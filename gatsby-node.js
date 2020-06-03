@@ -150,6 +150,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 };
 
+// FIREBASE BUILD FIX
 exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   if (stage === "build-html") {
     actions.setWebpackConfig({
