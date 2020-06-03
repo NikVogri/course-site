@@ -6,10 +6,12 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import PlaceholderPerson from "../images/placeholder-person.jpg";
 import NotificationBar from "./notificationBar";
 
-const Navigation = ({ siteTitle }) => {
+// auth
+import firebase from "./auth/firebase";
+
+const Navigation = ({ siteTitle, loggedIn }) => {
   const [navOpen, setNavOpeN] = useState(false);
-  const [notifNum, setNotifNum] = useState(3);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [notifNum, setNotifNum] = useState(0);
 
   let width;
 
@@ -43,7 +45,7 @@ const Navigation = ({ siteTitle }) => {
 
         {loggedIn && (
           <ul>
-            {notifNum > 0 && <NotificationBar notifNum={notifNum} />}
+            <NotificationBar notifNum={notifNum} />
             <li className="user-profile" title="User">
               <img
                 src={PlaceholderPerson}
@@ -65,7 +67,12 @@ const Navigation = ({ siteTitle }) => {
               <Link to="/my-courses">My Courses</Link>
             </li>
             <li className="navigation-list-item">
-              <Link to="/signout">Sign out</Link>
+              <button
+                className="btn-reset"
+                onClick={() => firebase.auth().signOut()}
+              >
+                Sign out
+              </button>
             </li>
             <li className="navigation-footer">
               <span>
