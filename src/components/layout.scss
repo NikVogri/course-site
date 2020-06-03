@@ -456,12 +456,11 @@ body {
     }
 
     & .navigation-footer {
-      position: absolute;
+      position: relative;
+      z-index: 9999;
       width: 100%;
       font-size: 1.3rem;
-      bottom: 5vh;
-      left: 50%;
-      transform: translateX(-50%);
+      border-top: solid 1px $border-color;
 
       @media only screen and (min-width: 850px) {
         display: none;
@@ -1002,8 +1001,8 @@ body {
       font-size: 1.3rem;
       font-weight: bold;
       letter-spacing: 2px;
-      top: 0.2rem;
-      left: -5.51rem;
+      top: 0.7rem;
+      left: -4.51rem;
       z-index: 9999;
       transform: rotate(-45deg);
     }

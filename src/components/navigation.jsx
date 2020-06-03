@@ -9,7 +9,7 @@ import NotificationBar from "./notificationBar";
 const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(3);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   let width;
 

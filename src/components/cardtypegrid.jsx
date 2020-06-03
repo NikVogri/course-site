@@ -1,6 +1,7 @@
 import React from "react";
 
-const cardgrid = ({ data, rating, click }) => {
+const Cardgrid = ({ data, rating, click }) => {
+  console.log(data);
   return (
     <div
       className={`card-simple card-xlg ${data.new ? "card-new" : ""}`}
@@ -51,4 +52,4 @@ const cardgrid = ({ data, rating, click }) => {
   );
 };
 
-export default cardgrid;
+export default Cardgrid;

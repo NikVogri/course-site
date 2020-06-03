@@ -37,6 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
             courseSlug
             courseLink
             courseType
+            createdAt
           }
         }
       }
@@ -77,6 +78,16 @@ exports.createPages = async ({ graphql, actions }) => {
           id,
         },
       ];
+    }
+
+    // check if course is older than 2 months
+    const createdAt = node.createdAt;
+    const createdAtTwoMonths = new Date(createdAt).getMonth() + 2;
+
+    if (createdAtTwoMonths > new Date().getMonth()) {
+      node.new = true;
+    } else {
+      node.new = false;
     }
 
     // create course page

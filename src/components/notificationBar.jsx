@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+// import { faBell } from "@fortawesome/free-solid-svg-icons";
 import {
   faWindowClose,
   faCheckCircle,
+  faBell,
 } from "@fortawesome/free-regular-svg-icons";
 
 const NotificationBar = ({ notifNum }) => {
