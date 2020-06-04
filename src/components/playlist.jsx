@@ -50,25 +50,37 @@ const playlist = ({
       courseListDb.forEach(async course => {
         // if watched is added for the first time
         if (course.courseId === courseId && !course.watched) {
+          courseListDb[courseListDb.indexOf(course)] = {
+            courseId,
+            watched: [videoId],
+          };
           await firebase
             .database()
             .ref("users/" + uid)
             .update({
-              courses: [{ courseId, watched: [videoId] }],
+              courses: courseListDb,
             });
-        } else {
+          return;
+        } else if (course.courseId === courseId && course.watched) {
           // if user added to watch before
+
           const watchedArr = course.watched;
           if (watchedArr.includes(videoId)) {
             return;
           }
 
           watchedArr.push(videoId);
+
+          courseListDb[courseListDb.indexOf(course)] = {
+            courseId,
+            watched: watchedArr,
+          };
+
           await firebase
             .database()
             .ref("users/" + uid)
             .update({
-              courses: [{ courseId, watched: watchedArr }],
+              courses: courseListDb,
             });
         }
       });
