@@ -6,7 +6,7 @@ import "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyBSihI0LTT2FH8ZvqhZwqyjBSxWMEeQHks",
   authDomain: process.env.FIREBASE_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE,
+  databaseURL: "https://freecoursoproject.firebaseio.com",
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_SENDER_ID,
