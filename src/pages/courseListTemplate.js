@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 // components import
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import { navigate } from "gatsby";
 
 // sections import
 import Spacer from "../components/spacer";
@@ -39,35 +40,48 @@ const CourseListTemplate = ({ pageContext }) => {
     setCourseList(courses);
   }, []);
 
-  const addToUserCoursesHandler = async courseId => {
-    const { id } = getFromlocalStorage("user");
-    // get user courses list
-    const userCourses = await firebase
+  const addToUserCoursesHandler = async (courseId, slug) => {
+    // check if user is signed in
+    const checkIfSignedIn = await firebase.auth().currentUser;
+
+    let userLocal;
+    if (!checkIfSignedIn) {
+      return navigate(`/course/${slug}`);
+    } else {
+      userLocal = getFromlocalStorage("user");
+    }
+
+    // get reference to user
+    const user = await firebase
       .database()
-      .ref("users/" + id)
+      .ref("users/" + userLocal.id)
       .once("value");
 
-    let courseListDb = await userCourses.val().courses;
+    // get user coures list
+    let courseListDb = await user.val().courses;
+
     // check if course list exists, if not then create one
     if (!courseListDb) {
       await firebase
         .database()
-        .ref("users/" + id)
+        .ref("users/" + userLocal.id)
         .update({
-          courses: [courseId],
+          courses: [{ courseId, watched: [] }],
         });
     } else {
       // check if course is already in array
-      if (!courseListDb.includes(courseId)) {
-        courseListDb.push(courseId);
+      if (!courseListDb.some(e => e.courseId === courseId)) {
+        courseListDb.push({ courseId, watched: [] });
         await firebase
           .database()
-          .ref("users/" + id)
+          .ref("users/" + userLocal.id)
           .update({
             courses: courseListDb,
           });
       }
     }
+
+    navigate(`/course/${slug}`);
   };
 
   return (

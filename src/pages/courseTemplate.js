@@ -31,7 +31,6 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
     } else if (state || state.videoId) {
       setVideoId(state.videoId);
     }
-    console.log(data);
   }, [state]);
 
   let quizId = "test";
@@ -102,6 +101,7 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
           url={location.pathname.split("/")[2]}
           togglePlaylist={playlistHandler}
           shrink={shrinkPlaylist}
+          courseId={data.id}
         />
       )}
     </Layout>

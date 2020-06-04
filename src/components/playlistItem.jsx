@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 
-const playlistItem = ({ active, title, videoId, url }) => {
+const PlaylistItem = ({
+  active,
+  title,
+  videoId,
+  url,
+  watched,
+  addToWatched,
+}) => {
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setChecked(watched);
+  }, []);
+
+  const checkedHandler = () => {
+    setChecked(!checked);
+    addToWatched(videoId, checked);
+  };
+
   return (
     <div className={"playlist-item"}>
-      <input type="checkbox" title="Watched" />
+      <input
+        type="checkbox"
+        checked={checked}
+        title="Watched"
+        onChange={checkedHandler}
+      />
       <div className={`playlist-information ${active ? "active" : ""}`}>
         <Link to={`/course/${url}`} state={{ videoId }}>
           <img
@@ -18,4 +41,4 @@ const playlistItem = ({ active, title, videoId, url }) => {
   );
 };
 
-export default playlistItem;
+export default PlaylistItem;

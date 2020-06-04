@@ -6,13 +6,76 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import firebase from "../components/auth/firebase";
 
-const playlist = ({ playlist, currentVideo, togglePlaylist, url, shrink }) => {
-  // const addToWatchedHandler = (courseId, videoNum) => {
-  //   firebase
-  //     .database()
-  //     .ref("users/" + res.user.uid)
-  //     .set({});
-  // };
+const playlist = ({
+  playlist,
+  currentVideo,
+  togglePlaylist,
+  url,
+  shrink,
+  courseId,
+}) => {
+  const addToWatchedHandler = async (videoId, removeFromWatched) => {
+    // get userId
+    const { uid } = await firebase.auth().currentUser;
+
+    if (uid) {
+      // get reference to user
+      const user = await firebase
+        .database()
+        .ref("users/" + uid)
+        .once("value");
+      // get all courses
+      const courseListDb = await user.val().courses;
+
+      if (removeFromWatched) {
+        // remove from watched list
+        courseListDb.forEach(async course => {
+          if (course.courseId === courseId) {
+            await firebase
+              .database()
+              .ref("users/" + uid)
+              .update({
+                courses: [
+                  {
+                    courseId,
+                    watched: course.watched.filter(el => el !== videoId),
+                  },
+                ],
+              });
+          }
+        });
+      }
+
+      // find the correct course
+      courseListDb.forEach(async course => {
+        // if watched is added for the first time
+        if (course.courseId === courseId && !course.watched) {
+          await firebase
+            .database()
+            .ref("users/" + uid)
+            .update({
+              courses: [{ courseId, watched: [videoId] }],
+            });
+        } else {
+          // if user added to watch before
+          const watchedArr = course.watched;
+          if (watchedArr.includes(videoId)) {
+            return;
+          }
+
+          watchedArr.push(videoId);
+          await firebase
+            .database()
+            .ref("users/" + uid)
+            .update({
+              courses: [{ courseId, watched: watchedArr }],
+            });
+        }
+      });
+    } else {
+      return;
+    }
+  };
 
   return (
     <section className={`playlist ${shrink ? "shrink" : ""}`}>
@@ -39,7 +102,8 @@ const playlist = ({ playlist, currentVideo, togglePlaylist, url, shrink }) => {
               videoId={content.id}
               active={currentVideo === content.id}
               key={content.id}
-              // addToWatched={() => addToWatchedHandler(content.id)}
+              addToWatched={addToWatchedHandler}
+              watched={false}
             />
           );
         })}

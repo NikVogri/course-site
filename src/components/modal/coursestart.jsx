@@ -19,7 +19,7 @@ const coursestart = ({
         <button
           className="course-start-btn"
           to={`/course/${slug}`}
-          onClick={() => addToUserCourses(id)}
+          onClick={() => addToUserCourses(id, slug)}
         >
           START
         </button>
