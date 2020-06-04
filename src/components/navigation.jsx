@@ -6,12 +6,18 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import PlaceholderPerson from "../images/placeholder-person.jpg";
 import NotificationBar from "./notificationBar";
 
+import useLocalStorage from "../hooks/useLocalStorage";
+
 // auth
 import firebase from "./auth/firebase";
 
-const Navigation = ({ siteTitle, loggedIn }) => {
+const Navigation = ({ siteTitle }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+
+  const { getFromlocalStorage, removeFromLocalStorage } = useLocalStorage();
 
   let width;
 
@@ -20,11 +26,36 @@ const Navigation = ({ siteTitle, loggedIn }) => {
   }
 
   useEffect(() => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // User is signed in.
+        setLoggedIn(true);
+        getUsername();
+        // ...
+      } else {
+        // User is signed out.
+        setLoggedIn(false);
+        console.log("user not here");
+      }
+    });
+  }, []);
+
+  const getUsername = async () => {
+    const data = await getFromlocalStorage("user");
+    setUser(data);
+  };
+
+  useEffect(() => {
     width >= 850 ? setNavOpeN(true) : setNavOpeN(false);
   }, [width]);
 
   const navToggle = () => {
     setNavOpeN(!navOpen);
+  };
+
+  const signOutHandler = () => {
+    firebase.auth().signOut();
+    removeFromLocalStorage("user");
   };
 
   return (
@@ -53,7 +84,7 @@ const Navigation = ({ siteTitle, loggedIn }) => {
                 alt="avatar"
                 title="Profile image"
               />
-              {width >= 850 && "Hi,"} Nickolas
+              {user ? user.name : "User"}
             </li>
             {
               // <li className="navigation-list-item">
@@ -67,10 +98,7 @@ const Navigation = ({ siteTitle, loggedIn }) => {
               <Link to="/my-courses">My Courses</Link>
             </li>
             <li className="navigation-list-item">
-              <button
-                className="btn-reset"
-                onClick={() => firebase.auth().signOut()}
-              >
+              <button className="btn-reset" onClick={signOutHandler}>
                 Sign out
               </button>
             </li>

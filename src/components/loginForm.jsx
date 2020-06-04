@@ -8,6 +8,7 @@ import Spacer from "./spacer";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 // auth
 import firebase from "./auth/firebase";
@@ -31,6 +32,8 @@ const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: FormSchema,
   });
+
+  const { addToLocalStorage } = useLocalStorage();
 
   const onSubmit = async data => {
     setLoading(true);
@@ -59,7 +62,12 @@ const LoginForm = () => {
       });
 
     if (res && res.user) {
-      setTimeout(() => navigate("/"), 1000);
+      addToLocalStorage("user", {
+        email: res.user.email,
+        name: res.user.displayName,
+        id: res.user.uid,
+      });
+      navigate("/");
     }
   };
 

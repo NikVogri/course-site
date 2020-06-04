@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,23 +17,6 @@ import "./layout.scss";
 import firebase from "./auth/firebase";
 
 const Layout = ({ children, noFooter, className }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // User is signed in.
-        console.log("user is here");
-        setLoggedIn(true);
-        // ...
-      } else {
-        // User is signed out.
-        setLoggedIn(false);
-        console.log("user not here");
-      }
-    });
-  }, []);
-
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -46,10 +29,7 @@ const Layout = ({ children, noFooter, className }) => {
 
   return (
     <>
-      <Navigation
-        siteTitle={data.site.siteMetadata.title}
-        loggedIn={loggedIn}
-      />
+      <Navigation siteTitle={data.site.siteMetadata.title} />
       <main className={`main ${className ? className : ""}`}>{children}</main>
       {!noFooter && <Footer />}
     </>
