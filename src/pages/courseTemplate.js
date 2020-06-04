@@ -31,6 +31,7 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
     } else if (state || state.videoId) {
       setVideoId(state.videoId);
     }
+    console.log(data);
   }, [state]);
 
   let quizId = "test";

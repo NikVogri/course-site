@@ -38,6 +38,7 @@ exports.createPages = async ({ graphql, actions }) => {
             courseLink
             courseType
             createdAt
+            id
           }
         }
       }

@@ -14,6 +14,9 @@ import ViewAs from "../components/viewas";
 import Modal from "../components/modal/modal";
 import CourseStart from "../components/modal/coursestart";
 
+import firebase from "../components/auth/firebase";
+import useLocalStorage from "../hooks/useLocalStorage";
+
 // TEMP DATA
 import heroSvg from "../images/course-hero/front-dev-hero.svg";
 
@@ -28,11 +31,44 @@ const CourseListTemplate = ({ pageContext }) => {
     setDisplayModal(true);
   };
 
+  const { getFromlocalStorage } = useLocalStorage();
+
   const { data: courses, info } = pageContext;
 
   useEffect(() => {
     setCourseList(courses);
   }, []);
+
+  const addToUserCoursesHandler = async courseId => {
+    const { id } = getFromlocalStorage("user");
+    // get user courses list
+    const userCourses = await firebase
+      .database()
+      .ref("users/" + id)
+      .once("value");
+
+    let courseListDb = await userCourses.val().courses;
+    // check if course list exists, if not then create one
+    if (!courseListDb) {
+      await firebase
+        .database()
+        .ref("users/" + id)
+        .update({
+          courses: [courseId],
+        });
+    } else {
+      // check if course is already in array
+      if (!courseListDb.includes(courseId)) {
+        courseListDb.push(courseId);
+        await firebase
+          .database()
+          .ref("users/" + id)
+          .update({
+            courses: courseListDb,
+          });
+      }
+    }
+  };
 
   return (
     <Layout className="courses" noFooter>
@@ -48,7 +84,9 @@ const CourseListTemplate = ({ pageContext }) => {
             img={courseData.courseImage.file.url}
             slug={courseData.courseSlug}
             title={courseData.courseTitle}
+            id={courseData.id}
             description={courseData.courseDescription.courseDescription}
+            addToUserCourses={addToUserCoursesHandler}
           />
         )}
       </Modal>
