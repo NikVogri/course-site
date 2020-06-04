@@ -4,7 +4,7 @@ import "firebase/database";
 import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_KEY,
+  apiKey: "AIzaSyBSihI0LTT2FH8ZvqhZwqyjBSxWMEeQHks",
   authDomain: process.env.FIREBASE_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE,
   projectId: process.env.FIREBASE_PROJECT_ID,
