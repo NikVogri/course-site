@@ -22,9 +22,11 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
   const [collapse, setCollapse] = useState(false);
   const [videoId, setVideoId] = useState(null);
   const [shrinkPlaylist, setShrinkPlaylist] = useState(false);
+  const [courseId, setCourseId] = useState("");
   const { state = {} } = location;
 
   useEffect(() => {
+    setCourseId(data.id);
     setVideoPlaylist(data.coursePlaylist);
     if (!state || !state.videoId) {
       setVideoId(data.coursePlaylist[0].id);
@@ -101,7 +103,7 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
           url={location.pathname.split("/")[2]}
           togglePlaylist={playlistHandler}
           shrink={shrinkPlaylist}
-          courseId={data.id}
+          courseId={courseId}
         />
       )}
     </Layout>
