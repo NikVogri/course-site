@@ -6,18 +6,24 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import PlaceholderPerson from "../images/placeholder-person.jpg";
 import NotificationBar from "./notificationBar";
 
+import { connect } from "react-redux";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-// auth
-import firebase from "./auth/firebase";
+import { loginUserFromLocal } from "../redux/actions/actionCreator";
 
-const Navigation = ({ siteTitle }) => {
+// auth
+import firebase from "../firebase/firebase";
+
+const Navigation = ({
+  siteTitle,
+  userName,
+  isLoggedIn,
+  loginUserFromLocal,
+}) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
 
-  const { getFromlocalStorage, removeFromLocalStorage } = useLocalStorage();
+  const { removeFromLocalStorage, getFromlocalStorage } = useLocalStorage();
 
   let width;
 
@@ -26,23 +32,22 @@ const Navigation = ({ siteTitle }) => {
   }
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // User is signed in.
-        setLoggedIn(true);
-        getUsername();
-        // ...
-      } else {
-        // User is signed out.
-        setLoggedIn(false);
-        console.log("user not here");
-      }
-    });
+    checkIfUserIsSignedIn();
   }, []);
 
-  const getUsername = async () => {
-    const data = await getFromlocalStorage("user");
-    setUser(data);
+  const checkIfUserIsSignedIn = async () => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        const userData = getFromlocalStorage("user");
+        loginUserFromLocal(userData);
+        if (userData) {
+        } else {
+          firebase.auth().signOut();
+        }
+      } else {
+        removeFromLocalStorage("user");
+      }
+    });
   };
 
   useEffect(() => {
@@ -74,7 +79,7 @@ const Navigation = ({ siteTitle }) => {
         //IF USER IS LOGGED IN DISPLAY THIS!! 
         ///// */}
 
-        {loggedIn && (
+        {isLoggedIn && (
           <ul>
             <NotificationBar notifNum={notifNum} />
             <li className="user-profile" title="User">
@@ -84,7 +89,7 @@ const Navigation = ({ siteTitle }) => {
                 alt="avatar"
                 title="Profile image"
               />
-              {user ? user.name : "User"}
+              {userName ? userName : "User"}
             </li>
             {
               // <li className="navigation-list-item">
@@ -119,7 +124,7 @@ const Navigation = ({ siteTitle }) => {
         /////
         //IF USER IS --NOT-- LOGGED IN DISPLAY THIS!! 
         ///// */}
-        {!loggedIn && (
+        {!isLoggedIn && (
           <ul className="unauthenticated">
             <li className="item-left">
               <Link to="/courses/all">View Courses</Link>
@@ -149,4 +154,12 @@ const Navigation = ({ siteTitle }) => {
   );
 };
 
-export default Navigation;
+const mapStateToProps = state => ({
+  userName: state.user.userName,
+  isLoggedIn: state.user.isLoggedIn,
+});
+
+const mapDispatchToProps = {
+  loginUserFromLocal,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -9,10 +9,10 @@ import Spacer from "./spacer";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
-import useLocalStorage from "../hooks/useLocalStorage";
 
-// auth
-import firebase from "./auth/firebase";
+// redux
+import { connect } from "react-redux";
+import { createUser } from "../redux/actions/actionCreator";
 
 const FormSchema = yup.object().shape({
   name: yup
@@ -30,52 +30,13 @@ const FormSchema = yup.object().shape({
     .max(120, "Password is too long"),
 });
 
-const SignupForm = () => {
-  const [message, setMessage] = useState({});
-  const [loading, setLoading] = useState(false);
-
+const SignupForm = ({ createUser, errorMessage, isLoading }) => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: FormSchema,
   });
 
-  const { addToLocalStorage } = useLocalStorage();
-
-  const onSubmit = async data => {
-    setLoading(true);
-    const res = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .catch(err => {
-        setMessage({ type: "warning", message: err.message });
-        setLoading(false);
-      });
-
-    if (res && res.user) {
-      firebase
-        .database()
-        .ref("users/" + res.user.uid)
-        .set({
-          username: data.name,
-          email: data.email,
-          createdAt: new Date(),
-          profile_image: "default",
-        })
-        .then(
-          firebase.auth().currentUser.updateProfile({ displayName: data.name })
-        )
-        .then(() => {
-          addToLocalStorage("user", {
-            email: res.user.email,
-            name: res.user.displayName,
-            id: res.user.uid,
-          });
-          setTimeout(() => navigate("/"), 1000);
-        })
-        .catch(err => {
-          setMessage({ type: "danger", message: err.message });
-          setLoading(false);
-        });
-    }
+  const onSubmit = data => {
+    createUser(data);
   };
 
   return (
@@ -85,7 +46,7 @@ const SignupForm = () => {
     >
       <h3>Sign Up for Free</h3>
       <Form.Group>
-        {message && <Alert variant={message.type}>{message.message}</Alert>}
+        {errorMessage && <Alert variant="warning">{errorMessage}</Alert>}
         <Form.Label>Your Name*</Form.Label>
         <Form.Control
           type="text"
@@ -122,7 +83,7 @@ const SignupForm = () => {
         </Form.Control.Feedback>
       </Form.Group>
       <button className="btn">
-        {loading ? (
+        {isLoading ? (
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
@@ -143,4 +104,13 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading,
+  errorMessage: state.user.errorMsg,
+});
+
+const mapDispatchToProps = {
+  createUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

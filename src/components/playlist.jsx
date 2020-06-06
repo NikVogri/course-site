@@ -4,7 +4,7 @@ import PlaylistItem from "./playlistItem";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import firebase from "../components/auth/firebase";
+import firebase from "../firebase/firebase";
 
 const playlist = ({
   playlist,

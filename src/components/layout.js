@@ -13,9 +13,6 @@ import Navigation from "./navigation";
 import Footer from "./footer";
 import "./layout.scss";
 
-// auth
-import firebase from "./auth/firebase";
-
 const Layout = ({ children, noFooter, className }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {

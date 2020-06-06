@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-// const ytlist = require("youtube-playlist");
-import ytpl from "ytpl";
-
 import Info from "../components/videoInfo";
 // import PlaylistQuiz from "../components/playlistQuiz";
 // import Quiz from "../components/quiz";

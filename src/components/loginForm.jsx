@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
@@ -8,10 +8,8 @@ import Spacer from "./spacer";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
-import useLocalStorage from "../hooks/useLocalStorage";
-
-// auth
-import firebase from "./auth/firebase";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/actionCreator";
 
 const FormSchema = yup.object().shape({
   email: yup
@@ -25,50 +23,13 @@ const FormSchema = yup.object().shape({
     .max(120, "Password is too long"),
 });
 
-const LoginForm = () => {
-  const [message, setMessage] = useState({});
-  const [loading, setLoading] = useState(false);
-
+const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: FormSchema,
   });
 
-  const { addToLocalStorage } = useLocalStorage();
-
   const onSubmit = async data => {
-    setLoading(true);
-    const res = await firebase
-      .auth()
-      .signInWithEmailAndPassword(data.email, data.password)
-      .catch(err => {
-        console.log(err);
-        if (err.code === "auth/user-not-found") {
-          setMessage({
-            type: "warning",
-            message: "User with that email address could not be found",
-          });
-        } else if (err.code === "auth/wrong-password") {
-          setMessage({
-            type: "warning",
-            message: "The password is invalid",
-          });
-        } else {
-          setMessage({
-            type: "warning",
-            message: err.message,
-          });
-        }
-        setLoading(false);
-      });
-
-    if (res && res.user) {
-      addToLocalStorage("user", {
-        email: res.user.email,
-        name: res.user.displayName,
-        id: res.user.uid,
-      });
-      navigate("/");
-    }
+    loginUser(data);
   };
 
   return (
@@ -78,7 +39,7 @@ const LoginForm = () => {
     >
       <h3>Log in </h3>
       <Form.Group>
-        {message && <Alert variant={message.type}>{message.message}</Alert>}
+        {errorMessage && <Alert variant="warning">{errorMessage}</Alert>}
         <Form.Label>Your Email</Form.Label>
         <Form.Control
           type="text"
@@ -103,7 +64,7 @@ const LoginForm = () => {
         </Form.Control.Feedback>
       </Form.Group>
       <button className="btn">
-        {loading ? (
+        {isLoading ? (
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
@@ -119,4 +80,13 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const mapStateToProps = state => ({
+  isLoading: state.user.isLoading,
+  errorMessage: state.user.errorMsg,
+});
+
+const mapDispatchToProps = {
+  loginUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
