@@ -15,13 +15,14 @@ import ViewAs from "../components/viewas";
 import Modal from "../components/modal/modal";
 import CourseStart from "../components/modal/coursestart";
 
-// import firebase from "../components/auth/firebase";
-import useLocalStorage from "../hooks/useLocalStorage";
+// redux
+import { connect } from "react-redux";
+import { addCourseToUser } from "../redux/actions/actionCreator";
 
 // TEMP DATA
 import heroSvg from "../images/course-hero/front-dev-hero.svg";
 
-const CourseListTemplate = ({ pageContext }) => {
+const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
   const [viewAs, setViewAs] = useState("grid");
   const [displayModal, setDisplayModal] = useState(false);
   const [courseData, setCourseData] = useState({});
@@ -32,8 +33,6 @@ const CourseListTemplate = ({ pageContext }) => {
     setDisplayModal(true);
   };
 
-  const { getFromlocalStorage } = useLocalStorage();
-
   const { data: courses, info } = pageContext;
 
   useEffect(() => {
@@ -41,42 +40,8 @@ const CourseListTemplate = ({ pageContext }) => {
   }, []);
 
   const addToUserCoursesHandler = async (courseId, slug) => {
-    //   // check if user is signed in
-    //   const checkIfSignedIn = await firebase.auth().currentUser;
-    //   let userLocal;
-    //   if (!checkIfSignedIn) {
-    //     return navigate(`/course/${slug}`);
-    //   } else {
-    //     userLocal = getFromlocalStorage("user");
-    //   }
-    //   // get reference to user
-    //   const user = await firebase
-    //     .database()
-    //     .ref("users/" + userLocal.id)
-    //     .once("value");
-    //   // get user coures list
-    //   let courseListDb = await user.val().courses;
-    //   // check if course list exists, if not then create one
-    //   if (!courseListDb) {
-    //     await firebase
-    //       .database()
-    //       .ref("users/" + userLocal.id)
-    //       .update({
-    //         courses: [{ courseId, watched: [] }],
-    //       });
-    //   } else {
-    //     // check if course is already in array
-    //     if (!courseListDb.some(e => e.courseId === courseId)) {
-    //       courseListDb.push({ courseId, watched: [] });
-    //       await firebase
-    //         .database()
-    //         .ref("users/" + userLocal.id)
-    //         .update({
-    //           courses: courseListDb,
-    //         });
-    //     }
-    //   }
-    //   navigate(`/course/${slug}`);
+    await addCourseToUser(courseId);
+    navigate(`/course/${slug}`);
   };
 
   return (
@@ -122,4 +87,8 @@ const CourseListTemplate = ({ pageContext }) => {
   );
 };
 
-export default CourseListTemplate;
+const mapDispatchToProps = {
+  addCourseToUser,
+};
+
+export default connect(null, mapDispatchToProps)(CourseListTemplate);

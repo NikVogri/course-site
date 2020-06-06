@@ -1,6 +1,22 @@
 import * as actionTypes from "./actionTypes";
+
 import firebase from "../../firebase/firebase";
-import { stringify } from "flatted";
+
+import {
+  getCurrentUser,
+  setDatabaseData,
+  updateDatabase,
+  getErrorMessage,
+  signoutUserFromSession,
+  getDatabaseData,
+} from "../../firebase/util";
+
+import {
+  saveToLocalStorage,
+  deleteFromLocalStorage,
+} from "../../util/localStorage";
+
+import checkUnique from "../../util/checkUnique";
 
 /////////
 // loading actions
@@ -34,7 +50,7 @@ export const createUser = formBody => {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
 
       // get logged in user
-      const currentUser = await firebase.auth().currentUser;
+      const currentUser = await getCurrentUser();
 
       // get user id
       const currentUserId = currentUser.uid;
@@ -43,25 +59,24 @@ export const createUser = formBody => {
       // update user name
       await currentUser.updateProfile({ displayName: name });
 
-      // update db
-      await firebase
-        .database()
-        .ref("users/" + currentUserId)
-        .set({
-          name: name,
-          email: email,
-          createdAt: new Date().getTime(),
-          profile_image: "default",
-        });
+      // create db field
+      const data = {
+        name: name,
+        email: email,
+        createdAt: new Date().getTime(),
+        profile_image: "default",
+      };
+
+      setDatabaseData("users/" + currentUserId, data);
 
       // save user data to localstorage
-      const localStorageString = JSON.stringify({
+      const localStorageData = {
         id: currentUserId,
         name: name,
         token: token,
-      });
+      };
 
-      localStorage.setItem("user", localStorageString);
+      saveToLocalStorage("user", localStorageData);
 
       // send user success
       const userData = {
@@ -72,7 +87,8 @@ export const createUser = formBody => {
 
       dispatch(createdUserSuccess(userData));
     } catch (err) {
-      dispatch(createUserFail(err.message));
+      const error = getErrorMessage(err);
+      dispatch(createUserFail(error));
     }
   };
 };
@@ -98,7 +114,7 @@ export const loginUser = formBody => {
       // log in user
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
-      const currentUser = firebase.auth().currentUser;
+      const currentUser = await getCurrentUser();
 
       // get user info
       const token = await currentUser.getIdToken();
@@ -106,13 +122,12 @@ export const loginUser = formBody => {
       const currentUserName = currentUser.displayName;
 
       // save user data to localstorage
-      const localStorageString = JSON.stringify({
+      const localStorageData = {
         id: currentUserId,
         name: currentUserName,
         token: token,
-      });
-
-      localStorage.setItem("user", localStorageString);
+      };
+      saveToLocalStorage("user", localStorageData);
 
       // send user success
       const userData = {
@@ -123,13 +138,8 @@ export const loginUser = formBody => {
 
       dispatch(loginUserSuccess(userData));
     } catch (err) {
-      if (err.code === "auth/wrong-password") {
-        dispatch(loginUserFail("The password is invalid"));
-      } else if (err.code === "auth/user-not-found") {
-        dispatch(
-          loginUserFail("User with that email address could not be found")
-        );
-      }
+      const error = getErrorMessage(err);
+      dispatch(loginUserFail(error));
     }
   };
 };
@@ -137,5 +147,197 @@ export const loginUser = formBody => {
 export const loginUserFromLocal = data => {
   return dispatch => {
     dispatch(loginUserSuccess(data));
+  };
+};
+
+///////
+// sign out user
+
+export const signoutUser = () => {
+  deleteFromLocalStorage("user");
+  signoutUserFromSession();
+  return {
+    type: actionTypes.LOGOUT_USER,
+  };
+};
+
+///////
+// COURSE ACTIONS
+//////
+
+///////
+// Add course to user db
+const addCourseToUserFail = errorMsg => {
+  return {
+    type: actionTypes.ADD_COURSE_TO_USER_FAIL,
+    payload: errorMsg,
+  };
+};
+
+const addCourseToUserSuccess = data => {
+  return {
+    type: actionTypes.ADD_COURSE_TO_USER_SUCCESS,
+    payload: data,
+  };
+};
+
+export const addCourseToUser = courseId => {
+  return async dispatch => {
+    try {
+      const user = await getCurrentUser();
+      if (!user) return dispatch(addCourseToUserFail("User is not signed in"));
+
+      const userDBPath = `users/${user.uid}`;
+
+      const data = await getDatabaseData(userDBPath);
+      if (!data)
+        return dispatch(addCourseToUserFail("No data could be fetched"));
+
+      // Check if user has any previous courses
+      if (!data.courses) {
+        await updateDatabase(userDBPath, { courses: [courseId] });
+        dispatch(
+          addCourseToUserSuccess({
+            message: "Course added to user list",
+            courseId,
+          })
+        );
+      } else {
+        // check if course is not yet added to user db
+        const unique = !data.courses.includes(courseId);
+        if (unique) {
+          const courseList = [...data.courses, courseId];
+          await updateDatabase(`${userDBPath}/courses`, courseList);
+          dispatch(
+            addCourseToUserSuccess({
+              message: "Course added to user list",
+              courseId,
+            })
+          );
+        } else {
+          return;
+        }
+      }
+    } catch (err) {
+      dispatch(addCourseToUserFail(err.message));
+    }
+  };
+
+  // check if user is signed in
+  // const checkIfSignedIn = await firebase.auth().currentUser;
+  // let userLocal;
+  // if (!checkIfSignedIn) {
+  //   return navigate(`/course/${slug}`);
+  // } else {
+  //   userLocal = getFromlocalStorage("user");
+  // }
+  // // get reference to user
+  // const user = await firebase
+  //   .database()
+  //   .ref("users/" + userLocal.id)
+  //   .once("value");
+  // // get user coures list
+  // let courseListDb = await user.val().courses;
+  // // check if course list exists, if not then create one
+  // if (!courseListDb) {
+  //   await firebase
+  //     .database()
+  //     .ref("users/" + userLocal.id)
+  //     .update({
+  //       courses: [{ courseId, watched: [] }],
+  //     });
+  // } else {
+  //   // check if course is already in array
+  //   if (!courseListDb.some(e => e.courseId === courseId)) {
+  //     courseListDb.push({ courseId, watched: [] });
+  //     await firebase
+  //       .database()
+  //       .ref("users/" + userLocal.id)
+  //       .update({
+  //         courses: courseListDb,
+  //       });
+  //   }
+  // }
+};
+
+///////
+// Add course playlist item to watched
+
+const setWatchedFail = errorMsg => {
+  return {
+    type: actionTypes.SET_WATCHED_FAIL,
+    payload: errorMsg,
+  };
+};
+
+const setWatchedSuccess = data => {
+  return {
+    type: actionTypes.SET_WATCHED_SUCCESS,
+    payload: data,
+  };
+};
+
+export const addToWatched = (courseId, videoId) => {
+  return async dispatch => {
+    const user = await getCurrentUser();
+    if (!user) return dispatch(setWatchedFail("User is not signed in"));
+    const userDBPath = `users/${user.uid}`;
+    const data = await getDatabaseData(userDBPath);
+    if (!data) return dispatch(setWatchedFail("No data could be fetched"));
+
+    // add video to course watched
+    if (!data.watched || !data.watched[courseId]) {
+      await updateDatabase(`${userDBPath}/watched/`, { [courseId]: [videoId] });
+      dispatch(
+        setWatchedSuccess({
+          message: "Course added",
+          courseId,
+          watched: [videoId],
+        })
+      );
+    } else {
+      const databaseWatchedList = [...data.watched[courseId]];
+      // check if item is already in the array
+      if (!databaseWatchedList.includes(videoId)) {
+        // update database with new entry
+        const watchedList = [...databaseWatchedList, videoId];
+        console.log(watchedList);
+        await updateDatabase(`${userDBPath}/watched/${courseId}`, watchedList);
+        dispatch(
+          setWatchedSuccess({
+            message: "Course added",
+            courseId,
+            watched: watchedList,
+          })
+        );
+      } else {
+        return;
+      }
+    }
+  };
+};
+
+export const removeFromWatched = (courseId, videoId) => {
+  return async dispatch => {
+    const user = await getCurrentUser();
+    if (!user) return dispatch(setWatchedFail("User is not signed in"));
+    const userDBPath = `users/${user.uid}`;
+    const data = await getDatabaseData(userDBPath);
+    if (!data) return dispatch(setWatchedFail("No data could be fetched"));
+
+    // remove unwatched element and update db
+    const watchedList = data.watched[courseId];
+    const filteredList = watchedList.filter(e => e !== videoId);
+    await setDatabaseData(`${userDBPath}/watched/${courseId}`, filteredList);
+    console.log(watchedList);
+    console.log(filteredList);
+
+    dispatch(
+      setWatchedSuccess({
+        message: "Item removed",
+        courseId,
+        watched: filteredList,
+      })
+    );
   };
 };

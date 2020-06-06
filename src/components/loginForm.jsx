@@ -29,7 +29,8 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
   });
 
   const onSubmit = async data => {
-    loginUser(data);
+    await loginUser(data);
+    navigate("/");
   };
 
   return (

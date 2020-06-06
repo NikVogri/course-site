@@ -35,8 +35,9 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
     validationSchema: FormSchema,
   });
 
-  const onSubmit = data => {
-    createUser(data);
+  const onSubmit = async data => {
+    await createUser(data);
+    navigate("/");
   };
 
   return (

@@ -9,7 +9,10 @@ import NotificationBar from "./notificationBar";
 import { connect } from "react-redux";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-import { loginUserFromLocal } from "../redux/actions/actionCreator";
+import {
+  loginUserFromLocal,
+  signoutUser,
+} from "../redux/actions/actionCreator";
 
 // auth
 import firebase from "../firebase/firebase";
@@ -19,6 +22,7 @@ const Navigation = ({
   userName,
   isLoggedIn,
   loginUserFromLocal,
+  signoutUser,
 }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
@@ -36,15 +40,15 @@ const Navigation = ({
   }, []);
 
   const checkIfUserIsSignedIn = async () => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    await firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         const userData = getFromlocalStorage("user");
-        loginUserFromLocal(userData);
+        console.log("user here");
         if (userData) {
-        } else {
-          firebase.auth().signOut();
+          loginUserFromLocal(userData);
         }
       } else {
+        console.log("no user");
         removeFromLocalStorage("user");
       }
     });
@@ -59,8 +63,7 @@ const Navigation = ({
   };
 
   const signOutHandler = () => {
-    firebase.auth().signOut();
-    removeFromLocalStorage("user");
+    signoutUser();
   };
 
   return (
@@ -161,5 +164,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   loginUserFromLocal,
+  signoutUser,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
