@@ -194,7 +194,7 @@ export const addCourseToUser = courseId => {
 
       // Check if user has any previous courses
       if (!data.courses) {
-        await updateDatabase(userDBPath, { courses: [courseId] });
+        await setDatabaseData(`${userDBPath}/courses`, [courseId]);
         dispatch(
           addCourseToUserSuccess({
             message: "Course added to user list",
@@ -206,7 +206,7 @@ export const addCourseToUser = courseId => {
         const unique = !data.courses.includes(courseId);
         if (unique) {
           const courseList = [...data.courses, courseId];
-          await updateDatabase(`${userDBPath}/courses`, courseList);
+          await setDatabaseData(`${userDBPath}/courses`, courseList);
           dispatch(
             addCourseToUserSuccess({
               message: "Course added to user list",
@@ -264,14 +264,7 @@ export const addToWatched = (courseId, videoId) => {
       if (!databaseWatchedList.includes(videoId)) {
         // update database with new entry
         const watchedList = [...databaseWatchedList, videoId];
-        await updateDatabase(`${userDBPath}/watched/${courseId}`, watchedList);
-
-        // update localstorage with new entry
-        const localStorageData = getFromLocalStorage("course");
-        saveToLocalStorage("course", {
-          ...localStorageData,
-          [courseId]: watchedList,
-        });
+        await setDatabaseData(`${userDBPath}/watched/${courseId}`, watchedList);
 
         dispatch(
           setWatchedSuccess({
