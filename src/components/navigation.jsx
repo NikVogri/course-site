@@ -43,12 +43,8 @@ const Navigation = ({
     await firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         const userData = getFromlocalStorage("user");
-        console.log("user here");
-        if (userData) {
-          loginUserFromLocal(userData);
-        }
+        loginUserFromLocal(userData);
       } else {
-        console.log("no user");
         removeFromLocalStorage("user");
       }
     });

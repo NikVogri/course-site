@@ -23,7 +23,6 @@ const Layout = ({ children, noFooter, className }) => {
       }
     }
   `);
-
   return (
     <>
       <Navigation siteTitle={data.site.siteMetadata.title} />

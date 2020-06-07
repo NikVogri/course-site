@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  console.log("ACTION:", action);
   switch (action.type) {
     case actionTypes.CREATE_USER_SUCCESS:
       return {

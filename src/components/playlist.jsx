@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlaylistItem from "./playlistItem";
 
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +20,14 @@ const Playlist = ({
   courseId,
   addToWatched,
   removeFromWatched,
+  watchedList: userWatchedList,
 }) => {
+  const [watchedList, setWatchedList] = useState([]);
+
+  useEffect(() => {
+    setWatchedList(userWatchedList);
+  }, [userWatchedList]);
+
   const addToWatchedHandler = async (videoId, remove) => {
     if (remove) {
       await removeFromWatched(courseId, videoId);
@@ -55,7 +62,7 @@ const Playlist = ({
               active={currentVideo === content.id}
               key={content.id}
               addToWatched={addToWatchedHandler}
-              watched={false}
+              watchedList={watchedList}
             />
           );
         })}
@@ -68,4 +75,7 @@ const mapDispatchToProps = {
   removeFromWatched,
 };
 
-export default connect(null, mapDispatchToProps)(Playlist);
+const mapStateToProps = state => ({
+  watchedList: state.course.watched,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

@@ -9,11 +9,21 @@ import Spacer from "../components/spacer";
 import VideoPlayer from "../components/videoPlayer";
 import Playlist from "../components/playlist";
 
+// redux
+import { connect } from "react-redux";
+import { getWatchedList } from "../redux/actions/actionCreator";
+
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { getCurrentUser } from "../firebase/util";
 
-const CourseTemplate = ({ location, pageContext: { data } }) => {
+const CourseTemplate = ({
+  location,
+  pageContext: { data },
+  getWatchedList,
+  userId,
+}) => {
   const [videoPlaylist, setVideoPlaylist] = useState([]);
   const [tab, setTab] = useState(1);
   const [collapse, setCollapse] = useState(false);
@@ -32,7 +42,16 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
     }
   }, [state]);
 
+  // run this as soon as user is logged in
+  useEffect(() => {
+    watchedListHandler();
+  }, [userId]);
+
   let quizId = "test";
+
+  const watchedListHandler = async () => {
+    await getWatchedList(data.id, userId);
+  };
 
   const collapseHandler = () => {
     setCollapse(!collapse);
@@ -107,4 +126,13 @@ const CourseTemplate = ({ location, pageContext: { data } }) => {
   );
 };
 
-export default CourseTemplate;
+const mapStateToProps = state => ({
+  userId: state.user.userId,
+});
+
+const mapDispatchToProps = {
+  getWatchedList,
+  getCurrentUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseTemplate);

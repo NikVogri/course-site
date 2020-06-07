@@ -14,9 +14,8 @@ import {
 import {
   saveToLocalStorage,
   deleteFromLocalStorage,
+  getFromLocalStorage,
 } from "../../util/localStorage";
-
-import checkUnique from "../../util/checkUnique";
 
 /////////
 // loading actions
@@ -203,7 +202,7 @@ export const addCourseToUser = courseId => {
           })
         );
       } else {
-        // check if course is not yet added to user db
+        // check if this course is not yet added to user db
         const unique = !data.courses.includes(courseId);
         if (unique) {
           const courseList = [...data.courses, courseId];
@@ -222,42 +221,6 @@ export const addCourseToUser = courseId => {
       dispatch(addCourseToUserFail(err.message));
     }
   };
-
-  // check if user is signed in
-  // const checkIfSignedIn = await firebase.auth().currentUser;
-  // let userLocal;
-  // if (!checkIfSignedIn) {
-  //   return navigate(`/course/${slug}`);
-  // } else {
-  //   userLocal = getFromlocalStorage("user");
-  // }
-  // // get reference to user
-  // const user = await firebase
-  //   .database()
-  //   .ref("users/" + userLocal.id)
-  //   .once("value");
-  // // get user coures list
-  // let courseListDb = await user.val().courses;
-  // // check if course list exists, if not then create one
-  // if (!courseListDb) {
-  //   await firebase
-  //     .database()
-  //     .ref("users/" + userLocal.id)
-  //     .update({
-  //       courses: [{ courseId, watched: [] }],
-  //     });
-  // } else {
-  //   // check if course is already in array
-  //   if (!courseListDb.some(e => e.courseId === courseId)) {
-  //     courseListDb.push({ courseId, watched: [] });
-  //     await firebase
-  //       .database()
-  //       .ref("users/" + userLocal.id)
-  //       .update({
-  //         courses: courseListDb,
-  //       });
-  //   }
-  // }
 };
 
 ///////
@@ -301,8 +264,15 @@ export const addToWatched = (courseId, videoId) => {
       if (!databaseWatchedList.includes(videoId)) {
         // update database with new entry
         const watchedList = [...databaseWatchedList, videoId];
-        console.log(watchedList);
         await updateDatabase(`${userDBPath}/watched/${courseId}`, watchedList);
+
+        // update localstorage with new entry
+        const localStorageData = getFromLocalStorage("course");
+        saveToLocalStorage("course", {
+          ...localStorageData,
+          [courseId]: watchedList,
+        });
+
         dispatch(
           setWatchedSuccess({
             message: "Course added",
@@ -329,8 +299,11 @@ export const removeFromWatched = (courseId, videoId) => {
     const watchedList = data.watched[courseId];
     const filteredList = watchedList.filter(e => e !== videoId);
     await setDatabaseData(`${userDBPath}/watched/${courseId}`, filteredList);
-    console.log(watchedList);
-    console.log(filteredList);
+
+    // update localstorage
+    saveToLocalStorage("course", {
+      [courseId]: filteredList,
+    });
 
     dispatch(
       setWatchedSuccess({
@@ -339,5 +312,35 @@ export const removeFromWatched = (courseId, videoId) => {
         watched: filteredList,
       })
     );
+  };
+};
+
+///////
+// Get watched course list from db
+
+const fetchSuccess = data => {
+  return {
+    type: actionTypes.FETCH_SUCCESS,
+    payload: data,
+  };
+};
+
+const fetchFail = errorMsg => {
+  return {
+    type: actionTypes.FETCH_FAILED,
+    payload: errorMsg,
+  };
+};
+
+export const getWatchedList = (courseId, userId) => {
+  return async dispatch => {
+    try {
+      // fetch data from database
+      let data = await getDatabaseData(`users/${userId}/watched/${courseId}`);
+      if (!data) return dispatch(fetchFail("No data fetched"));
+      dispatch(fetchSuccess({ watched: data, message: "Data fetched" }));
+    } catch (err) {
+      dispatch(fetchFail("Could not fetch data"));
+    }
   };
 };

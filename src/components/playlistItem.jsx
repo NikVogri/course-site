@@ -6,14 +6,14 @@ const PlaylistItem = ({
   title,
   videoId,
   url,
-  watched,
   addToWatched,
+  watchedList,
 }) => {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    setChecked(watched);
-  }, []);
+    setChecked(watchedList.includes(videoId));
+  }, [watchedList]);
 
   const checkedHandler = () => {
     setChecked(!checked);

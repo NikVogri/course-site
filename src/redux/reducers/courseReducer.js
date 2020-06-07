@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  console.log("ACTION:", action);
   switch (action.type) {
     case actionTypes.ADD_COURSE_TO_USER_FAIL:
       return {
@@ -29,6 +28,18 @@ const userReducer = (state = initialState, action) => {
         watched: action.payload.watched,
       };
     case actionTypes.SET_WATCHED_FAIL:
+      return {
+        ...state,
+        message: action.payload,
+      };
+
+    case actionTypes.FETCH_SUCCESS:
+      return {
+        ...state,
+        courseId: action.payload.courseId,
+        watched: action.payload.watched,
+      };
+    case actionTypes.FETCH_FAILED:
       return {
         ...state,
         message: action.payload,
