@@ -14,7 +14,6 @@ import {
 import {
   saveToLocalStorage,
   deleteFromLocalStorage,
-  getFromLocalStorage,
 } from "../../util/localStorage";
 
 /////////
@@ -22,6 +21,17 @@ import {
 const setLoading = status => ({
   type: actionTypes.SET_LOADING,
   payload: status,
+});
+
+///////
+// MODAL ACTIONS
+//////
+
+///////
+// user modal
+export const userModalToggle = bool => ({
+  type: actionTypes.USER_MODAL_TOGGLE,
+  payload: bool,
 });
 
 ///////

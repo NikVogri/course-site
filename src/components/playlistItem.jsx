@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 
+// redux
+import { connect } from "react-redux";
+import { userModalToggle } from "../redux/actions/actionCreator";
+
 const PlaylistItem = ({
   active,
   title,
@@ -8,6 +12,8 @@ const PlaylistItem = ({
   url,
   addToWatched,
   watchedList,
+  token,
+  userModalToggle,
 }) => {
   const [checked, setChecked] = useState(false);
 
@@ -16,8 +22,12 @@ const PlaylistItem = ({
   }, [watchedList]);
 
   const checkedHandler = () => {
-    setChecked(!checked);
-    addToWatched(videoId, checked);
+    if (!token) {
+      userModalToggle(true);
+    } else {
+      setChecked(!checked);
+      addToWatched(videoId, checked);
+    }
   };
 
   return (
@@ -41,4 +51,12 @@ const PlaylistItem = ({
   );
 };
 
-export default PlaylistItem;
+const mapStateToProps = state => ({
+  token: state.user.token,
+});
+
+const mapPropsToState = {
+  userModalToggle,
+};
+
+export default connect(mapStateToProps, mapPropsToState)(PlaylistItem);

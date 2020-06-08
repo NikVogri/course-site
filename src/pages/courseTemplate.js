@@ -8,10 +8,14 @@ import Info from "../components/videoInfo";
 import Spacer from "../components/spacer";
 import VideoPlayer from "../components/videoPlayer";
 import Playlist from "../components/playlist";
+import Modal from "../components/modal/modal";
 
 // redux
 import { connect } from "react-redux";
-import { getWatchedList } from "../redux/actions/actionCreator";
+import {
+  getWatchedList,
+  userModalToggle,
+} from "../redux/actions/actionCreator";
 
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,6 +27,8 @@ const CourseTemplate = ({
   pageContext: { data },
   getWatchedList,
   userId,
+  userModal,
+  userModalToggle,
 }) => {
   const [videoPlaylist, setVideoPlaylist] = useState([]);
   const [tab, setTab] = useState(1);
@@ -69,6 +75,9 @@ const CourseTemplate = ({
   return (
     <Layout noFooter className="video-wrapper">
       <SEO title={`${data && data.courseTitle}`} />
+      <Modal show={userModal} hideModal={() => userModalToggle(false)}>
+        IF YOU WANT TO SAVE YOUR PROGRESS, PLEASE LOGIN OR CREATE NEW ACCOUNT
+      </Modal>
       <section className="content-wrapper">
         {videoId && <VideoPlayer videoId={videoId} />}
         {/* {quizId && <Quiz quizId={quizId} />} */}
@@ -128,11 +137,13 @@ const CourseTemplate = ({
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
+  userModal: state.modal.userModal,
 });
 
 const mapDispatchToProps = {
   getWatchedList,
   getCurrentUser,
+  userModalToggle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseTemplate);
