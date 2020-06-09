@@ -26,6 +26,7 @@ const Navigation = ({
 }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const { removeFromLocalStorage, getFromlocalStorage } = useLocalStorage();
 
@@ -43,8 +44,11 @@ const Navigation = ({
     await firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         const userData = getFromlocalStorage("user");
-        loginUserFromLocal(userData);
-      } else {
+        if (userData) {
+          loginUserFromLocal(userData);
+        }
+      } else if (!user) {
+        console.log("here");
         removeFromLocalStorage("user");
       }
     });
@@ -79,34 +83,54 @@ const Navigation = ({
         ///// */}
 
         {isLoggedIn && (
-          <ul>
-            <NotificationBar notifNum={notifNum} />
-            <li className="user-profile" title="User">
-              <img
-                src={PlaceholderPerson}
-                className="user-profile--image"
-                alt="avatar"
-                title="Profile image"
-              />
-              {userName ? userName : "User"}
-            </li>
-            {
-              // <li className="navigation-list-item">
-              //   <Link to="/courseTemplate">DEV: video template</Link>
-              // </li>
-            }
-            <li className="navigation-list-item">
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li className="navigation-list-item">
-              <Link to="/my-courses">My Courses</Link>
-            </li>
-            <li className="navigation-list-item">
-              <button className="btn-reset" onClick={signOutHandler}>
-                Sign out
-              </button>
-            </li>
-            <li className="navigation-footer">
+          <>
+            <ul className="authenticated">
+              <li className="navigation-list-item dropdown-courses">
+                <button className="btn-reset" to="/my-courses">
+                  Courses
+                </button>
+                <ul className="dropdown-courses-list">
+                  <li>
+                    <Link to="/courses/frontend">Front end</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/backend">Back end</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/mobile">Mobile</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/all">All</Link>
+                  </li>
+                </ul>
+              </li>
+              {/* <NotificationBar notifNum={notifNum} /> */}
+              <li className="user-profile" title="User">
+                <div className="user-profile-info">
+                  <img
+                    src={PlaceholderPerson}
+                    className="user-profile--image"
+                    alt="avatar"
+                    title="Profile image"
+                  />
+                  Hi,{" "}
+                  {userName
+                    ? userName.charAt(0).toUpperCase() + userName.slice(1)
+                    : "User"}
+                </div>
+                <ul className="user-dropdown">
+                  <li className="navigation-list-item navigation-list-item--profile">
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li className="navigation-list-item navigation-list-item--signout">
+                    <button className="btn-reset" onClick={signOutHandler}>
+                      Sign out
+                    </button>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div className="navigation-footer">
               <span>
                 Created with
                 <FontAwesomeIcon style={{ color: "red" }} icon={faHeart} /> in
@@ -115,8 +139,8 @@ const Navigation = ({
               <span>
                 Copyright {siteTitle} &copy; {new Date().getFullYear()}
               </span>
-            </li>
-          </ul>
+            </div>
+          </>
         )}
 
         {/* 
@@ -124,19 +148,37 @@ const Navigation = ({
         //IF USER IS --NOT-- LOGGED IN DISPLAY THIS!! 
         ///// */}
         {!isLoggedIn && (
-          <ul className="unauthenticated">
-            <li className="item-left">
-              <Link to="/courses/all">View Courses</Link>
-            </li>
-            <li>
-              <div className="link-container">
-                <Link to="/login">Log in</Link>
-                <Link to="/register" className="btn btn-signup">
-                  Sign Up
-                </Link>
-              </div>
-            </li>
-            <li className="navigation-footer">
+          <>
+            <ul className="unauthenticated">
+              <li className="item-left dropdown-courses">
+                <button className="btn-reset" to="/courses/all">
+                  Courses
+                </button>
+                <ul className="dropdown-courses-list">
+                  <li>
+                    <Link to="/courses/frontend">Front end</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/backend">Back end</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/mobile">Mobile</Link>
+                  </li>
+                  <li>
+                    <Link to="/courses/all">All</Link>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div className="link-container">
+                  <Link to="/login">Log in</Link>
+                  <Link to="/register" className="btn btn-signup">
+                    Sign Up
+                  </Link>
+                </div>
+              </li>
+            </ul>
+            <div className="navigation-footer">
               <span>
                 Created with
                 <FontAwesomeIcon style={{ color: "red" }} icon={faHeart} /> in
@@ -145,8 +187,8 @@ const Navigation = ({
               <span>
                 Copyright {siteTitle} &copy; {new Date().getFullYear()}
               </span>
-            </li>
-          </ul>
+            </div>
+          </>
         )}
       </div>
     </nav>

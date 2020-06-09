@@ -36,8 +36,8 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
   });
 
   const onSubmit = async data => {
-    await createUser(data);
-    navigate("/");
+    const authSuccess = await createUser(data);
+    if (authSuccess) navigate("/");
   };
 
   return (

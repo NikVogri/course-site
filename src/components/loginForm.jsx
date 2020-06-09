@@ -29,8 +29,8 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
   });
 
   const onSubmit = async data => {
-    await loginUser(data);
-    navigate("/");
+    const authSuccess = await loginUser(data);
+    if (authSuccess) navigate("/");
   };
 
   return (
@@ -59,6 +59,7 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
           name="password"
           ref={register}
           isInvalid={errors.password}
+          className="passwordInput"
         />
         <Form.Control.Feedback type="invalid">
           {errors.password && errors.password.message}
@@ -84,6 +85,7 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
 const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
   errorMessage: state.user.errorMsg,
+  loggedIn: state.user.loggedIn,
 });
 
 const mapDispatchToProps = {

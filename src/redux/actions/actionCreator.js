@@ -74,6 +74,7 @@ export const createUser = formBody => {
         email: email,
         createdAt: new Date().getTime(),
         profile_image: "default",
+        points: 0,
       };
 
       setDatabaseData("users/" + currentUserId, data);
@@ -95,9 +96,11 @@ export const createUser = formBody => {
       };
 
       dispatch(createdUserSuccess(userData));
+      return true;
     } catch (err) {
       const error = getErrorMessage(err);
       dispatch(createUserFail(error));
+      return false;
     }
   };
 };
@@ -145,17 +148,33 @@ export const loginUser = formBody => {
         id: currentUserId,
       };
 
+      updateLastLoginTime(userData.id);
       dispatch(loginUserSuccess(userData));
+      return true;
     } catch (err) {
       const error = getErrorMessage(err);
       dispatch(loginUserFail(error));
+      return false;
     }
   };
 };
 
+const updateLastLoginTime = async userId => {
+  try {
+    await setDatabaseData(`users/${userId}/lastLogin`, new Date().getTime());
+    return;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 export const loginUserFromLocal = data => {
   return dispatch => {
-    dispatch(loginUserSuccess(data));
+    if (data) {
+      dispatch(loginUserSuccess(data));
+    } else {
+      dispatch(loginUserFail("No data found"));
+    }
   };
 };
 
