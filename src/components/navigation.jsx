@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import PlaceholderPerson from "../images/placeholder-person.jpg";
+import PlaceholderPerson from "../images/default.jpg";
 import NotificationBar from "./notificationBar";
 
 import { connect } from "react-redux";
@@ -23,6 +23,7 @@ const Navigation = ({
   isLoggedIn,
   loginUserFromLocal,
   signoutUser,
+  userImage,
 }) => {
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
@@ -40,6 +41,8 @@ const Navigation = ({
     checkIfUserIsSignedIn();
   }, []);
 
+  console.log("hello world");
+
   const checkIfUserIsSignedIn = async () => {
     await firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -48,7 +51,6 @@ const Navigation = ({
           loginUserFromLocal(userData);
         }
       } else if (!user) {
-        console.log("here");
         removeFromLocalStorage("user");
       }
     });
@@ -108,7 +110,7 @@ const Navigation = ({
               <li className="user-profile" title="User">
                 <div className="user-profile-info">
                   <img
-                    src={PlaceholderPerson}
+                    src={userImage || PlaceholderPerson}
                     className="user-profile--image"
                     alt="avatar"
                     title="Profile image"
@@ -197,6 +199,7 @@ const Navigation = ({
 
 const mapStateToProps = state => ({
   userName: state.user.userName,
+  userImage: state.user.userImage,
   isLoggedIn: state.user.isLoggedIn,
 });
 

@@ -9,6 +9,7 @@ import {
   getErrorMessage,
   signoutUserFromSession,
   getDatabaseData,
+  uploadImage,
 } from "../../firebase/util";
 
 import {
@@ -69,11 +70,13 @@ export const createUser = formBody => {
       await currentUser.updateProfile({ displayName: name });
 
       // create db field
+      const defaultAvatarLink =
+        "https://firebasestorage.googleapis.com/v0/b/freecoursoproject.appspot.com/o/avatars%2Fdefault.jpg?alt=media";
       const data = {
         name: name,
         email: email,
         createdAt: new Date().getTime(),
-        profile_image: "default",
+        profile_image: defaultAvatarLink,
         points: 0,
       };
 
@@ -84,6 +87,7 @@ export const createUser = formBody => {
         id: currentUserId,
         name: name,
         token: token,
+        userImage: defaultAvatarLink,
       };
 
       saveToLocalStorage("user", localStorageData);
@@ -93,6 +97,7 @@ export const createUser = formBody => {
         token,
         name: currentUser.displayName,
         id: currentUser.uid,
+        userImage: defaultAvatarLink,
       };
 
       dispatch(createdUserSuccess(userData));
@@ -133,12 +138,18 @@ export const loginUser = formBody => {
       const currentUserId = currentUser.uid;
       const currentUserName = currentUser.displayName;
 
+      const currentUserData = await getDatabaseData(`users/${currentUserId}`);
+
+      const currentUserImageUrl = currentUserData.profile_image;
+
       // save user data to localstorage
       const localStorageData = {
         id: currentUserId,
         name: currentUserName,
         token: token,
+        userImage: currentUserImageUrl,
       };
+
       saveToLocalStorage("user", localStorageData);
 
       // send user success
@@ -146,6 +157,7 @@ export const loginUser = formBody => {
         token,
         name: currentUserName,
         id: currentUserId,
+        userImage: currentUserImageUrl,
       };
 
       updateLastLoginTime(userData.id);
@@ -174,6 +186,42 @@ export const loginUserFromLocal = data => {
       dispatch(loginUserSuccess(data));
     } else {
       dispatch(loginUserFail("No data found"));
+    }
+  };
+};
+
+///////
+// Update user avatar image
+
+const setAvatarImageFail = errorMsg => ({
+  type: actionTypes.SET_AVATAR_IMAGE_FAIL,
+  payload: errorMsg,
+});
+
+const setAvatarImageSuccess = message => ({
+  type: actionTypes.SET_AVATAR_IMAGE_SUCCESS,
+  payload: message,
+});
+
+export const setAvatarImage = (img, userId) => {
+  return async dispatch => {
+    if (img) {
+      try {
+        // upload image
+        const result = await uploadImage(img, `avatars/${userId}`, userId);
+        if (result === true) {
+          // update database path with new
+          const imageUrl = `https://firebasestorage.googleapis.com/v0/b/freecoursoproject.appspot.com/o/avatars%2F${userId}?alt=media`;
+          await updateDatabase(`users/${userId}`, {
+            profile_image: imageUrl,
+          });
+          dispatch(setAvatarImageSuccess(imageUrl));
+        }
+      } catch (err) {
+        dispatch(setAvatarImageFail(err.message));
+      }
+    } else {
+      dispatch(setAvatarImageFail("No image found"));
     }
   };
 };

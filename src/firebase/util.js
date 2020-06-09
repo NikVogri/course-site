@@ -35,3 +35,12 @@ export const getErrorMessage = error => {
 export const signoutUserFromSession = () => {
   firebase.auth().signOut();
 };
+
+export const uploadImage = async (image, path) => {
+  const uploadImage = await firebase.storage().ref(path).put(image);
+  if (uploadImage.state === "success") {
+    return true;
+  } else {
+    return false;
+  }
+};

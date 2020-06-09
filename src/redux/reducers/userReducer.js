@@ -7,6 +7,7 @@ const initialState = {
   userId: null,
   errorMsg: "",
   isLoading: false,
+  userImage: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -19,6 +20,7 @@ const userReducer = (state = initialState, action) => {
         userId: action.payload.id,
         isLoading: false,
         isLoggedIn: true,
+        userImage: action.payload.userImage,
         errorMsg: "",
       };
     case actionTypes.CREATE_USER_FAIL:
@@ -33,6 +35,7 @@ const userReducer = (state = initialState, action) => {
         token: action.payload.token,
         userName: action.payload.name,
         userId: action.payload.id,
+        userImage: action.payload.userImage,
         isLoading: false,
         isLoggedIn: true,
         errorMsg: "",
@@ -56,6 +59,17 @@ const userReducer = (state = initialState, action) => {
         userName: null,
         userId: null,
       };
+    case actionTypes.SET_AVATAR_IMAGE_FAIL:
+      return {
+        ...state,
+        errorMsg: action.payload,
+      };
+    case actionTypes.SET_AVATAR_IMAGE_SUCCESS: {
+      return {
+        ...state,
+        userImage: action.payload,
+      };
+    }
     default:
       return state;
   }
