@@ -8,13 +8,18 @@ const Hero = () => {
   return (
     <section className="hero">
       <img src={heroWallpaper} className="hero-wallpaper" alt="background" />
+      {/* <div className="hero-wallpaper"></div> */}
       <div className="hero-info">
         <img src={heroImg} className="hero-right" alt="person" />
         <div className="hero-left">
+          <div className="notification">New courses available!</div>
           <h1>Free online web courses</h1>
-          <p>created by programmers for programmers</p>
+          <p>
+            &lt;created by <span>programmers</span> for <span>programmers</span>
+            /&gt;
+          </p>
           <div className="hero-left-links">
-            <Link className="hero-left-signup-link" to="/signup">
+            <Link className="hero-left-signup-link" to="/register">
               Sign up
             </Link>
             <Link className="hero-left-courses-link" to="/courses/all">
