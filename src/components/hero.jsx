@@ -1,39 +1,32 @@
 import React from "react";
-import womanSvg from "../images/woman-pc.svg";
-import backgroundWomanSvg from "../images/woman-background-pc.svg";
+import heroImg from "../images/hero-main.svg";
+import heroWallpaper from "../images/hero-wallpaper.jpg";
 
 import { Link } from "gatsby";
 
 const Hero = () => {
-  let width;
-
-  if (typeof window !== `undefined`) {
-    width = window.innerWidth;
-  }
-
   return (
     <section className="hero">
-      <div className="hero-background"></div>
-      <div className="container">
-        <h2>Sign up now!</h2>
-        <h1>
-          Free programming courses in one place with additional tools to help
-          you learn faster!
-        </h1>
-        <Link className="btn btn-index" to="/register">
-          Sign up
-        </Link>
+      <img src={heroWallpaper} className="hero-wallpaper" alt="background" />
+      <div className="hero-info">
+        <img src={heroImg} className="hero-right" alt="person" />
+        <div className="hero-left">
+          <h1>Free online web courses</h1>
+          <p>created by programmers for programmers</p>
+          <div className="hero-left-links">
+            <Link className="hero-left-signup-link" to="/signup">
+              Sign up
+            </Link>
+            <Link className="hero-left-courses-link" to="/courses/all">
+              View Courses
+            </Link>
+          </div>
+          <span>
+            Registration is not required to watch courses, but is encouraged to
+            access custom made tools.
+          </span>
+        </div>
       </div>
-
-      {width >= 850 ? (
-        <img
-          className="background-image"
-          src={backgroundWomanSvg}
-          alt="background"
-        />
-      ) : (
-        <img className="background-image" src={womanSvg} alt="woman" />
-      )}
     </section>
   );
 };

@@ -41,8 +41,6 @@ const Navigation = ({
     checkIfUserIsSignedIn();
   }, []);
 
-  console.log("hello world");
-
   const checkIfUserIsSignedIn = async () => {
     await firebase.auth().onAuthStateChanged(function (user) {
       if (user) {

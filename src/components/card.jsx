@@ -5,9 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as starFull } from "@fortawesome/free-solid-svg-icons";
 import { faStar as starEmpty } from "@fortawesome/free-regular-svg-icons";
 
-import placeholderImg from "../images/placeholder-card-img.png";
-import creatorPlaceholder from "../images/creator-placeholder.png";
-
 //
 import CardTypeList from "../components/cardtypelist";
 import CardTypeGrid from "../components/cardtypegrid";

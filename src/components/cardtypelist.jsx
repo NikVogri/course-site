@@ -1,6 +1,4 @@
 import React from "react";
-import placeholderImg from "../images/placeholder-card-img.png";
-import creatorPlaceholder from "../images/creator-placeholder.png";
 
 const cardlist = ({ data, rating, click }) => {
   return (
