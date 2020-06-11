@@ -30,25 +30,12 @@ const IndexPage = () => (
       <div className="card-container">
         <Card
           size="lg"
-          link="/technology/javascript"
           text="Javascript"
           image={jsLogo}
           alt="javascript logo"
         />
-        <Card
-          size="lg"
-          link="/technology/python"
-          text="Python"
-          image={pyLogo}
-          alt="python logo"
-        />
-        <Card
-          size="lg"
-          link="/technology/java"
-          text="Java"
-          image={jaLogo}
-          alt="java logo"
-        />
+        <Card size="lg" text="Python" image={pyLogo} alt="python logo" />
+        <Card size="lg" text="Java" image={jaLogo} alt="java logo" />
       </div>
     </section>
     <Offers />

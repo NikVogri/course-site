@@ -269,7 +269,7 @@ body {
         display: block;
       }
 
-      &:hover > .dropdown-courses-list {
+      &:hover>.dropdown-courses-list {
         @media only screen and (min-width: 850px) {
           display: block;
         }
@@ -350,7 +350,7 @@ body {
           margin-top: 3rem;
         }
 
-        &:hover > .user-dropdown {
+        &:hover>.user-dropdown {
           @media only screen and (min-width: 850px) {
             display: block;
           }
@@ -1041,7 +1041,7 @@ body {
         cursor: pointer;
       }
 
-      & svg:hover ~ .view-as-dropdown {
+      & svg:hover~.view-as-dropdown {
         display: flex !important;
       }
 
@@ -2173,8 +2173,8 @@ body {
     }
 
     & img {
-      height: 5rem !important;
-      width: 8rem !important;
+      height: 5rem;
+      // width: 8rem !important;
       margin: 0 0.25rem;
     }
 
@@ -2258,21 +2258,23 @@ body {
   z-index: 99999999;
   display: block;
   left: 50%;
-  top: 48%;
+  top: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  height: inherit;
-  // max-height: 40rem;
+  overflow-y: scroll;
+  height: 90%;
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px 16px rgba($black, 0.55);
-  // border: solid 3px rgba($main, 0.3);
   opacity: 1;
+
 
   @media only screen and (min-width: 800px) {
     max-width: 100rem;
+    height: inherit;
     max-height: inherit;
   }
+
 
   .close-modal {
     position: absolute;

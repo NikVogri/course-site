@@ -41,7 +41,7 @@ const PlaylistItem = ({
       <div className={`playlist-information ${active ? "active" : ""}`}>
         <Link to={`/course/${url}`} state={{ videoId }}>
           <img
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            src={`https://img.youtube.com/vi/${videoId}/sddefault.jpg`}
             alt="placeholder"
           />
           <span>{title}</span>

@@ -58,9 +58,9 @@ const card = ({
         />
       );
     }
-  } else {
+  } else if (link) {
     return (
-      <Link to={link ? link : text}>
+      <Link to={link}>
         <div
           className={`card-simple ${
             size && size === "lg" ? "card-lg" : "card-sm"
@@ -70,6 +70,17 @@ const card = ({
           {text && <p>{text}</p>}
         </div>
       </Link>
+    );
+  } else {
+    return (
+      <div
+        className={`card-simple ${
+          size && size === "lg" ? "card-lg" : "card-sm"
+        } ${className ? className : ""}`}
+      >
+        <img src={image} alt={alt} />
+        {text && <p>{text}</p>}
+      </div>
     );
   }
 };
