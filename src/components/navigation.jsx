@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import { Link } from "gatsby";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import PlaceholderPerson from "../images/default.jpg";
 import NotificationBar from "./notificationBar";
 
@@ -28,6 +31,9 @@ const Navigation = ({
   const [navOpen, setNavOpeN] = useState(false);
   const [notifNum, setNotifNum] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileShowCourseDropdown, setMobileShowCourseDropdown] = useState(
+    false
+  );
 
   const { removeFromLocalStorage, getFromlocalStorage } = useLocalStorage();
 
@@ -86,10 +92,24 @@ const Navigation = ({
           <>
             <ul className="authenticated">
               <li className="navigation-list-item dropdown-courses">
-                <button className="btn-reset" to="/my-courses">
-                  Courses
+                <button
+                  className="btn-reset"
+                  to="/my-courses"
+                  onClick={() =>
+                    setMobileShowCourseDropdown(!mobileShowCourseDropdown)
+                  }
+                >
+                  Courses{" "}
+                  <FontAwesomeIcon
+                    className="navigation-list-item-arrow"
+                    icon={mobileShowCourseDropdown ? faAngleUp : faAngleDown}
+                  />
                 </button>
-                <ul className="dropdown-courses-list">
+                <ul
+                  className={`dropdown-courses-list ${
+                    mobileShowCourseDropdown ? "mobile-show" : "mobile-hidden"
+                  }`}
+                >
                   <li>
                     <Link to="/courses/frontend">Front end</Link>
                   </li>

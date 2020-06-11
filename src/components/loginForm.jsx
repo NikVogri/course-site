@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
@@ -27,6 +27,8 @@ const FormSchema = yup.object().shape({
 });
 
 const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
+  const [showingPassword, setShowingPassword] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     validationSchema: FormSchema,
   });
@@ -59,7 +61,7 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
         <Form.Label>Your Password</Form.Label>
         <div className="password-control">
           <Form.Control
-            type="password"
+            type={showingPassword ? "text" : "password"}
             name="password"
             className="form-password"
             ref={register}
@@ -70,7 +72,9 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
           </Form.Control.Feedback>
           <FontAwesomeIcon
             className="password-control-icon"
-            icon={faEyeSlash}
+            icon={showingPassword ? faEyeSlash : faEye}
+            onMouseDown={() => setShowingPassword(true)}
+            onMouseUp={() => setShowingPassword(false)}
           />
         </div>
       </Form.Group>
