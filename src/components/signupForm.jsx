@@ -5,7 +5,6 @@ import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 
 import * as yup from "yup";
-import Spacer from "./spacer";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
@@ -92,7 +91,6 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
           "Start your journey"
         )}
       </button>
-      <Spacer space="0.2" />
       <span className="form-policy">
         By signing up for Freecourso, you agree to our
         <Link to="/tos"> Terms of Service </Link>&{" "}

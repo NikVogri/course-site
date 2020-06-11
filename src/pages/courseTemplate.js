@@ -82,7 +82,6 @@ const CourseTemplate = ({
       <section className="content-wrapper">
         {videoId && <VideoPlayer videoId={videoId} />}
         {/* {quizId && <Quiz quizId={quizId} />} */}
-        <Spacer space="1" />
         <div className="info">
           <ul>
             <li className="icon-collapse">

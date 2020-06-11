@@ -65,11 +65,11 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
         )}
       </Modal>
       <Container>
-        <Spacer space="2" />
+        <Spacer size="sm" />
         <h3>Featured courses ({courseList.length})</h3>
         {!courses || courses.length < 1 ? <h4>No courses found</h4> : ""}
         <ViewAs view={viewAs} setView={setViewAs} />
-        <Spacer space="1" />
+        {/* <Spacer size="sm" /> */}
         <section className="courses-list">
           {courseList.map(({ node }) => (
             <Card
@@ -82,7 +82,7 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
           ))}
         </section>
       </Container>
-      <Spacer space="2" />
+      <Spacer size="sm" />
     </Layout>
   );
 };

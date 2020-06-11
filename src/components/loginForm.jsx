@@ -4,7 +4,6 @@ import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 
 import * as yup from "yup";
-import Spacer from "./spacer";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
@@ -74,7 +73,6 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
           "Log in"
         )}
       </button>
-      <Spacer space="0.95" />
       <span>
         Don't have an account ? <Link to="/register">Sign Up</Link>
       </span>

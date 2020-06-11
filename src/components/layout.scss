@@ -89,6 +89,36 @@ body {
 }
 
 //
+// SPACER
+//
+
+.spacer {
+  &-sm {
+    padding: 2rem;
+
+    @media only screen and (max-width: 850px) {
+      padding: 1rem;
+    }
+  }
+
+  &-md {
+    padding: 4rem;
+
+    @media only screen and (max-width: 850px) {
+      padding: 2rem;
+    }
+  }
+
+  &-lg {
+    padding: 6rem;
+
+    @media only screen and (max-width: 850px) {
+      padding: 4rem;
+    }
+  }
+}
+
+//
 //  NAVIGATION
 //
 
@@ -414,7 +444,7 @@ body {
             display: none;
             position: absolute;
             top: 100%;
-            left: 50%;
+            left: 0;
             width: 10rem;
             background-color: $white;
             border: solid 1px $border-color;
@@ -879,15 +909,29 @@ body {
       }
 
       &-signup-link {
-        background: $white;
+        // background: $white;
         text-align: center;
-        color: #2f80ed;
+        color: $main-darker;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         margin-right: 1.4rem;
         // display: none;
 
         @media only screen and (min-width: 550px) {
           display: block;
+        }
+
+        transition: all .3s ease-in-out;
+        border: solid 2px transparent;
+        background: linear-gradient(to right, $main-darker 50%, $white 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+
+
+        &:hover {
+          background-color: $main-darker;
+          color: $white;
+          border: solid 2px $white;
+          background-position: left bottom;
         }
       }
 
@@ -902,6 +946,18 @@ body {
           box-sizing: content-box;
           margin-left: 1rem;
           padding: 0.5rem;
+        }
+
+        transition: all .25s ease-in-out;
+        background: linear-gradient(to right, $white 50%, $main-darker 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+
+
+
+        &:hover {
+          color: $main-darker;
+          background-position: left bottom;
         }
       }
     }
@@ -1659,10 +1715,8 @@ body {
 
     @media only screen and (min-width: 850px) {
       display: flex;
-      margin-top: 3rem;
       justify-content: center;
-      padding: 10rem 0;
-      margin-bottom: 5rem;
+      padding: 15rem 0;
     }
   }
 
@@ -1725,82 +1779,120 @@ body {
       max-height: 27rem;
     }
   }
+}
 
-  & .find-course {
-    padding: 5rem 0;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
+//
+// FIND COURSES
+//
 
-    @media only screen and (min-width: 1000px) {
-      width: 100rem;
+.find-course {
+  padding: 5rem 0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+
+  & ul {
+    margin-left: 6rem;
+    list-style: none;
+    position: relative;
+    margin-bottom: 2rem;
+
+    & li {
+      font-size: 1.6rem;
+      color: $main-darker;
+      font-weight: bold;
+      margin-bottom: 2rem;
+
+      @media only screen and (min-width: 850px) {
+        font-size: 1.9rem;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 2.1rem;
+      }
     }
+
+    &::before {
+      content: "";
+      height: 100%;
+      width: 3px;
+      background-color: $main-darker;
+      position: absolute;
+      top: 0;
+      left: -3rem;
+
+      max-height: 27rem;
+    }
+  }
+
+  @media only screen and (min-width: 1000px) {
+    width: 100rem;
+  }
+
+  @media only screen and (min-width: 850px) {
+    flex-direction: row;
+  }
+
+  & .view-all-card {
+    background-color: $main-darker;
+
+    & p {
+      color: $white;
+      margin: 0;
+    }
+  }
+
+  & h2 {
+    color: $text-dark;
+    font-size: 2.6rem;
+    font-weight: medium;
+    margin-bottom: 1rem;
 
     @media only screen and (min-width: 850px) {
-      flex-direction: row;
+      font-size: 3.3rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  & .positions {
+    margin-left: 6rem;
+
+    & li:hover {
+      cursor: pointer;
+      transition: all 0.1s ease-in;
+      transform: scale(1.02);
     }
 
-    & .view-all-card {
-      background-color: $main-darker;
-
-      & p {
-        color: $white;
-        margin: 0;
-      }
-    }
-
-    & h2 {
-      color: $text-dark;
-      font-size: 2.6rem;
-      font-weight: medium;
-      margin-bottom: 1rem;
+    & button {
+      background-color: none;
+      border: none;
+      margin: 0;
+      padding: 0;
+      font-size: 1.6rem;
+      color: $main-darker;
+      font-weight: bold;
 
       @media only screen and (min-width: 850px) {
-        font-size: 3.3rem;
-        margin-bottom: 2rem;
+        font-size: 1.9rem;
+      }
+
+      @media only screen and (min-width: 1200px) {
+        font-size: 2.1rem;
       }
     }
+  }
 
-    & .positions {
-      margin-left: 6rem;
-
-      & li:hover {
-        cursor: pointer;
-        transition: all 0.1s ease-in;
-        transform: scale(1.02);
-      }
-
-      & button {
-        background-color: none;
-        border: none;
-        margin: 0;
-        padding: 0;
-        font-size: 1.6rem;
-        color: $main-darker;
-        font-weight: bold;
-
-        @media only screen and (min-width: 850px) {
-          font-size: 1.9rem;
-        }
-
-        @media only screen and (min-width: 1200px) {
-          font-size: 2.1rem;
-        }
-      }
+  &-cards {
+    @media only screen and (min-width: 850px) {
+      width: 50%;
     }
 
-    &-cards {
-      @media only screen and (min-width: 850px) {
-        width: 50%;
-      }
-
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -1985,6 +2077,7 @@ body {
 
 .info {
   position: relative;
+  margin-top: 1rem;
 
   @media only screen and (max-width: 1000px) {
     border-bottom: solid 1px $border-color;

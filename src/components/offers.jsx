@@ -1,6 +1,5 @@
 import React from "react";
 import workerImage from "../images/offers-worker.svg";
-import FindLanguage from "./findLanguage";
 
 const Offers = () => {
   return (
@@ -16,7 +15,6 @@ const Offers = () => {
             <li>Tests between video courses</li>
           </ul>
         </div>
-        <FindLanguage />
       </section>
     </>
   );

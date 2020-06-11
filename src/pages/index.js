@@ -12,11 +12,12 @@ import Card from "../components/card";
 // sections import
 import Hero from "../components/hero";
 import Offers from "../components/offers";
+import FindLanguage from "../components/findLanguage";
 
 // card images import
 import jsLogo from "../images/js-logo.png";
+import reactLogo from "../images/languages/react-logo.png";
 import pyLogo from "../images/py-logo.png";
-import jaLogo from "../images/ja-logo.png";
 
 const IndexPage = () => (
   <Layout>
@@ -24,8 +25,8 @@ const IndexPage = () => (
     <Hero />
     <section>
       <Title
-        title="Most Popular Languages"
-        subtitle="Market leading programming languages for you to learn"
+        title="Popular Technology"
+        subtitle="Learn more and advance your career"
       />
       <div className="card-container">
         <Card
@@ -34,12 +35,16 @@ const IndexPage = () => (
           image={jsLogo}
           alt="javascript logo"
         />
+        <Card size="lg" text="React" image={reactLogo} alt="react logo" />
         <Card size="lg" text="Python" image={pyLogo} alt="python logo" />
-        <Card size="lg" text="Java" image={jaLogo} alt="java logo" />
       </div>
+      <Spacer size="sm" />
     </section>
+    <Spacer size="sm" />
     <Offers />
-    <Spacer space="2" />
+    <Spacer size="sm" />
+    <FindLanguage />
+    <Spacer size="md" />
   </Layout>
 );
 
