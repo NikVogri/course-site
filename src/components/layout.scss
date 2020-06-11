@@ -194,7 +194,7 @@ body {
     background-color: $white;
     position: absolute;
     width: 100%;
-    height: calc(100vh - 6rem);
+    min-height: calc(100vh - 6rem);
     border-top: solid 5px $background;
     display: flex;
     flex-direction: column;
@@ -313,7 +313,7 @@ body {
       }
 
       &-list {
-        transition: height .2s ease-in-out;
+        transition: size .2s ease-in-out;
 
         &.mobile-show {
           @media only screen and (max-width: 850px) {
