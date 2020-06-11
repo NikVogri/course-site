@@ -95,6 +95,8 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
             icon={showingPassword ? faEyeSlash : faEye}
             onMouseDown={() => setShowingPassword(true)}
             onMouseUp={() => setShowingPassword(false)}
+            onTouchStart={() => setShowingPassword(true)}
+            onTouchEnd={() => setShowingPassword(false)}
           />
         </div>
       </Form.Group>

@@ -232,6 +232,7 @@ body {
       width: 80%;
       margin: 0 auto;
 
+
       & li:nth-child(2) {
         @media only screen and (max-width: 850px) {
           padding: 3rem 0 0 0 !important;
@@ -312,7 +313,7 @@ body {
       }
 
       &-list {
-        // transition: all .2s ease-in-out;
+        transition: height .2s ease-in-out;
 
         &.mobile-show {
           @media only screen and (max-width: 850px) {
@@ -323,7 +324,7 @@ body {
             font-size: 1.45rem;
 
             & li {
-              padding: 1rem 0;
+              padding: 1rem 0 !important;
             }
           }
         }
@@ -332,7 +333,7 @@ body {
           @media only screen and (max-width: 850px) {
             height: 0px;
             opacity: 0;
-            pointer-events: none;
+            // pointer-events: none;
           }
         }
 

@@ -75,6 +75,8 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
             icon={showingPassword ? faEyeSlash : faEye}
             onMouseDown={() => setShowingPassword(true)}
             onMouseUp={() => setShowingPassword(false)}
+            onTouchStart={() => setShowingPassword(true)}
+            onTouchEnd={() => setShowingPassword(false)}
           />
         </div>
       </Form.Group>

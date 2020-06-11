@@ -170,11 +170,25 @@ const Navigation = ({
         {!isLoggedIn && (
           <>
             <ul className="unauthenticated">
-              <li className="item-left dropdown-courses">
-                <button className="btn-reset" to="/courses/all">
-                  Courses
+              <li className="navigation-list-item dropdown-courses">
+                <button
+                  className="btn-reset"
+                  to="/my-courses"
+                  onClick={() =>
+                    setMobileShowCourseDropdown(!mobileShowCourseDropdown)
+                  }
+                >
+                  Courses{" "}
+                  <FontAwesomeIcon
+                    className="navigation-list-item-arrow"
+                    icon={mobileShowCourseDropdown ? faAngleUp : faAngleDown}
+                  />
                 </button>
-                <ul className="dropdown-courses-list">
+                <ul
+                  className={`dropdown-courses-list ${
+                    mobileShowCourseDropdown ? "mobile-show" : "mobile-hidden"
+                  }`}
+                >
                   <li>
                     <Link to="/courses/frontend">Front end</Link>
                   </li>
