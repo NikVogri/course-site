@@ -1207,6 +1207,24 @@ body {
     width: 45rem;
   }
 
+  & .password-control {
+    position: relative;
+
+    &-icon {
+      box-sizing: content-box;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%);
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 1rem;
+      opacity: 0.40;
+      color: $text-dark;
+    }
+  }
+
+
   & h3 {
     font-size: 2.5rem;
     font-weight: bold;

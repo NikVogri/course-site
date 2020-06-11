@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -8,6 +8,10 @@ import * as yup from "yup";
 
 import { Link, navigate } from "gatsby";
 import { useForm } from "react-hook-form";
+
+import { faEye } from "@fortawesome/free-regular-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // redux
 import { connect } from "react-redux";
@@ -30,6 +34,8 @@ const FormSchema = yup.object().shape({
 });
 
 const SignupForm = ({ createUser, errorMessage, isLoading }) => {
+  const [showingPassword, setShowingPassword] = useState(false);
+
   const { register, handleSubmit, errors } = useForm({
     validationSchema: FormSchema,
   });
@@ -72,15 +78,25 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
       </Form.Group>
       <Form.Group>
         <Form.Label>Your Password*</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          ref={register}
-          isInvalid={errors.password}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.password && errors.password.message}
-        </Form.Control.Feedback>
+
+        <div className="password-control">
+          <Form.Control
+            type={showingPassword ? "text" : "password"}
+            name="password"
+            className="form-password"
+            ref={register}
+            isInvalid={errors.password}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.password && errors.password.message}
+          </Form.Control.Feedback>
+          <FontAwesomeIcon
+            className="password-control-icon"
+            icon={showingPassword ? faEyeSlash : faEye}
+            onMouseDown={() => setShowingPassword(true)}
+            onMouseUp={() => setShowingPassword(false)}
+          />
+        </div>
       </Form.Group>
       <button className="btn">
         {isLoading ? (
@@ -91,11 +107,7 @@ const SignupForm = ({ createUser, errorMessage, isLoading }) => {
           "Start your journey"
         )}
       </button>
-      <span className="form-policy">
-        By signing up for Freecourso, you agree to our
-        <Link to="/tos"> Terms of Service </Link>&{" "}
-        <Link to="/policy"> Privacy Policy</Link>.
-      </span>
+
       <span>
         Already have an account? <Link to="/login">Log In</Link>
       </span>

@@ -10,6 +10,10 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/actionCreator";
 
+import { faEye } from "@fortawesome/free-regular-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const FormSchema = yup.object().shape({
   email: yup
     .string("Please provide a valid email address")
@@ -53,16 +57,22 @@ const LoginForm = ({ isLoading, loginUser, errorMessage }) => {
       </Form.Group>
       <Form.Group>
         <Form.Label>Your Password</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          ref={register}
-          isInvalid={errors.password}
-          className="passwordInput"
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.password && errors.password.message}
-        </Form.Control.Feedback>
+        <div className="password-control">
+          <Form.Control
+            type="password"
+            name="password"
+            className="form-password"
+            ref={register}
+            isInvalid={errors.password}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.password && errors.password.message}
+          </Form.Control.Feedback>
+          <FontAwesomeIcon
+            className="password-control-icon"
+            icon={faEyeSlash}
+          />
+        </div>
       </Form.Group>
       <button className="btn">
         {isLoading ? (
