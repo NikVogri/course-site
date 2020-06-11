@@ -39,6 +39,7 @@ const CourseTemplate = ({
   const { state = {} } = location;
 
   useEffect(() => {
+    console.log(data);
     setCourseId(data.id);
     setVideoPlaylist(data.coursePlaylist);
     if (!state || !state.videoId) {

@@ -45,7 +45,7 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  await data.allContentfulCourses.edges.forEach(async ({ node }) => {
+  await data.allContentfulCourses.edges.forEach(async ({ node }, index) => {
     // check if playlist
     if (node.courseVideoType === "Playlist") {
       // fetch all playlist videos
@@ -60,16 +60,25 @@ exports.createPages = async ({ graphql, actions }) => {
         node.courseVideoLength = node.coursePlaylist.length;
         // extract time from playlist
         let durationTotal = 0;
-        playlist.items.forEach(el => {
+        playlist.items.forEach((el, index) => {
           if (el.duration) {
             const [minutes, seconds] = el.duration.split(":");
             durationTotal += parseInt(minutes * 60) + parseInt(seconds);
+          }
+          if (el.title === "[Private video]") {
+            playlist.items.splice(index, 1);
           }
         });
 
         node.courseLength = Math.ceil(durationTotal / 3600);
         durationTotal = 0;
       });
+      if (node.courseLength < 1) {
+        console.log(
+          `${node.title} was removed because there was no playlist provided.`
+        );
+        data.allContentfulCourses.edges.splice(index, 1);
+      }
     } else if (node.courseVideoType === "Video") {
       // if there is a single video then just send the id and name of that video.
       const id = node.courseLink.split("=")[1]; // gets video id from youtube url
