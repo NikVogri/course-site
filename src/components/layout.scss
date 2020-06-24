@@ -1095,6 +1095,30 @@ body {
     color: $text-dark;
   }
 
+  .filters {
+    margin-top: 2rem;
+
+    &-dropdown {
+      padding: 1rem 0;
+      font-size: 1.5rem;
+      border-radius: 5px;
+      width: 100%;
+
+      @media only screen and (min-width: 850px) {
+        width: 30rem;
+      }
+    }
+  }
+
+  .courses-info {
+    font-size: 2rem;
+    padding: 1.5rem 0;
+
+    &-card {
+      font-size: 2rem;
+    }
+  }
+
   & .courses-list {
     display: flex;
     align-items: center;

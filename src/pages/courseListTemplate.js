@@ -9,6 +9,7 @@ import { navigate } from "gatsby";
 import Spacer from "../components/spacer";
 import Card from "../components/card";
 import CourseHero from "../components/coursehero";
+import SortCourses from "../components/sortCourses";
 import Container from "react-bootstrap/Container";
 import ViewAs from "../components/viewas";
 
@@ -27,16 +28,16 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [courseData, setCourseData] = useState({});
   const [courseList, setCourseList] = useState([]);
+  const [info, setInfo] = useState({});
 
   const courseClickHandler = courseData => {
     setCourseData(courseData);
     setDisplayModal(true);
   };
 
-  const { data: courses, info } = pageContext;
-
   useEffect(() => {
-    setCourseList(courses);
+    setCourseList(pageContext.data);
+    setInfo(pageContext.info);
   }, []);
 
   const addToUserCoursesHandler = async (courseId, slug) => {
@@ -47,11 +48,11 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
   return (
     <Layout className="courses" noFooter>
       <SEO title="Home" />
-      <CourseHero
+      {/* <CourseHero
         title={`${info && info.title}`}
         subtitle={`${info && info.subtitle}`}
         img={heroSvg}
-      />
+      /> */}
       <Modal show={displayModal} hideModal={() => setDisplayModal(false)}>
         {displayModal && (
           <CourseStart
@@ -65,9 +66,10 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
         )}
       </Modal>
       <Container>
+        <Spacer size="md" />
+        <SortCourses length={courseList.length} info={info} />
         <Spacer size="sm" />
-        <h3>Featured courses ({courseList.length})</h3>
-        {!courses || courses.length < 1 ? <h4>No courses found</h4> : ""}
+        {!courseList || courseList.length < 1 ? <h4>No courses found</h4> : ""}
         <ViewAs view={viewAs} setView={setViewAs} />
         {/* <Spacer size="sm" /> */}
         <section className="courses-list">
