@@ -5,7 +5,6 @@ import SEO from "../components/seo";
 import Info from "../components/videoInfo";
 // import PlaylistQuiz from "../components/playlistQuiz";
 // import Quiz from "../components/quiz";
-import Spacer from "../components/spacer";
 import VideoPlayer from "../components/videoPlayer";
 import Playlist from "../components/playlist";
 import Modal from "../components/modal/modal";
