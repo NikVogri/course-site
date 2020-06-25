@@ -3,7 +3,9 @@ import React from "react";
 // bootstrap
 import { Card } from "react-bootstrap";
 
-const sortCourses = ({ length, info }) => {
+import ViewAs from "./viewas";
+
+const sortCourses = ({ length, info, changeCategory }) => {
   return (
     <div>
       <Card className="courses-info-card">
@@ -14,11 +16,14 @@ const sortCourses = ({ length, info }) => {
         </Card.Body>
       </Card>
       <div className="filters">
-        <select className="filters-dropdown">
-          <option>Most Popular</option>
-          <option>Top Rated</option>
-          <option>Newest</option>
+        <span>Sort by:</span>
+        <select className="filters-dropdown" onChange={changeCategory}>
+          <option>Selection</option>
+          <option value="difficulty">Difficulty</option>
+          <option value="length">Total Length</option>
+          <option value="leactures">Total Leactures</option>
         </select>
+        <ViewAs />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ const initialState = {
   message: "",
   courseId: "",
   watched: [],
+  displayAs: "grid",
 };
 
 const userReducer = (state = initialState, action) => {
@@ -43,6 +44,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         message: action.payload,
+      };
+    case actionTypes.DISPLAY_AS_CHANGE_CARD:
+      return {
+        ...state,
+        displayAs: action.payload,
       };
     default:
       return state;

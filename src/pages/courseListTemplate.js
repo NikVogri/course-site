@@ -23,12 +23,13 @@ import { addCourseToUser } from "../redux/actions/actionCreator";
 // TEMP DATA
 import heroSvg from "../images/course-hero/front-dev-hero.svg";
 
-const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
-  const [viewAs, setViewAs] = useState("grid");
+const CourseListTemplate = ({ pageContext, addCourseToUser, displayAs }) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [courseData, setCourseData] = useState({});
   const [courseList, setCourseList] = useState([]);
   const [info, setInfo] = useState({});
+  const [lengthAlreadyChosen, setLengthAlreadyChosen] = useState(false);
+  const [newestAlreadyChosen, setNewestAlreadyChosen] = useState(false);
 
   const courseClickHandler = courseData => {
     setCourseData(courseData);
@@ -43,6 +44,57 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
   const addToUserCoursesHandler = async (courseId, slug) => {
     await addCourseToUser(courseId);
     navigate(`/course/${slug}`);
+  };
+
+  const selectionHandler = e => {
+    const courseListSorted = [...courseList];
+    switch (e.target.value) {
+      case "difficulty":
+        courseListSorted.sort((a, b) => {
+          var diffA = a.node.courseDifficulty.toUpperCase();
+          const diffB = b.node.courseDifficulty.toUpperCase();
+
+          if (diffA < diffB) {
+            return -1;
+          }
+          if (diffA > diffB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        });
+        break;
+      case "length":
+        if (lengthAlreadyChosen) {
+          courseListSorted.sort((a, b) => {
+            return a.node.courseLength - b.node.courseLength;
+          });
+        } else {
+          courseListSorted.sort((a, b) => {
+            return b.node.courseLength - a.node.courseLength;
+          });
+        }
+        setLengthAlreadyChosen(!lengthAlreadyChosen);
+        break;
+      case "newest":
+        if (lengthAlreadyChosen) {
+          courseListSorted.sort((a, b) => {
+            const dateA = new Date(a.node.createdAt);
+            const dateB = new Date(b.node.createdAt);
+            return dateA - dateB;
+          });
+        } else {
+          courseListSorted.sort((a, b) => {
+            const dateA = new Date(a.node.createdAt);
+            const dateB = new Date(b.node.createdAt);
+            return dateB - dateA;
+          });
+        }
+        setNewestAlreadyChosen(!newestAlreadyChosen);
+        break;
+    }
+    setCourseList(courseListSorted);
   };
 
   return (
@@ -67,17 +119,20 @@ const CourseListTemplate = ({ pageContext, addCourseToUser }) => {
       </Modal>
       <Container>
         <Spacer size="md" />
-        <SortCourses length={courseList.length} info={info} />
+        <SortCourses
+          length={courseList.length}
+          info={info}
+          changeCategory={selectionHandler}
+        />
         <Spacer size="sm" />
         {!courseList || courseList.length < 1 ? <h4>No courses found</h4> : ""}
-        <ViewAs view={viewAs} setView={setViewAs} />
         {/* <Spacer size="sm" /> */}
         <section className="courses-list">
           {courseList.map(({ node }) => (
             <Card
               key={node.contentful_id}
               size="xlg"
-              list={viewAs === "list" ? true : false}
+              list={displayAs === "list" ? true : false}
               course={node}
               click={() => courseClickHandler(node)}
             />
@@ -93,4 +148,8 @@ const mapDispatchToProps = {
   addCourseToUser,
 };
 
-export default connect(null, mapDispatchToProps)(CourseListTemplate);
+const mapStateToProps = state => ({
+  displayAs: state.course.displayAs,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseListTemplate);

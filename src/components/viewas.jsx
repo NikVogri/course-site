@@ -5,11 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { faTh } from "@fortawesome/free-solid-svg-icons";
 
-const viewas = ({ view, setView }) => {
+import { connect } from "react-redux";
+
+import { changeDisplayAsCards } from "../redux/actions/actionCreator";
+
+const viewas = ({ displayAs, changeDisplayAsCards }) => {
   return (
     <div className="view-as">
       <span>View as:</span>
-      {view === "list" ? (
+      {displayAs === "list" ? (
         <FontAwesomeIcon icon={faList} />
       ) : (
         <FontAwesomeIcon icon={faTh} />
@@ -17,14 +21,14 @@ const viewas = ({ view, setView }) => {
       <div className="view-as-dropdown">
         <button
           className="view-as-dropdown-grid btn-reset"
-          onClick={() => setView("grid")}
+          onClick={() => changeDisplayAsCards("grid")}
         >
           <FontAwesomeIcon icon={faTh} />
           <span>GRID</span>
         </button>
         <button
           className="view-as-dropdown-list btn-reset"
-          onClick={() => setView("list")}
+          onClick={() => changeDisplayAsCards("list")}
         >
           <FontAwesomeIcon icon={faList} />
           <span>LIST</span>
@@ -34,4 +38,11 @@ const viewas = ({ view, setView }) => {
   );
 };
 
-export default viewas;
+const mapDispatchToProps = {
+  changeDisplayAsCards,
+};
+
+const mapStateToProps = state => ({
+  displayAs: state.course.displayAs,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(viewas);

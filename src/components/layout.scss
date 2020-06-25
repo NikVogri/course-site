@@ -84,15 +84,19 @@ body {
   }
 }
 
-.spacer {
-  padding: 2rem;
-}
-
 //
 // SPACER
 //
 
 .spacer {
+  &-xsm {
+    padding: 1rem;
+
+    @media only screen and (max-width: 850px) {
+      padding: 0.5rem;
+    }
+  }
+
   &-sm {
     padding: 2rem;
 
@@ -1092,11 +1096,28 @@ body {
 .courses {
   & h3 {
     font-size: 2.6rem;
+    margin: 0;
     color: $text-dark;
   }
 
   .filters {
-    margin-top: 2rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    @media only screen and (min-width: 850px) {
+      justify-content: flex-start;
+      flex-direction: row;
+    }
+
+    & span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 1rem;
+    }
 
     &-dropdown {
       padding: 1rem 0;
@@ -1143,10 +1164,6 @@ body {
     }
   }
 
-  & .container {
-    position: relative;
-  }
-
   .view-as {
     display: none;
 
@@ -1155,13 +1172,11 @@ body {
     }
 
     @media only screen and (min-width: 850px) {
+      margin-left: auto;
       display: block;
-      position: absolute;
-      right: 3rem;
-      top: 4rem;
+      position: relative;
+      color: $text-dark;
       font-size: 2rem;
-      color: rgba($text-dark, 0.35);
-      font-weight: normal;
 
       & svg {
         cursor: pointer;

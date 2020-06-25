@@ -414,3 +414,13 @@ export const getWatchedList = (courseId, userId) => {
     }
   };
 };
+
+///////
+// Change cards display type (grid or list)
+
+export const changeDisplayAsCards = type => {
+  return {
+    type: actionTypes.DISPLAY_AS_CHANGE_CARD,
+    payload: type,
+  };
+};
