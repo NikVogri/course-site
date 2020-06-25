@@ -193,25 +193,21 @@ body {
   }
 
   .nav-list {
-    // padding: 0 3.5rem;
+    display: flex;
     font-size: 1.8rem;
     background-color: $white;
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: calc(100vh - 6rem);
+    min-height: calc(100vh - 6rem);
+    height: 100%;
     border-top: solid 5px $background;
-    display: flex;
     flex-direction: column;
     box-shadow: 0 4px 8px rgba($black, 0.25);
-
-    @media only screen and (max-height: 70rem) and (max-width: 850px) {
-      overflow-y: scroll;
-    }
-
+    overflow-y: scroll;
 
     @media only screen and (min-width: 850px) {
-      height: 6rem;
-      overflow-x: visible;
+      min-height: 6rem;
+      overflow-y: visible;
       justify-content: center;
       flex-direction: row;
       position: relative;
@@ -230,7 +226,6 @@ body {
       margin: 0 auto;
 
       @media only screen and (min-width: 850px) {
-        // overflow-y: show;
         overflow: visible;
         flex-direction: row;
       }
